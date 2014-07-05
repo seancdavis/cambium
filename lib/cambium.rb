@@ -1,5 +1,5 @@
 require "cambium/version"
 
 module Cambium
-  # Your code goes here...
+  require 'cambium/engine' if defined?(Rails)
 end
