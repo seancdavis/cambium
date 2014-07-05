@@ -1,0 +1,34 @@
+source 'https://rubygems.org'
+
+# ------------------------------------------ Base
+
+gem 'rails'
+gem 'unicorn-rails'
+gem 'mysql2'
+
+# ------------------------------------------ Assets
+
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
+gem 'jquery-rails'
+gem 'bones-rails'
+gem 'bourbon'
+gem 'rails-backbone'
+
+# ------------------------------------------ Helpers
+
+gem 'jbuilder'
+gem 'simple_form'
+gem 'devise'
+gem 'carrierwave'
+gem 'hirb'
+
+# ------------------------------------------ Development/Test
+
+group :development do
+  gem 'annotate'
+end
+
+gem 'factory_girl_rails'
+gem 'faker'
