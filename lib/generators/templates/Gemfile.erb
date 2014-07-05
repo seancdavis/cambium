@@ -2,9 +2,11 @@ source 'https://rubygems.org'
 
 # ------------------------------------------ Base
 
-gem 'rails'
+gem 'rails', '<%= @rails_version %>'
 gem 'unicorn-rails'
-gem 'mysql2'
+gem '<%= @database %>'
+# gem 'cambium', :git => 'git@github.com:seancdavis/cambium.git'
+gem 'cambium', :path => "/Users/sean/www/rt/rt/cambium"
 
 # ------------------------------------------ Assets
 
@@ -16,10 +18,13 @@ gem 'bones-rails'
 gem 'bourbon'
 gem 'rails-backbone'
 
-# ------------------------------------------ Helpers
+# ------------------------------------------ View Helpers
 
 gem 'jbuilder'
 gem 'simple_form'
+
+# ------------------------------------------ Utilities
+
 gem 'devise'
 gem 'carrierwave'
 gem 'hirb'
