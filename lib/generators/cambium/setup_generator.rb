@@ -47,8 +47,14 @@ module Cambium
       )
     end
 
+    def setup_database
+    end
+
     def install_devise
-      run_cmd "bundle exec rails g devise:install" #, :quiet => true
+      run_cmd "#{g} devise:install"
+      run_cmd "#{g} devise User"
+      run_cmd "#{g} migration add_is_admin_to_users is_admin:boolean"
+      run_cmd "#{rake} db:migrate"
     end
 
     # ------------------------------------------ Private Methods
@@ -71,6 +77,18 @@ module Cambium
 
       def file_contents(template)
         File.read(File.expand_path("../templates/#{template}", __FILE__))
+      end
+
+      def be
+        "bundle exec"
+      end
+
+      def g
+        "#{be} rails g"
+      end
+
+      def rake
+        "#{be} rake"
       end
 
   end
