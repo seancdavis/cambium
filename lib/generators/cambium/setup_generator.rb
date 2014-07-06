@@ -18,13 +18,15 @@ module Cambium
 
     def resolve_options
       case options[:database]
-      when "sqlite"
-        @database = "sqlite"
+      when "sqlite3", "sqlite"
+        @database = "sqlite3"
       when "postges", "postgresql", "pg"
         @database = "pg"
       else
         @database = "mysql2"
       end
+      @app_name = Rails.application.class.parent_name
+      @database_name = @app_name.underscore.downcase
     end
 
     def install_gemfile
@@ -48,6 +50,10 @@ module Cambium
     end
 
     def setup_database
+      copy_file "#{Rails.root}/config/database.yml", "config/database.sample.yml"
+      template "database.#{@database}.yml.erb", "config/database.yml"
+      run_cmd "#{rake} db:create"
+      run_cmd "#{rake} db:migrate"
     end
 
     def install_devise
@@ -75,8 +81,12 @@ module Cambium
         end
       end
 
+      def template_file(name)
+        File.expand_path("../templates/#{name}", __FILE__)
+      end
+
       def file_contents(template)
-        File.read(File.expand_path("../templates/#{template}", __FILE__))
+        File.read(template_file(template))
       end
 
       def be

@@ -1,0 +1,12 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: <%= @database_name %>_development
+
+test:
+  <<: *default
+  database: <%= @database_name %>_test
