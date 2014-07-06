@@ -39,6 +39,16 @@ module Cambium
       run_cmd "bundle clean"
     end
 
+    def add_application_config
+      insert_into_file(
+        "config/application.rb",
+        File.read(
+          File.expand_path("../templates/application.rb", __FILE__)
+        ),
+        :after => "class Application < Rails::Application"
+      )
+    end
+
     # ------------------------------------------ Private Methods
 
     private
