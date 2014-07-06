@@ -1,21 +1,25 @@
-# require 'thor'
+namespace :cambium do
 
-namespace :setup do
+  namespace :setup do
 
-  include SetupHelper, ThorHelper
+    include SetupHelper
 
-  desc 'saying hello'
-  task :gems do
-    print_table(
-      [
-        [set_color("hello", :green, :bold), "world"]
-      ],
-      :indent => 9
-    )
-  end
+    desc 'Add default Gemfile and install gems'
+    task :gems do
+      # puts args
+      # when "sqlite"
+      #   @database = "sqlite"
+      # when "postges", "postgresql", "pg"
+      #   @database = "pg"
+      # else
+      #   @database = "mysql2"
+      # end
+      @database = "mysql2"
+      @rails_version = '4.1.0'
+      template 'Gemfile'
+      bundle
+    end
 
-  task :something_else do
-    puts '123'
   end
 
 end
