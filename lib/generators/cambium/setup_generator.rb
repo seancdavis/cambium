@@ -42,9 +42,7 @@ module Cambium
     def add_application_config
       insert_into_file(
         "config/application.rb",
-        File.read(
-          File.expand_path("../templates/application.rb", __FILE__)
-        ),
+        file_contents("application.rb"),
         :after => "class Application < Rails::Application"
       )
     end
@@ -61,6 +59,10 @@ module Cambium
           :indent => 9
         )
         system(cmd)
+      end
+
+      def file_contents(template)
+        File.read(File.expand_path("../templates/#{template}", __FILE__))
       end
 
   end
