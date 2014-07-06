@@ -2,16 +2,10 @@ require "cambium/version"
 
 module Cambium
   require 'cambium/engine' if defined?(Rails)
-  # if defined?(Rake)
-    # puts Dir.pwd
-    Dir["helpers/**/*.rb"].each do |f| 
-      # puts f
-      puts '123'
-      # require f
-    end
-    Dir["tasks/**/*.rake"].each do |ext|
-      puts '456'
-      # load ext
-    end
-  # end
+  spec = Gem::Specification.find_by_name("cambium")
+  gem_root = spec.gem_dir
+  if defined?(Rake)
+    Dir.glob("#{gem_root}/lib/helpers/**/*.rb").each { |f| require f }
+    # Dir.glob("#{gem_root}/lib/tasks/**/*.rake").each { |f| load f }
+  end
 end

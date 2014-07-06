@@ -1,7 +1,7 @@
 module SetupHelper
 
   def say_hi
-    puts "hi."
+    puts "hello"
   end
 
 end

@@ -1,12 +1,14 @@
 namespace :setup do
 
-  # include Cambium::SetupHelper
-  # include SetupHelper
+  include SetupHelper
 
   desc 'saying hello'
   task :gems do
-    # say_hi
-    # say "hello"
+    say_hi
+  end
+
+  task :something_else do
+    puts '123'
   end
 
 end
