@@ -1,6 +1,10 @@
 # Cambium
 
-TODO: Write a gem description
+Cambium speeds up app development to keep you focusing on business logic and not
+worrying about repetitive tasks.
+
+**Initial sprint in progress. Documentation will be provided when the gem is
+ready for distribution.**
 
 ## Installation
 
