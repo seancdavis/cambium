@@ -1,8 +1,8 @@
 require 'rake'
 require 'rails/generators'
 
-module Setup
-  class GemfileGenerator < Rails::Generators::Base
+module Cambium
+  class SetupGenerator < Rails::Generators::Base
     desc "Add default Gemfile"
 
     # ------------------------------------------ Options
@@ -42,10 +42,6 @@ module Setup
     # ------------------------------------------ Private Methods
 
     private
-
-      def root
-        Gem::Specification.find_by_name("cambium").gem_dir
-      end
 
       def run_cmd(cmd)
         print_table(
