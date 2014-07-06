@@ -5,13 +5,7 @@
 
 case ARGV.first
 when "setup"
-  command = Thread.new do
-    system("#{@g} setup:gemfile")
-  end
-  command.join
-  # system("#{@g} setup:gemfile")
-  system("bundle install")
-  # system("#{@be} rake cambium:setup:gems")
+  system("#{@g} setup:gemfile")
 else
   gem_root = Gem::Specification.find_by_name("cambium").gem_dir
   puts File.read("#{gem_root}/lib/help/cambium")

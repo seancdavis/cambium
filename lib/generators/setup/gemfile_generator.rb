@@ -7,7 +7,7 @@ module Setup
 
     # ------------------------------------------ Options
 
-    class_option :database, :aliases => :d, :default => "mysql", 
+    class_option :database, :aliases => '-d', :default => "mysql", 
       :desc => "Specify database type."
 
     # ------------------------------------------ Class Methods
@@ -36,20 +36,15 @@ module Setup
         end
       end
       template "Gemfile.erb", "Gemfile"
-      say "\nYou now have a new Gemfile. Please run `bundle install` and then continue with setup", :green, :bold
+      run_cmd "bundle clean"
     end
-
-    # def bundle_install
-    #   run_cmd "bundle install"
-    # end
 
     # ------------------------------------------ Private Methods
 
     private
 
-      def gem_root
-        spec = Gem::Specification.find_by_name("cambium")
-        gem_root = spec.gem_dir
+      def root
+        Gem::Specification.find_by_name("cambium").gem_dir
       end
 
       def run_cmd(cmd)

@@ -20,13 +20,28 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_dependency "rake"
-  spec.add_dependency "thor"
+  spec.add_dependency "rails"
   
-  ['unicorn-rails', 'mysql2', 'pg', 'sqlite3', 'sass-rails', 'uglifier', 
-    'coffee-rails', 'jquery-rails', 'bones-rails', 'bourbon', 'rails-backbone',
-    'jbuilder','simple_form', 'devise', 'carrierwave', 'hirb',
-    'annotate','factory_girl_rails', 'faker',].each do |g|
-    spec.add_dependency g
-  end
+  [
+    'unicorn-rails', 
+    'mysql2', 
+    'pg', 
+    'sqlite3', 
+    'sass-rails', 
+    'uglifier', 
+    'coffee-rails', 
+    'jquery-rails', 
+    'bones-rails', 
+    'bourbon', 
+    'rails-backbone',
+    'jbuilder', 
+    'simple_form', 
+    'devise', 
+    'carrierwave', 
+    'hirb',
+    'annotate', 
+    'factory_girl_rails', 
+    'faker'
+  ].each { |g| spec.add_dependency g }
 
 end
