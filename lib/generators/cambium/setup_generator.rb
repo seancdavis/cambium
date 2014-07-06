@@ -47,18 +47,26 @@ module Cambium
       )
     end
 
+    def install_devise
+      run_cmd "bundle exec rails g devise:install" #, :quiet => true
+    end
+
     # ------------------------------------------ Private Methods
 
     private
 
-      def run_cmd(cmd)
+      def run_cmd(cmd, options = {})
         print_table(
           [
             [set_color("run", :green, :bold), cmd]
           ],
           :indent => 9
         )
-        system(cmd)
+        if options[:quiet] == true
+          `#{cmd}`
+        else
+          system(cmd)
+        end
       end
 
       def file_contents(template)
