@@ -1,0 +1,470 @@
+.form-container {
+  padding: 25px;
+
+  form {
+    .column-6 {
+      width: 50%;
+    }
+
+    .picker__table {
+      thead tr th {
+        color: $color-light;
+      }
+    }
+
+    .picker__nav--prev:hover, .picker__nav--next {
+      background: transparent;
+    }
+
+    .picker__button--clear, .picker__button--today {
+      color: $color-dark-lightest;
+    }
+
+    h3 {
+      font-size: 26px;
+      font-weight: 400;
+      color: $color-dark-lightest;
+    }
+
+    .button {
+      margin: 0;
+      padding: 16px;
+      font-size: 16px;
+      background: $color-2;
+      &:hover, &:active {
+        background: $color-2-dark;
+      }
+      span, i {
+        color: $color-light;
+        font-size: 14px;
+      }
+    }
+
+    input[type=submit] {
+      padding: 15px;
+      background: $color-1;
+      &:hover, &:active {
+        background: $color-1-dark;
+      }
+    }
+
+    .accordion, .group {
+      margin: 0 0 25px 0;
+      display: block;
+      header {
+        position: relative;
+        margin: 0;
+        padding: 10px 15px;
+        background: $color-1;
+        h2 {
+          margin: 0;
+          font-size: 1.15em;
+          font-weight: 200;
+          color: $shade-1;
+        }
+        a.arrow {
+          position: absolute;
+          top: 7px;
+          right: 15px;
+          padding: 5px;
+          background: $shade-4;
+          &:hover {
+            background: $color-dark;
+          }
+          i {
+            color: $shade-1;
+          }
+        }
+      }
+
+      .fields {
+        @include clearfix;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 25px;
+        border: 1px solid $shade-2;
+
+        h3 {
+          clear: both;
+          margin: 15px 0 5px 0;
+          font-size: 18px;
+          text-transform: uppercase;
+          color: $color-dark-lightest;
+        }
+
+        img {
+          position: relative;
+          float: left;
+          width: 150px;
+          height: 150px;
+          margin: 0 15px 5px 0;
+        }
+
+        input[type=file] {
+          margin-top: 7.5px;
+        }
+
+        textarea {
+          height: 300px;
+          &.small {
+            height: 150px;
+          }
+        }
+
+        label.check_boxes {
+          display: none;
+        }
+
+        ul.inline {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          li {
+            display: inline-block;
+            margin: 3px 10px;
+            width: 200px;
+          }
+        }
+
+        .checkbox {
+          display: inline-block;
+          width: 250px;
+          label {
+            display: inline;
+            margin-left: 5px;
+          }
+        }
+
+        .feature-image-preview {
+          float: right;
+          margin-right: 5px;
+        }
+
+        .datetime {
+          select {
+            display: inline;
+            width: auto;
+          }
+        }
+
+        .time-js, .date-js {
+          display: inline;
+          float: left;
+          width: 48%;
+          margin: 10px 2% 15px 0;
+        }
+
+        .warning {
+          color: $color-danger;
+          font-weight: 600;
+        }
+
+        .item-status {
+          .status {
+            margin-right: 10px;
+          }
+          .published {
+            color: $color-success;
+            font-weight: 600;
+            i {
+              color: $color-success;
+            }
+          }
+          .draft {
+            color: $color-danger;
+            font-weight: 600;
+            i {
+              color: $color-danger;
+            }
+          }
+        }
+
+        .images-container {
+          @include clearfix;
+          div.image {
+            position: relative;
+            float: left;
+            width: 160px;
+            height: 160px;
+            margin: 5px;
+            a {
+              position: absolute;
+              top: 5px;
+              right: 5px;
+              padding: 5px;
+              background: $color-dark-lightest;
+              &:hover {
+                background: $color-dark-lighter;
+              }
+              &.edit {
+                right: 31px;
+              }
+              i {
+                color: $color-light;
+              }
+            }
+            img {
+              border: 5px solid transparent;
+              &:hover {
+                border-color: $color-light-darkest;
+                cursor: pointer;
+              }
+              &.featured {
+                border-color: $color-1;
+              }
+            }
+          }
+
+          div.loading {
+            float: left;
+            width: 150px;
+            height: 150px;
+            margin: 5px;
+            border: 5px solid $color-light-darkest;
+          }
+        }
+
+        #new-category, #new-client {
+          select {
+            width: 386px;
+          }
+          hr {
+            width: 386px;
+            margin: 15px 0 5px 0;
+          }
+          input#new-cat-title, input#new-client-title {
+            display: inline-block;
+            width: 250px;
+            padding: 8px;
+          }
+          .add-new-cat, .add-new-client {
+            display: inline-block;
+            width: 100px;
+            text-align: center;
+          }
+        }
+
+        .crop-image-container {
+          display: none;
+
+          .crop-image {
+            width: 500px;
+            margin: 25px auto 0 auto;
+          }
+        }
+      }
+
+      #tag-container {
+        position: relative;
+        z-index: 99;
+
+        ul.autocomplete {
+          position: absolute;
+          top: 28px;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          background: $color-light;
+          li {
+            border: 1px solid $color-light-dark;
+            border-top: none;
+            a {
+              display: block;
+              width: 100%;
+              padding: 5px 10px;
+            }
+            &.active, a:hover {
+              background: $color-light-dark;
+            }
+          }
+        }
+
+        ul#tag-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+
+          li {
+            display: inline-block;
+            margin: 0 10px;
+            a {
+              i {
+                font-size: 14px;
+                color: $color-light-darkest;
+              }
+              &:hover {
+                i {
+                  color: $color-1;
+                }
+              }
+            }
+          }
+
+          .separator {
+            color: $color-light-darkest;
+            &:last-child {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    .table-container {
+      margin: 35px 0 0 0;
+      padding: 0;
+    }
+  }
+}
+
+form .wysihtml5-toolbar {
+  margin-top: 25px;
+  background: $color-light-dark;
+
+  & > .group {
+    display: inline-block;
+    width: auto;
+    margin: 0 25px 0 0;
+    padding: 0;
+
+    a {
+      display: inline-block;
+      margin: 0 -3px 0 0;
+      padding: 10px;
+      line-height: 20px;
+      font-weight: 600;
+      color: $color-dark;
+
+      &:hover, &.wysihtml5-command-active, &.wysihtml5-command-dialog-opened {
+        background: $color-1;
+        color: $color-light;
+        i {
+          color: $color-light;
+        }
+      }
+    }
+
+    .dialog {
+      position: absolute;
+      width: 350px;
+      padding: 10px 25px;
+      background: $color-light-dark;
+      border: 1px solid $color-light-darker;
+
+      a:hover {
+        cursor: pointer;
+      }
+    }
+
+    &.right {
+      float: right;
+      margin: 0 0 0 25px;
+      a {
+        margin: 0;
+      }
+    }
+  }
+
+  &.wysihtml5-commands-disabled {
+
+    .group {
+
+      a {
+        color: $color-light-darker;
+        i {
+          color: $color-light-darker;
+        }
+        &:hover {
+          color: $color-light-darker;
+          background: transparent;
+          cursor: default;
+          i {
+            color: $color-light-darker;
+          }
+        }
+        &.wysihtml5-action-active {
+          background: $color-1;
+          color: $color-light;
+          i {
+            color: $color-light;
+          }
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+#wysihtml5-insert-image-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: rgba(0,0,0,0.5);
+
+  .modal {
+    position: absolute;
+    width: 662px;
+    height: 400px;
+    padding: 10px 20px;
+    background: $color-light-dark; 
+    border: 1px solid $color-light-darkest;
+    opacity: 1;
+    overflow: scroll;
+
+    a.close {
+      float: right;
+      padding: 5px 10px;
+      border: 2px solid $color-light-darkest;
+      color: $color-light-darkest;
+      font-size: 24px;
+      font-weight: 600;
+      &:hover {
+        color: $color-1;
+        border-color: $color-1;
+      }
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    hr {
+      background: $color-light-darker;
+    }
+
+    img {
+      float: left;
+      width: 125px;
+      margin: 10px;
+      border: 5px solid transparent;
+      outline: 2.5px solid $color-light-darker;
+      &:hover {
+        cursor: pointer;
+        outline-color: $color-1;
+      }
+    }
+
+    div.loading {
+      float: left;
+      width: 125px;
+      margin: 10px;
+      border: 5px solid transparent;
+      outline: 2.5px solid $color-light-darker;
+    }
+  }
+}
+
+.wysihtml5-sandbox {
+  margin: 0 0 12px 0 !important;
+}
+
+.wysihtml5-textarea {
+  margin-top: 0;
+}

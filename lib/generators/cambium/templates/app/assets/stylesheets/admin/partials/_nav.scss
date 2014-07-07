@@ -1,0 +1,45 @@
+nav#sidebar {
+
+  ul {
+
+    li {
+
+      a {
+        box-sizing: border-box;
+        width: $sidebar-width;
+        padding: 12.5px 0;
+        text-align: center;
+
+        span {
+          display: block;
+          margin: 5px 0;
+          color: $color-light-darkest;
+        }
+
+        i {
+          font-size: 38px;
+          color: $color-light-darkest;
+        }
+
+        &:hover {
+          background: $color-1;
+
+          span, i {
+            color: $color-light;
+          }
+        }
+      }
+
+      &.active {
+
+        a {
+          background: $color-1;
+
+          span, i {
+            color: $color-light;
+          }
+        }
+      }
+    }
+  }
+}
