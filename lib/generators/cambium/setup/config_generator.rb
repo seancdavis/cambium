@@ -57,10 +57,16 @@ module Cambium
           end
         end
 
+        # Root URL (for mailers)
+        @config[:app][:dev_url] = ask("\n#{set_color('Development URL', :green, :bold)}: [leave blank for localhost:3000]")
+        @config[:app][:dev_url] = 'localhost:3000' if @config[:app][:dev_url].blank?
+        @config[:app][:prod_url] = ask("#{set_color('Production URL', :green, :bold)}: [leave blank for localhost:3000]")
+        @config[:app][:prod_url] = 'localhost:3000' if @config[:app][:prod_url].blank?
+
         # Database Credentials
-        @config[:db][:user] = confirm_ask("Database #{set_color('user', :green, :bold)}: [leave blank for no user]")
+        @config[:db][:user] = confirm_ask("#{set_color('Database User', :green, :bold)}: [leave blank for no user]")
         if @config[:db][:user].present?
-          @config[:db][:password] = confirm_ask("Database #{set_color('password', :green, :bold)}: [leave blank for no password]")
+          @config[:db][:password] = confirm_ask("#{set_color('Database Password', :green, :bold)}: [leave blank for no password]")
         else
           @config[:db][:password] = ''
         end
@@ -82,6 +88,29 @@ module Cambium
           file_contents("config/application.rb"),
           :after => "class Application < Rails::Application"
         )
+      end
+
+      # ------------------------------------------ Environment Settings
+
+      def add_env_settings
+        insert_into_file "config/environments/development.rb", 
+          :after => "Rails.application.configure do" do
+            "\n\n  config.action_mailer.default_url_options = { :host => '#{@config[:app][:dev_url]}' }\n"
+        end
+        insert_into_file "config/environments/production.rb", 
+          :after => "Rails.application.configure do" do
+            output = ''
+            output += "\n\n  config.action_mailer.default_url_options = { :host => '#{@config[:app][:prod_url]}' }"
+            output += "\n\n  config.assets.precompile += %w( admin/admin.css admin/admin.js admin/wysihtml5.css modernizr.js )\n"
+            output
+        end
+      end
+
+      # ------------------------------------------ Assets Initializer
+
+      def add_assets_initializer
+        template "config/initializers/assets.rb", 
+          "config/initializers/assets.rb"
       end
 
       # ------------------------------------------ Database Setup
@@ -142,7 +171,7 @@ module Cambium
 
         def confirm_ask(question)
           answer = ask("\n#{question}")
-          match = ask("Confirm: #{question}")
+          match = ask("CONFIRM #{question}")
           if answer == match
             answer
           else
