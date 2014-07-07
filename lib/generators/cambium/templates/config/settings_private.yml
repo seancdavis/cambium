@@ -1,0 +1,13 @@
+# This file is for storing SENSITIVE settings. This file is not tracked.
+#
+# Values here are loaded into the PRIVATE constant. For example, below you can
+# access "ABC123" through PRIVATE['my_special_key']
+#
+development: &default
+  my_special_key: "ABC123"
+
+test:
+  <<: *default
+
+production:
+  <<: *default

@@ -12,6 +12,8 @@ when "setup"
   system "#{@g} cambium:setup:views"
   system "#{@g} cambium:setup:helpers"
   system "#{@g} cambium:setup:javascripts"
+  system "#{@g} cambium:setup:stylesheets"
+  system "#{@g} cambium:setup:utilities"
 else
   gem_root = Gem::Specification.find_by_name("cambium").gem_dir
   puts File.read("#{gem_root}/lib/help/cambium")

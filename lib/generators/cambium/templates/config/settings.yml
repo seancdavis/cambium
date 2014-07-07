@@ -1,0 +1,15 @@
+# 
+# This file is for storing NON-SENSITIVE settings.
+#
+# Values here are loaded into the SETTINGS constant. For example, below you can
+# access "Hello" through SETTINGS['say']['hello']
+#
+development: &default
+  say:
+    hello: "Hello"
+
+test:
+  <<: *default
+
+production:
+  <<: *default

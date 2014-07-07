@@ -1,0 +1,15 @@
+# Copy this file to config/settings_private.yml then input all your settings
+# here. This file is tracked by Git and is used as a starting point for
+# sensitive data.
+#
+# Values here are loaded into the PRIVATE constant. For example, below you can
+# access "ABC123" through PRIVATE['my_special_key']
+#
+development: &default
+  my_special_key: "ABC123"
+
+test:
+  <<: *default
+
+production:
+  <<: *default
