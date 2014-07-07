@@ -23,25 +23,22 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails"
   
   [
-    'unicorn-rails', 
-    'mysql2', 
-    'pg', 
-    'sqlite3', 
-    'sass-rails', 
-    'uglifier', 
-    'coffee-rails', 
-    'jquery-rails', 
+    'annotate', 
     'bones-rails', 
     'bourbon', 
-    'rails-backbone',
-    'jbuilder', 
-    'simple_form', 
-    'devise', 
     'carrierwave', 
-    'hirb',
-    'annotate', 
+    'coffee-rails', 
+    'devise', 
     'factory_girl_rails', 
-    'faker'
+    'faker', 
+    'hirb',
+    'jbuilder', 
+    'jquery-rails', 
+    'rails-backbone', 
+    'sass-rails', 
+    'simple_form', 
+    'uglifier', 
+    'unicorn-rails', 
   ].each { |g| spec.add_dependency g }
 
 end
