@@ -4,7 +4,7 @@ require 'rails/generators'
 module Cambium
   module Setup
     class JavascriptsGenerator < Rails::Generators::Base
-      desc "Setup controllers for new rails project"
+      desc "Setup javascripts for new rails project"
 
       # ------------------------------------------ Class Methods
 

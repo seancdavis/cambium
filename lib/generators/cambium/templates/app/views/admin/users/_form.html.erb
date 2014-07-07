@@ -1,0 +1,11 @@
+<%= simple_form_for @item, :url => @url do |f| %>
+
+  <%= form_section 'overview' do %>
+    <%= f.input :email %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+  <% end %>
+
+  <%= f.button :submit %>
+
+<% end %>

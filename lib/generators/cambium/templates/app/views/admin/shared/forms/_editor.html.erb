@@ -1,0 +1,54 @@
+<div id="wysihtml5-toolbar-<%= idx %>" class="wysihtml5-toolbar">
+  <div class="group">
+    <%= wysihtml5_link 'formatBlock', 'P', { :cmd => 'p' } %>
+    <%= wysihtml5_link 'formatBlock', 'H1', { :cmd => 'h1' } %>
+    <%= wysihtml5_link 'formatBlock', 'H2', { :cmd => 'h2' } %>
+    <%= wysihtml5_link 'formatBlock', 'H3', { :cmd => 'h3' } %>
+    <%= wysihtml5_link 'formatBlock', 'H4', { :cmd => 'h4' } %>
+    <%#= wysihtml5_link 'formatBlock', 'H5', 'h5' %>
+    <%#= wysihtml5_link 'formatBlock', 'H6', 'h6' %>
+  </div>
+
+  <div class="group">
+    <%= wysihtml5_icon 'bold' %>
+    <%= wysihtml5_icon 'italic' %>
+    <%= wysihtml5_icon 'underline' %>
+  </div>
+
+  <div class="group">
+    <%= wysihtml5_icon 'justifyLeft', 'paragraph-left' %>
+    <%= wysihtml5_icon 'justifyCenter', 'paragraph-center' %>
+    <%= wysihtml5_icon 'justifyRight', 'paragraph-right' %>
+  </div>
+
+  <div class="group">
+    <%= wysihtml5_icon 'insertUnorderedList', 'list2' %>
+    <%= wysihtml5_icon 'insertOrderedList', 'numbered-list' %>
+  </div>
+
+  <div class="group">
+    <%= wysihtml5_icon 'createLink', 'link' %>
+    <%#= wysihtml5_icon 'insertImage', 'image', { :id => 'wysihtml5-insert-image' } %>
+
+    <div class="dialog" data-wysihtml5-dialog="createLink" style="display: none;">
+      <input type="text" data-wysihtml5-dialog-field="href" value="http://" class="text">
+      <a class="margin-right-medium" data-wysihtml5-dialog-action="save">Insert</a>
+      <a data-wysihtml5-dialog-action="cancel">Cancel</a>
+    </div>
+    <!-- <div class="dialog" data-wysihtml5-dialog="insertImage" style="display: none; margin-left: 36px;">
+      <input type="text" data-wysihtml5-dialog-field="src" value="http://" class="insert-image">
+      <a class="insert-image" class="margin-right-medium" data-wysihtml5-dialog-action="save">Insert</a>
+      <a class="browse-images">Browse Images</a>
+      <a data-wysihtml5-dialog-action="cancel">Cancel</a>
+    </div> -->
+  </div>
+
+  <div class="group right">
+    <a data-wysihtml5-action="change_view">HTML</a>
+  </div>
+
+</div>
+
+<%= f.input field, :label => false, :input_html => { 
+  :id => "wysihtml5-textarea-#{idx}", :class => 'wysihtml5-textarea' }, 
+  :wrapper_html => { :class => "wysihtml5" } %>

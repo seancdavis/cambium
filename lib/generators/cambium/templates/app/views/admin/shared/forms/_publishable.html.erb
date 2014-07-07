@@ -1,0 +1,33 @@
+<% if @item.new_record? or !@item.published? %>
+  <p class="item-status">
+    <span class="status">Status:</span>
+    <span class="draft">
+      <i class="icon-cancel-circle2"></i>&nbsp;DRAFT
+    </span>
+  </p>
+  <hr>
+<% else %>
+  <p class="item-status">
+    <span class="status">Status:</span>
+    <span class="published">
+      <i class="icon-checkmark-circle2"></i>&nbsp;PUBLISHED
+    </span>
+  </p>
+  <hr>
+<% end %>
+
+<label>Publish</label>
+<%= f.input :active_date, :as => :string, :label => false, :input_html => { 
+  :placeholder => 'Date', :class => 'active-date date-js', 
+  :value => @item.formatted_active_date } %>
+<%= f.input :active_time, :as => :string, :label => false, :input_html => { 
+  :placeholder => 'Time', :class => 'active-time time-js', 
+  :value => @item.formatted_active_time } %>
+
+<label>Unpublish</label>
+<%= f.input :inactive_date, :as => :string, :label => false, :input_html => { 
+  :placeholder => 'Date', :class => 'inactive-date date-js', 
+  :value => @item.formatted_inactive_date } %>
+<%= f.input :inactive_time, :as => :string, :label => false, :input_html => { 
+  :placeholder => 'Time', :class => 'inactive-time time-js', 
+  :value => @item.formatted_inactive_time } %>

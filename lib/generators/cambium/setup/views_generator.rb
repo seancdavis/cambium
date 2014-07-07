@@ -3,18 +3,33 @@ require 'rails/generators'
 
 module Cambium
   module Setup
-    class HelpersGenerator < Rails::Generators::Base
-      desc "Setup helpers for new rails project"
+    class ViewsGenerator < Rails::Generators::Base
+      desc "Setup views for new rails project"
 
       # ------------------------------------------ Class Methods
 
       source_root File.expand_path('../../templates', __FILE__)
 
-      # ------------------------------------------ Admin Helper
+      # ------------------------------------------ Admin Views
 
-      def add_admin_helper
-        template "app/helpers/admin_helper.rb", 
-          "app/helpers/admin_helper.rb"
+      def add_admin_views
+        directory "app/views/admin", "app/views/admin"
+      end
+
+      # ------------------------------------------ Layouts
+
+      def add_layouts
+        app = "app/views/layouts/application.html.erb"
+        admin = "app/views/layouts/admin.html.erb"
+        remove_file app
+        template app, app
+        template admin, admin
+      end
+
+      # ------------------------------------------ Public Views
+
+      def add_public_views
+        directory "app/views/application", "app/views/application"
       end
 
       # ------------------------------------------ Private Methods
