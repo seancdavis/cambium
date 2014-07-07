@@ -25,6 +25,10 @@ module Cambium
         run_cmd "#{be} annotate"
       end
 
+      def add_default_user
+        create_user
+      end
+
       # ------------------------------------------ Model Concerns
 
       def add_model_concerns
@@ -87,6 +91,21 @@ module Cambium
           else
             say set_color("Did not match.", :red)
             confirm_ask(question)
+          end
+        end
+
+        def create_user
+          email = confirm_ask "\n#{set_color('Default User Email', :green, :bold):}"
+          password = confirm_ask "\n#{set_color('Default User Password', :green, :bold):}"
+          u = User.new(
+            :email => email,
+            :password => password, 
+            :password_confirmation => password
+          )
+          if u.save
+            say "User created successfully!"
+          else
+            create_user
           end
         end
 
