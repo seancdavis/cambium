@@ -3,7 +3,7 @@
     <% admin_nav_items.each do |item| %>
     <li <%= "class=active" if nav_active?(item[:controllers]) %>>
       <%= link_to item[:path], :target => item[:target] do %>
-        <span class="icon"><i class="pivcon-<%= item[:icon] %>"></i></span>
+        <span class="icon"><i class="icon-<%= item[:icon] %>"></i></span>
         <span class="title"><%= item[:label] %></span>
       <% end %>
     </li>
