@@ -5,7 +5,9 @@
 
 case ARGV.first
 when "setup"
-  system("#{@g} cambium:setup")
+  system "#{@g} cambium:setup:config"
+  system "#{@g} cambium:setup:devise"
+  system "#{@g} cambium:setup:models"
 else
   gem_root = Gem::Specification.find_by_name("cambium").gem_dir
   puts File.read("#{gem_root}/lib/help/cambium")
