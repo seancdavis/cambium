@@ -3,7 +3,7 @@ require 'rails/generators'
 
 module Cambium
   module Setup
-    class ControllersGenerator < Rails::Generators::Base
+    class JavascriptsGenerator < Rails::Generators::Base
       desc "Setup controllers for new rails project"
 
       # ------------------------------------------ Class Methods
@@ -38,7 +38,7 @@ module Cambium
       end
 
       def add_default_view
-        remove_file "app/assets/javascripts/backbone/views//.gitkeep"
+        remove_file "app/assets/javascripts/backbone/views/.gitkeep"
         template "app/assets/javascripts/backbone/views/default_helpers.js.coffee", 
           "app/assets/javascripts/backbone/views/default_helpers.js.coffee"
       end
@@ -46,8 +46,8 @@ module Cambium
       # ------------------------------------------ Admin Setup
 
       def add_admin_files
-        directory "app/assets/javascripts/backbone/admin",
-          "app/assets/javascripts/backbone/admin"
+        directory "app/assets/javascripts/admin",
+          "app/assets/javascripts/admin"
       end
 
       # ------------------------------------------ Private Methods
