@@ -2,11 +2,13 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
+  <%= "user: #{@config[:db][:user]}" if @config[:db][:user].present? %>
+  <%= "password: #{@config[:db][:password]}" if @config[:db][:password].present? %>
 
 development:
   <<: *default
-  database: <%= @database_name %>_development
+  database: <%= @config[:db][:name] %>_development
 
 test:
   <<: *default
-  database: <%= @database_name %>_test
+  database: <%= @config[:db][:name] %>_test

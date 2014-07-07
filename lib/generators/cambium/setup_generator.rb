@@ -3,43 +3,76 @@ require 'rails/generators'
 
 module Cambium
   class SetupGenerator < Rails::Generators::Base
-    desc "Add default Gemfile"
-
-    # ------------------------------------------ Options
-
-    class_option :database, :aliases => '-d', :default => "mysql", 
-      :desc => "Specify database type."
+    desc "Setup new rails project"
 
     # ------------------------------------------ Class Methods
 
     source_root File.expand_path('../templates', __FILE__)
 
-    # ------------------------------------------ Instance Methods
+    # ------------------------------------------ Config
 
-    def resolve_options
-      case options[:database]
-      when "sqlite3", "sqlite"
-        @database = "sqlite3"
-      when "postges", "postgresql", "pg"
-        @database = "pg"
-      else
-        @database = "mysql2"
-      end
-      @app_name = Rails.application.class.parent_name
-      @database_name = @app_name.underscore.downcase
+    def cambium_setup
+      @config = {
+        :db => {},
+        :app => {}
+      }
     end
 
-    def install_gemfile
+    def auto_config
+      # Read Gemfile
       File.open("#{Rails.root}/Gemfile") do |f|
         f.each_line do |line|
+          # Database
+          if line.include?("'mysql2'")
+            @config[:db][:adapter] = "mysql2"
+          elsif line.include?("'pg'")
+            @config[:db][:adapter] = "sqlite3"
+          elsif line.include?("'sqlite3'")
+            @config[:db][:adapter] = "pg"
+          end
+          # Rails Version
           if line.match(/gem\ \'rails\'/)
-            @rails_version = line.gsub(/gem\ \'rails\'\,/, '').gsub(/\'/, '').strip
+            @config[:app][:version] = line.gsub(/gem\ \'rails\'\,/, '').gsub(/\'/, '').strip
           end
         end
       end
-      template "Gemfile.erb", "Gemfile"
-      run_cmd "bundle clean"
+      # Application Class Name
+      @config[:app][:name] = Rails.application.class.parent_name
+      # Database Name
+      @config[:db][:name] = @config[:app][:name].underscore.downcase
     end
+
+    def user_config
+      # Database
+      if @config[:db][:adapter].present? && yes?("\nCambium, in all its wisdom, thinks your database adapter as #{set_color(@config[:db][:adapter], :green, :bold)}. Is this correct? [yes, no]")
+        say("Oh, goodie! Moving on...")
+      else
+        new_adapter = ask("What would you prefer?", :limited_to => ['mysql2','pg','sqlite3'])
+        unless new_adapter == @config[:db][:adapter]
+          say set_color("\nPlease add:", :red, :bold)
+          say "\n    gem '#{new_adapter}'"
+          say set_color("\nto your Gemfile. Then run `bundle install` and `bundle exec cambium setup`.", :red, :bold)
+          exit
+        end
+      end
+
+      # Database Credentials
+      @config[:db][:user] = confirm_ask("Database #{set_color('user', :green, :bold)}: [leave blank for no user]")
+      if @config[:db][:user].present?
+        @config[:db][:password] = confirm_ask("Database #{set_color('password', :green, :bold)}: [leave blank for no password]")
+      else
+        @config[:db][:password] = ''
+      end
+    end
+
+    # ------------------------------------------ Gems & Gemfile
+
+    def install_gemfile
+      template "Gemfile.erb", "Gemfile"
+      # run_cmd "bundle clean"
+    end
+
+    # ------------------------------------------ Application Settings & Config
 
     def add_application_config
       insert_into_file(
@@ -49,18 +82,28 @@ module Cambium
       )
     end
 
+    # ------------------------------------------ Database Setup
+
     def setup_database
       copy_file "#{Rails.root}/config/database.yml", "config/database.sample.yml"
-      template "database.#{@database}.yml.erb", "config/database.yml"
+      template "database.#{@config[:db][:adapter]}.yml.erb", "config/database.yml"
+      run_cmd "#{rake} db:drop"
       run_cmd "#{rake} db:create"
       run_cmd "#{rake} db:migrate"
     end
 
+    # ------------------------------------------ Devise
+
     def install_devise
-      run_cmd "#{g} devise:install"
-      run_cmd "#{g} devise User"
-      run_cmd "#{g} migration add_is_admin_to_users is_admin:boolean"
-      run_cmd "#{rake} db:migrate"
+      unless File.exist?("#{Rails.root}/config/initializers/devise.rb")
+        run_cmd "#{g} devise:install"
+      end
+      unless File.exist?("#{Rails.root}/app/models/user.rb")
+        run_cmd "#{g} devise User"
+        run_cmd "#{g} migration add_is_admin_to_users is_admin:boolean"
+        run_cmd "#{rake} db:migrate"
+      end
+      run_cmd "#{be} annotate"
     end
 
     # ------------------------------------------ Private Methods
@@ -99,6 +142,17 @@ module Cambium
 
       def rake
         "#{be} rake"
+      end
+
+      def confirm_ask(question)
+        answer = ask("\n#{question}")
+        match = ask("Confirm: #{question}")
+        if answer == match
+          answer
+        else
+          say set_color("Did not match.", :red)
+          confirm_ask(question)
+        end
       end
 
   end

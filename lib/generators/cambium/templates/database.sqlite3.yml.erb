@@ -2,6 +2,8 @@ default: &default
   adapter: sqlite3
   pool: 5
   timeout: 5000
+  <%= "user: #{@config[:db][:user]}" if @config[:db][:user].present? %>
+  <%= "password: #{@config[:db][:password]}" if @config[:db][:password].present? %>
 
 development:
   <<: *default

@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 # ------------------------------------------ Base
 
-gem 'rails', '<%= @rails_version %>'
+gem 'rails', '<%= @config[:app][:version] %>'
 gem 'unicorn-rails'
-gem '<%= @database %>'
+gem '<%= @config[:db][:adapter] %>'
 # gem 'cambium', :git => 'git@github.com:seancdavis/cambium.git'
 gem 'cambium', :path => "/Users/sean/www/rt/rt/cambium"
 
