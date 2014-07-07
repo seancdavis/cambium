@@ -34,11 +34,13 @@ Gem::Specification.new do |spec|
     'hirb',
     'jbuilder', 
     'jquery-rails', 
+    'pickadate-rails',
     'rails-backbone', 
     'sass-rails', 
     'simple_form', 
     'uglifier', 
     'unicorn-rails', 
+    'wysihtml5-rails',
   ].each { |g| spec.add_dependency g }
 
 end
