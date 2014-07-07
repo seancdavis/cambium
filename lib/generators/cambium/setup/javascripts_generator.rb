@@ -50,6 +50,13 @@ module Cambium
           "app/assets/javascripts/admin"
       end
 
+      # ------------------------------------------ Add Modernizr
+
+      def add_modernizr
+        modernizr = "vendor/assets/javascripts/modernizr.js"
+        copy_file modernizr, modernizr
+      end
+
       # ------------------------------------------ Private Methods
 
       private
