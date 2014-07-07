@@ -26,6 +26,7 @@ module Cambium
       end
 
       def add_default_user
+        User.reset_column_information
         create_user
       end
 
@@ -85,7 +86,7 @@ module Cambium
 
         def confirm_ask(question)
           answer = ask("\n#{question}")
-          match = ask("Confirm: #{question}")
+          match = ask("CONFIRM #{question}")
           if answer == match
             answer
           else
@@ -95,12 +96,13 @@ module Cambium
         end
 
         def create_user
-          email = confirm_ask "\n#{set_color('Default User Email', :green, :bold):}"
-          password = confirm_ask "\n#{set_color('Default User Password', :green, :bold):}"
+          email = confirm_ask "#{set_color('Default User Email', :green, :bold)}:"
+          password = confirm_ask "#{set_color('Default User Password', :green, :bold)}:"
           u = User.new(
             :email => email,
             :password => password, 
-            :password_confirmation => password
+            :password_confirmation => password,
+            :is_admin => true
           )
           if u.save
             say "User created successfully!"
