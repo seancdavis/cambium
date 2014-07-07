@@ -69,7 +69,7 @@ module Cambium
 
     def install_gemfile
       template "Gemfile.erb", "Gemfile"
-      # run_cmd "bundle clean"
+      run_cmd "bundle clean"
     end
 
     # ------------------------------------------ Application Settings & Config
@@ -77,7 +77,7 @@ module Cambium
     def add_application_config
       insert_into_file(
         "config/application.rb",
-        file_contents("application.rb"),
+        file_contents("config/application.rb"),
         :after => "class Application < Rails::Application"
       )
     end
@@ -86,8 +86,8 @@ module Cambium
 
     def setup_database
       copy_file "#{Rails.root}/config/database.yml", "config/database.sample.yml"
-      template "database.#{@config[:db][:adapter]}.yml.erb", "config/database.yml"
-      run_cmd "#{rake} db:drop"
+      template "config/database.#{@config[:db][:adapter]}.yml.erb", "config/database.yml"
+      run_cmd "#{rake} db:drop", :quiet => true
       run_cmd "#{rake} db:create"
       run_cmd "#{rake} db:migrate"
     end
