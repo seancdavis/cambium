@@ -5,8 +5,6 @@ source 'https://rubygems.org'
 gem 'rails', '<%= @config[:app][:version] %>'
 gem 'unicorn-rails'
 gem '<%= @config[:db][:adapter] %>'
-# gem 'cambium', :git => 'git@github.com:seancdavis/cambium.git'
-gem 'cambium', :path => "/Users/sean/www/rt/rt/cambium"
 
 # ------------------------------------------ Assets
 
@@ -27,6 +25,7 @@ gem 'pickadate-rails'
 
 # ------------------------------------------ Utilities
 
+gem 'cambium'
 gem 'devise'
 gem 'carrierwave'
 gem 'hirb'
