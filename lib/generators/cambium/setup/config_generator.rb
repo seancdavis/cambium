@@ -39,8 +39,6 @@ module Cambium
         end
         # Application Class Name
         @config[:app][:name] = Rails.application.class.parent_name
-        # Database Name
-        @config[:db][:name] = @config[:app][:name].underscore.downcase
       end
 
       def user_config
@@ -57,11 +55,10 @@ module Cambium
           end
         end
 
-        # Root URL (for mailers)
-        @config[:app][:dev_url] = ask("\n#{set_color('Development URL', :green, :bold)}: [leave blank for localhost:3000]")
-        @config[:app][:dev_url] = 'localhost:3000' if @config[:app][:dev_url].blank?
-        @config[:app][:prod_url] = ask("#{set_color('Production URL', :green, :bold)}: [leave blank for localhost:3000]")
-        @config[:app][:prod_url] = 'localhost:3000' if @config[:app][:prod_url].blank?
+        # Database Name
+        @config[:db][:name] = @config[:app][:name].underscore.downcase
+        db_name = ask "\n#{set_color('Database Base Name:', :green, :bold)} [default: #{@config[:db][:name]}]"
+        @config[:db][:name] = db_name unless db_name.blank?
 
         # Database Credentials
         @config[:db][:user] = confirm_ask("#{set_color('Database User', :green, :bold)}: [leave blank for no user]")
@@ -70,6 +67,12 @@ module Cambium
         else
           @config[:db][:password] = ''
         end
+
+        # Root URL (for mailers)
+        @config[:app][:dev_url] = ask("\n#{set_color('Development URL', :green, :bold)}: [leave blank for localhost:3000]")
+        @config[:app][:dev_url] = 'localhost:3000' if @config[:app][:dev_url].blank?
+        @config[:app][:prod_url] = ask("#{set_color('Production URL', :green, :bold)}: [leave blank for localhost:3000]")
+        @config[:app][:prod_url] = 'localhost:3000' if @config[:app][:prod_url].blank?
       end
 
       # ------------------------------------------ Gems & Gemfile
