@@ -10,6 +10,12 @@ module Cambium
 
       source_root File.expand_path('../../templates', __FILE__)
 
+      # ------------------------------------------ Default Public Controller
+
+      def add_home_controller
+        run_cmd "#{g} controller home index"
+      end
+
       # ------------------------------------------ Admin Controller
 
       def add_admin_controller
