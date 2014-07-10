@@ -19,6 +19,10 @@ module Cambium
       # ------------------------------------------ Layouts
 
       def add_layouts
+        @site_title = Rails.application.class.parent_name.humanize.titleize
+        site_title = ask "\n#{set_color('App Title:', :green, :bold)} [default: #{@site_title}]"
+        @site_title = site_title unless site_title.blank?
+        
         app = "app/views/layouts/application.html.erb"
         admin = "app/views/layouts/admin.html.erb"
         remove_file app
