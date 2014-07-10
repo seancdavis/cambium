@@ -13,6 +13,8 @@ module Cambium
       # ------------------------------------------ Settings Files
 
       def add_settings_files
+        template "config/initializers/_settings.rb", 
+          "config/initializers/_settings.rb"
         ['settings','settings_private','settings_private.sample'].each do |s|
           template "config/#{s}.yml", "config/#{s}.yml"
         end
