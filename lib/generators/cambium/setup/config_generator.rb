@@ -12,6 +12,10 @@ module Cambium
 
       # ------------------------------------------ Config
 
+      def git_init
+        run_cmd "git init"
+      end
+
       def cambium_setup
         @config = {
           :db => {},
