@@ -53,8 +53,9 @@ module AdminHelper
       :title => title, :content => capture(&block) }
   end
 
-  def wysiwyg(form, field = :body)
-    render :partial => 'admin/shared/forms/editor', :locals => { :f => form, :field => field }
+  def wysiwyg(form, field = :body, idx = 1)
+    render :partial => 'admin/shared/forms/editor', :locals => {
+      :f => form, :field => field, :idx => idx }
   end
 
   def publishable_fields(form)
