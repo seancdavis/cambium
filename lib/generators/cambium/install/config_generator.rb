@@ -79,14 +79,6 @@ module Cambium
         @config[:app][:prod_url] = 'localhost:3000' if @config[:app][:prod_url].blank?
       end
 
-      # ------------------------------------------ Gems & Gemfile
-
-      def install_gemfile
-        remove_file "Gemfile"
-        template "Gemfile.erb", "Gemfile"
-        run_cmd "bundle clean"
-      end
-
       # ------------------------------------------ Application Settings & Config
 
       def add_application_config
@@ -136,6 +128,26 @@ module Cambium
       def add_gitignore
         remove_file ".gitignore"
         template "gitignore", ".gitignore"
+      end
+
+      # ------------------------------------------ Gems & Gemfile
+
+      def surface_gems_in_gemfile
+        if yes? "Would you like to keep your existing Gemfile?"
+          insert_into_file(
+            "Gemfile",
+            file_contents("Gemfile"),
+            :after => "rubygems.org'"
+          )
+          say "\n#{set_color('Config completed! Please inspect your Gemfile, remove duplicates, then run `bundle install`.', 
+            :green, :bold)}"
+        else
+          remove_file "Gemfile"
+          template "Gemfile.erb", "Gemfile"
+          run_cmd "bundle clean"
+          run_cmd "bundle install"
+          say "\n#{set_color('Config completed!', :green, :bold)}"
+        end
       end
 
       # ------------------------------------------ Private Methods
