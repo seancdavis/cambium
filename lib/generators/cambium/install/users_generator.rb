@@ -16,7 +16,6 @@ module Cambium
         end
         unless File.exist?("#{Rails.root}/app/models/user.rb")
           run_cmd "#{g} devise User"
-          run_cmd "#{rake} db:migrate"
         end
       end
 
@@ -26,15 +25,18 @@ module Cambium
         file = Dir.glob("#{Rails.root}/db/migrate/*devise_create_users.rb").first
         insert_into_file(
           file, 
-          "## Admin\n      t.boolean :is_admin, :default => false, \n\n      ", 
+          "## Admin\n      t.boolean :is_admin, :default => false \n\n      ", 
           :before => "t.timestamps"
         )
-        run_cmd "#{rake} db:migrate"
       end
 
       def add_user_model_file
         remove_file "app/models/user.rb"
         template "app/models/user.rb", "app/models/user.rb"
+      end
+
+      def migrate_and_annotate
+        run_cmd "#{rake} db:migrate"
         run_cmd "#{be} annotate"
       end
 
