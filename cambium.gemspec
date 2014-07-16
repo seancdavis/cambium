@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   
   [
     'annotate', 
+    'backbone-on-rails',
     'bones-rails', 
     'bourbon', 
     'carrierwave', 
@@ -35,7 +36,6 @@ Gem::Specification.new do |spec|
     'jbuilder', 
     'jquery-rails', 
     'pickadate-rails',
-    'rails-backbone', 
     'sass-rails', 
     'simple_form', 
     'uglifier', 
