@@ -26,7 +26,7 @@ module Cambium
         file = Dir.glob("#{Rails.root}/db/migrate/*devise_create_users.rb").first
         insert_into_file(
           file, 
-          "\n## Admin\nt.boolean :is_admin, :default => false, \n", 
+          "## Admin\n      t.boolean :is_admin, :default => false, \n\n      ", 
           :before => "t.timestamps"
         )
         run_cmd "#{rake} db:migrate"
@@ -36,11 +36,6 @@ module Cambium
         remove_file "app/models/user.rb"
         template "app/models/user.rb", "app/models/user.rb"
         run_cmd "#{be} annotate"
-      end
-
-      def add_default_user
-        User.reset_column_information
-        create_user
       end
 
       # ------------------------------------------ Log In/Out Redirects
@@ -99,22 +94,6 @@ module Cambium
           else
             say set_color("Did not match.", :red)
             confirm_ask(question)
-          end
-        end
-
-        def create_user
-          email = confirm_ask "#{set_color('Default User Email', :green, :bold)}:"
-          password = confirm_ask "#{set_color('Default User Password', :green, :bold)}:"
-          u = User.new(
-            :email => email,
-            :password => password, 
-            :password_confirmation => password,
-            :is_admin => true
-          )
-          if u.save
-            say "User created successfully!"
-          else
-            create_user
           end
         end
 

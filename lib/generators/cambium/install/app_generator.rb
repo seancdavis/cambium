@@ -94,6 +94,12 @@ module Cambium
         template normalize, normalize
       end
 
+      # ------------------------------------------ Create Default User
+
+      def add_default_user
+        create_user
+      end
+
       # ------------------------------------------ Private Methods
 
       private
@@ -140,6 +146,22 @@ module Cambium
           else
             say set_color("Did not match.", :red)
             confirm_ask(question)
+          end
+        end
+
+        def create_user
+          email = confirm_ask "#{set_color('Default User Email', :green, :bold)}:"
+          password = confirm_ask "#{set_color('Default User Password', :green, :bold)}:"
+          u = User.new(
+            :email => email,
+            :password => password, 
+            :password_confirmation => password,
+            :is_admin => true
+          )
+          if u.save
+            say "User created successfully!"
+          else
+            create_user
           end
         end
 
