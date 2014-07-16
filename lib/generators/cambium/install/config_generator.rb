@@ -31,9 +31,9 @@ module Cambium
             if line.include?("'mysql2'")
               @config[:db][:adapter] = "mysql2"
             elsif line.include?("'pg'")
-              @config[:db][:adapter] = "sqlite3"
-            elsif line.include?("'sqlite3'")
               @config[:db][:adapter] = "pg"
+            elsif line.include?("'sqlite3'")
+              @config[:db][:adapter] = "sqlite3"
             end
             # Rails Version
             if line.match(/gem\ \'rails\'/)
