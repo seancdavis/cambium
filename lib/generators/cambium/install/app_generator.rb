@@ -52,27 +52,6 @@ module Cambium
         template app_js, app_js
       end
 
-      # ------------------------------------------ Customize Backbone
-
-      def rename_backbone_root
-        app_name = Rails.application.class.parent_name.underscore.downcase
-        remove_file "app/assets/javascripts/#{app_name}.js.coffee"
-        template "app/assets/javascripts/backbone/app.js.coffee", 
-          "app/assets/javascripts/app.js.coffee"
-      end
-
-      def add_public_router
-        remove_file "app/assets/javascripts/routers/.keep"
-        template "app/assets/javascripts/backbone/routers/router.js.coffee", 
-          "app/assets/javascripts/routers/router.js.coffee"
-      end
-
-      def add_default_view
-        remove_file "app/assets/javascripts/views/.keep"
-        template "app/assets/javascripts/backbone/views/default_helpers.js.coffee", 
-          "app/assets/javascripts/views/default_helpers.js.coffee"
-      end
-
       # ------------------------------------------ Add Modernizr
 
       def add_modernizr
