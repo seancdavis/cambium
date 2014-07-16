@@ -42,7 +42,8 @@ module Cambium
       # ------------------------------------------ Public Setup
 
       def install_backbone
-        run_cmd "#{g} backbone:install"
+        directory "app/assets/javascripts/backbone",
+          "app/assets/javascripts"
       end
 
       def default_application_js
