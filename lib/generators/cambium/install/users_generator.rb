@@ -2,7 +2,7 @@ require 'rake'
 require 'rails/generators'
 
 module Cambium
-  module Setup
+  module Install
     class UsersGenerator < Rails::Generators::Base
       desc "Setup users model for new rails project"
 

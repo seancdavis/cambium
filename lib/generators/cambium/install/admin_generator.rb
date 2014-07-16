@@ -2,7 +2,7 @@ require 'rake'
 require 'rails/generators'
 
 module Cambium
-  module Setup
+  module Install
     class AdminGenerator < Rails::Generators::Base
       desc "Setup admin files for new rails project"
 

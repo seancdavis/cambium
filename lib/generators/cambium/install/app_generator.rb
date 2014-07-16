@@ -2,8 +2,8 @@ require 'rake'
 require 'rails/generators'
 
 module Cambium
-  module Setup
-    class AdminGenerator < Rails::Generators::Base
+  module Install
+    class AppGenerator < Rails::Generators::Base
       desc "Setup app files for new rails project"
 
       source_root File.expand_path('../../templates', __FILE__)

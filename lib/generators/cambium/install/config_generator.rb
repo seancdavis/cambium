@@ -2,7 +2,7 @@ require 'rake'
 require 'rails/generators'
 
 module Cambium
-  module Setup
+  module Install
     class ConfigGenerator < Rails::Generators::Base
       desc "Setup config files for new rails project"
 

@@ -2,7 +2,7 @@ require 'rake'
 require 'rails/generators'
 
 module Cambium
-  module Setup
+  module Install
     class UtilitiesGenerator < Rails::Generators::Base
       desc "Setup utilities for new rails project"
 
