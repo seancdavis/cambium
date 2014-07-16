@@ -33,7 +33,10 @@ module Cambium
       # ------------------------------------------ Layouts
 
       def add_layouts
-        @site_title = "#{Rails.application.class.parent_name.humanize.titleize} CMS"
+        @site_title = "#{Rails.application.class.parent_name.humanize.titleize} Admin"
+        site_title = ask "\n#{set_color('Admin Title:', :green, :bold)} [default: #{@site_title}]"
+        @site_title = site_title unless site_title.blank?
+
         admin = "app/views/layouts/admin.html.erb"
         template admin, admin
       end
