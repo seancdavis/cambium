@@ -3,12 +3,26 @@ require 'rails/generators'
 
 module Cambium
   module Setup
-    class ViewsGenerator < Rails::Generators::Base
-      desc "Setup views for new rails project"
+    class AdminGenerator < Rails::Generators::Base
+      desc "Setup admin files for new rails project"
 
       # ------------------------------------------ Class Methods
 
       source_root File.expand_path('../../templates', __FILE__)
+
+      # ------------------------------------------ Admin Controller
+
+      def add_admin_controller
+        template "app/controllers/admin_controller.rb", 
+          "app/controllers/admin_controller.rb"
+      end
+
+      # ------------------------------------------ Admin Users Controller
+
+      def add_admin_users_controller
+        template "app/controllers/admin/users_controller.rb", 
+          "app/controllers/admin/users_controller.rb"
+      end
 
       # ------------------------------------------ Admin Views
 
@@ -19,21 +33,30 @@ module Cambium
       # ------------------------------------------ Layouts
 
       def add_layouts
-        @site_title = Rails.application.class.parent_name.humanize.titleize
-        site_title = ask "\n#{set_color('App Title:', :green, :bold)} [default: #{@site_title}]"
-        @site_title = site_title unless site_title.blank?
-        
-        app = "app/views/layouts/application.html.erb"
+        @site_title = "#{Rails.application.class.parent_name.humanize.titleize} CMS"
         admin = "app/views/layouts/admin.html.erb"
-        remove_file app
-        template app, app
         template admin, admin
       end
 
-      # ------------------------------------------ Public Views
+      # ------------------------------------------ Admin Helper
 
-      def add_public_views
-        directory "app/views/application", "app/views/application"
+      def add_admin_helper
+        template "app/helpers/admin_helper.rb", 
+          "app/helpers/admin_helper.rb"
+      end
+
+      # ------------------------------------------ Admin Setup
+
+      def add_admin_files
+        directory "app/assets/javascripts/admin",
+          "app/assets/javascripts/admin"
+      end
+
+      # ------------------------------------------ Admin Styles
+
+      def add_admin_styles
+        directory "app/assets/stylesheets/admin",
+          "app/assets/stylesheets/admin"
       end
 
       # ------------------------------------------ Private Methods
@@ -76,7 +99,7 @@ module Cambium
 
         def confirm_ask(question)
           answer = ask("\n#{question}")
-          match = ask("Confirm: #{question}")
+          match = ask("CONFIRM #{question}")
           if answer == match
             answer
           else

@@ -10,6 +10,22 @@ module Cambium
 
       source_root File.expand_path('../../templates', __FILE__)
 
+      # ------------------------------------------ Model Concerns
+
+      def add_model_concerns
+        [
+          'idx',
+          'name',
+          'publishable',
+          'slug',
+          'tags',
+          'title',
+        ].each do |concern|
+          copy_file "app/models/concerns/#{concern}.rb", 
+            "app/models/concerns/#{concern}.rb"
+        end
+      end
+
       # ------------------------------------------ Settings Files
 
       def add_settings_files
