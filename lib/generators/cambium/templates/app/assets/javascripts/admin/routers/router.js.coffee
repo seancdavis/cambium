@@ -14,3 +14,9 @@ class Admin.Routers.Router extends Backbone.Router
     new Admin.Views.Paginator if $('table').length > 0
     new Admin.Views.DropdownToggle if $('.dropdown-toggle').length > 0
     new Admin.Views.Accordion if $('.accordion').length > 0
+
+  routes:
+    'admin': 'initAdmin'
+
+  initAdmin: =>
+    console.log "Welcome to your CMS, powered by Ruby on Rails and Cambium!"
