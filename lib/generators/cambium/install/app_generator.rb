@@ -77,7 +77,15 @@ module Cambium
       # ------------------------------------------ Create Default User
 
       def add_default_user
-        create_user
+        if defined?(User) == 'constant' && User.class == Class 
+          create_user
+        else
+          output = "\nUser model does not exist yet. If you want to add a user, run:\n"
+          say set_color(output, :red, :bold)
+          say "   bundle exec rake cambium:install:users\n\n" 
+          output = "then re-run this generator."
+          say set_color(output, :red, :bold)
+        end
       end
 
       # ------------------------------------------ Private Methods
@@ -136,8 +144,8 @@ module Cambium
             :email => email,
             :password => password, 
             :password_confirmation => password,
-            :is_admin => true
           )
+          u.is_admin = true if u.respond_to?(:is_admin)
           if u.save
             say "User created successfully!"
           else
