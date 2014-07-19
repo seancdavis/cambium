@@ -18,7 +18,12 @@ module Tags
         name.strip!
         if !used_tags.include?(name) && name.present?
           used_tags << name
-          tag = Tag.find_or_create_by(:name => name)
+          tag = Tag.where(:ci_name => name.downcase).first
+          if tag.nil?
+            tag = Tag.create(:name => name)
+          else
+            tag.update(:name => name) unless name == tag.name
+          end
           self.tags << tag
         end
       end

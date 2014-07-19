@@ -18,7 +18,7 @@ module Cambium
           'name',
           'publishable',
           'slug',
-          'tags',
+          # 'tags', >> this is now generated through the tag model generator
           'title',
         ].each do |concern|
           copy_file "app/models/concerns/#{concern}.rb", 
