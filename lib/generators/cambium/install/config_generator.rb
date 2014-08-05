@@ -1,5 +1,6 @@
 require 'rake'
 require 'rails/generators'
+include Cambium::GeneratorsHelper
 
 module Cambium
   module Install
@@ -9,6 +10,16 @@ module Cambium
       # ------------------------------------------ Class Methods
 
       source_root File.expand_path('../../templates', __FILE__)
+
+      def testing_123
+        # spec = Gem::Specification.find_by_name("cambium")
+        # gem_root = spec.gem_dir
+        # load "#{gem_root}/lib/generators/cambium/helpers/generators_helper.rb"
+        # require .
+        # raise Cambium::GeneratorsHelper.to_s
+        raise say_something_cool('hello')
+        raise output.to_s
+      end
 
       # ------------------------------------------ Config
 
