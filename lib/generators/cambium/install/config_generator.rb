@@ -1,5 +1,6 @@
 require 'rake'
 require 'rails/generators'
+require "#{Gem::Specification.find_by_name("cambium").gem_dir}/lib/generators/cambium/helpers/generators_helper.rb"
 include Cambium::GeneratorsHelper
 
 module Cambium
@@ -7,19 +8,7 @@ module Cambium
     class ConfigGenerator < Rails::Generators::Base
       desc "Setup config files for new rails project"
 
-      # ------------------------------------------ Class Methods
-
       source_root File.expand_path('../../templates', __FILE__)
-
-      def testing_123
-        # spec = Gem::Specification.find_by_name("cambium")
-        # gem_root = spec.gem_dir
-        # load "#{gem_root}/lib/generators/cambium/helpers/generators_helper.rb"
-        # require .
-        # raise Cambium::GeneratorsHelper.to_s
-        raise say_something_cool('hello')
-        raise output.to_s
-      end
 
       # ------------------------------------------ Config
 
@@ -129,9 +118,8 @@ module Cambium
         copy_file "#{Rails.root}/config/database.yml", "config/database.sample.yml"
         remove_file "config/database.yml"
         template "config/database.#{@config[:db][:adapter]}.yml.erb", "config/database.yml"
-        run_cmd "#{rake} db:drop", :quiet => true
-        run_cmd "#{rake} db:create"
-        run_cmd "#{rake} db:migrate"
+        run_cmd "#{rk} db:create"
+        run_cmd "#{rk} db:migrate"
       end
 
       # ------------------------------------------ .gitignore
@@ -160,55 +148,6 @@ module Cambium
           say "\n#{set_color('Config completed!', :green, :bold)}"
         end
       end
-
-      # ------------------------------------------ Private Methods
-
-      private
-
-        def run_cmd(cmd, options = {})
-          print_table(
-            [
-              [set_color("run", :green, :bold), cmd]
-            ],
-            :indent => 9
-          )
-          if options[:quiet] == true
-            `#{cmd}`
-          else
-            system(cmd)
-          end
-        end
-
-        def template_file(name)
-          File.expand_path("../../templates/#{name}", __FILE__)
-        end
-
-        def file_contents(template)
-          File.read(template_file(template))
-        end
-
-        def be
-          "bundle exec"
-        end
-
-        def g
-          "#{be} rails g"
-        end
-
-        def rake
-          "#{be} rake"
-        end
-
-        def confirm_ask(question)
-          answer = ask("\n#{question}")
-          match = ask("CONFIRM #{question}")
-          if answer == match
-            answer
-          else
-            say set_color("Did not match.", :red)
-            confirm_ask(question)
-          end
-        end
 
     end
   end
