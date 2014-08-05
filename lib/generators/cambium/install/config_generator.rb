@@ -118,8 +118,9 @@ module Cambium
         copy_file "#{Rails.root}/config/database.yml", "config/database.sample.yml"
         remove_file "config/database.yml"
         template "config/database.#{@config[:db][:adapter]}.yml.erb", "config/database.yml"
-        run_cmd "#{rk} db:create"
-        run_cmd "#{rk} db:migrate"
+        rake "db:drop"
+        rake "db:create"
+        rake "db:migrate"
       end
 
       # ------------------------------------------ .gitignore

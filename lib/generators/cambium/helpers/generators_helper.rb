@@ -27,14 +27,6 @@ module Cambium
       "bundle exec"
     end
 
-    def g
-      "#{be} rails g"
-    end
-
-    def rk
-      "#{be} rake"
-    end
-
     def confirm_ask(question)
       answer = ask("\n#{question}")
       match = ask("CONFIRM #{question}")
