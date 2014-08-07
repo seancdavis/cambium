@@ -131,7 +131,7 @@ module Cambium
       else
         run "gem install #{name} -i #{gem_dir}"
         add_to_gemfile(name, options)
-        bundle if !options[:bundle].present? || options[:budle] == true
+        bundle if !options[:bundle].present? || options[:bundle] == true
       end
     end
 
@@ -139,7 +139,7 @@ module Cambium
     # gem.
     # 
     def install_gems(gem_arr)
-      gem_arr.each { |gem_name| install_gem(gem_name, false) }
+      gem_arr.each { |gem_name| install_gem(gem_name, :bundle => false) }
       bundle
     end
 
