@@ -27,7 +27,6 @@ Gem::Specification.new do |spec|
     'backbone-on-rails',
     'bones-rails', 
     'bourbon', 
-    'carrierwave', 
     'coffee-rails', 
     'devise', 
     'factory_girl_rails', 
