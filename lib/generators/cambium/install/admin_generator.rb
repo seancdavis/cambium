@@ -26,6 +26,13 @@ module Cambium
           "app/controllers/admin/users_controller.rb"
       end
 
+      # ------------------------------------------ Admin Pages Controller
+
+      def add_admin_users_controller
+        template "app/controllers/admin/pages_controller.rb", 
+          "app/controllers/admin/pages_controller.rb"
+      end
+
       # ------------------------------------------ Admin Views
 
       def add_admin_views

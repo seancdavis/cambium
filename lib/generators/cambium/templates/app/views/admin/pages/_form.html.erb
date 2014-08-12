@@ -1,0 +1,25 @@
+<%= simple_form_for @item, :url => @url do |f| %>
+
+  <%= form_column 'overview' do %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.input :slug, :label => 'URL' %>
+    <%= f.input :parent_id, 
+                :label => 'Parent Page',
+                :collection => @item.parent_options %>
+    <%= f.input :template, :collection => Page.template_options %>
+  <% end %>
+
+  <%= form_column 'publish', 'right' do %>
+    <%= publishable_fields(f) %>
+    <%= f.input :position, :label => 'Sort order', :collection => (1..@item.siblings.count) %>
+    <%= f.input :in_nav, :label => 'display in menu' %>
+  <% end %>
+
+  <%= form_section 'body' do %>
+    <%= wysiwyg(f) %>
+  <% end %>
+
+  <%= f.button :submit %>
+
+<% end %>

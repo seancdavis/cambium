@@ -143,5 +143,11 @@ module Cambium
       bundle
     end
 
+    # Return current time in migration timestamp format
+    # 
+    def timestamp
+      Time.now.gmtime.strftime('%Y%m%d%H%M%S')
+    end
+
   end
 end

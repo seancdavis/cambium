@@ -14,6 +14,9 @@
   get '/admin' => 'admin#dashboard', :as => :admin_dashboard
   namespace :admin do
     resources :users, :except => [:show]
+    <% if defined?(Page) == 'constant' && Page.class == Class %>
+    resources :pages, :except => [:show]
+    <% end %>
   end
 
   # ------------------------------------------ Public
