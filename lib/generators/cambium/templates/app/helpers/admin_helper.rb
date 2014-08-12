@@ -80,7 +80,7 @@ module AdminHelper
   # --------------------------------- Nav
 
   def admin_nav_items
-    [
+    items = [
       {
         :label => 'Users',
         :icon => 'user',
@@ -99,6 +99,17 @@ module AdminHelper
         :path => destroy_user_session_path
       }
     ]
+    if File.exist?("#{Rails.root}/app/controllers/admin/pages_controller.rb")
+      items.unshift(
+        {
+          :label => 'Pages',
+          :icon => 'file3',
+          :path => admin_pages_path,
+          :controllers => ['pages']
+        }
+      )
+    end
+    items
   end
 
   def nav_active?(controllers)

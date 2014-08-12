@@ -52,7 +52,7 @@ class Page < ActiveRecord::Base
   end
 
   def template_fields
-    template_file = "#{Rails.Application.config.template_directory}/#{self.template}.yml"
+    template_file = "#{Rails.application.config.template_directory}/#{self.template}.yml"
     if File.exists?(template_file)
       template_yaml = YAML.load_file(template_file)
       template_yaml['fields']
@@ -68,6 +68,13 @@ class Page < ActiveRecord::Base
   def self.options_for_select
     Page.unscoped.published.order(:title).collect do |p|
       [p.title, "/#{p.slug}"]
+    end
+  end
+
+  def self.template_options
+    templates = []
+    Dir["#{Rails.application.config.template_directory}/*.erb"].collect{|f| f.split('/').pop.split('.').shift}.each do |t|
+      templates << [t.titleize, t]
     end
   end
 

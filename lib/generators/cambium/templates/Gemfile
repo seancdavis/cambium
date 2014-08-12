@@ -23,6 +23,7 @@ gem 'pickadate-rails'
 
 # ------------------------------------------ Utilities
 
+gem 'ancestry'
 gem 'cambium'
 gem 'devise'
 gem 'carrierwave'

@@ -9,6 +9,7 @@ class CreatePages < ActiveRecord::Migration
       t.string :slug
       t.string :ancestry
       t.integer :position
+      t.boolean :in_nav
       t.datetime :active_at, default: nil
       t.datetime :inactive_at, default: nil
       t.hstore :template_data

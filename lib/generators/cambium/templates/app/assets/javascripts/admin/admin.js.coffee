@@ -4,7 +4,7 @@
 #= require pickadate/picker.date
 #= require pickadate/picker.time
 #= require admin/wysihtml5
-#= require parser_rules/advanced
+#= require admin/parser_rules/custom
 #= require underscore
 #= require backbone
 #= require_self

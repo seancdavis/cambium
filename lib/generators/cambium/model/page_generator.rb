@@ -41,6 +41,12 @@ module Cambium
         application 'config.template_directory = "#{Rails.root}/app/views/page_templates"'
       end
 
+      # ------------------------------------------ Add page templaes
+
+      def add_page_templates
+        directory('app/views/page_templates','app/views/page_templates')
+      end
+
       # ------------------------------------------ Add Controller Templates
 
       def add_controller_files

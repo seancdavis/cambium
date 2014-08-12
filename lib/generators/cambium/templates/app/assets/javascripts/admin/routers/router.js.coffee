@@ -9,6 +9,8 @@ class Admin.Routers.Router extends Backbone.Router
         new Admin.Views.Wysiwyg
           id: $(wysiwyg).children('textarea').attr('id')
           toolbarID: $(wysiwyg).siblings('.wysihtml5-toolbar').attr('id')
+          image_upload: true
+          url: "/admin/json/images"
     new Admin.Views.Publishable if $("[class*=_active_date]").length > 0
     new Admin.Views.InitCounter if $('input').length > 0
     new Admin.Views.Paginator if $('table').length > 0

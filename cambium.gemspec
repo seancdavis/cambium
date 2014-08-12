@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails"
   
   [
+    'ancestry', 
     'annotate', 
     'backbone-on-rails',
     'bones-rails', 
