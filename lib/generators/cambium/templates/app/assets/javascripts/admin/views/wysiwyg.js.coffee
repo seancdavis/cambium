@@ -5,13 +5,13 @@ class Admin.Views.Wysiwyg extends Backbone.View
   modal: '#wysihtml5-insert-image-modal'
   imagesContainer: 'div.images-container'
 
-  imageTemplate: JST['admin/backbone/templates/image']
+  imageTemplate: JST['admin/templates/image']
 
   events:
     'click a.browse-images': 'initInsertImage'
 
   initialize: (options) =>
-    @initEditor()
+    @initEditor(options)
     options.image_upload = true if typeof(options.image_upload) == undefined
     if options.image_upload == true
       @renderInsertImageModal()
@@ -21,9 +21,9 @@ class Admin.Views.Wysiwyg extends Backbone.View
     else
       $('a.browse-images').hide()
 
-  initEditor: =>
-    editor = new wysihtml5.Editor "wysihtml5-textarea", #textarea-id
-      toolbar: "wysihtml5-toolbar" # id of toolbar element
+  initEditor: (options) =>
+    editor = new wysihtml5.Editor options.id, #textarea-id
+      toolbar: options.toolbarID # id of toolbar element
       parserRules: wysihtml5ParserRules # defined in parser rules set
       stylesheets: [ WYSIWYG_BASE_STYLES, WYSIWYG_CUSTOM_STYLES ] # defined in admin.html.erb
 
@@ -33,7 +33,7 @@ class Admin.Views.Wysiwyg extends Backbone.View
         @images = images.toJSON()
         @renderImages()
         $("#{@imagesContainer} img").click (e) =>
-          $('input.insert-image').val "http://"+window.location.hostname+$(e.target).data('src')
+          $('input.insert-image').val window.location.origin+$(e.target).data('src')
           @closeModal()
 
   renderImages: =>

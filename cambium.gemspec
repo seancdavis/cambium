@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
     'hirb',
     'jbuilder', 
     'jquery-rails', 
+    'jquery-fileupload-rails',
     'pickadate-rails',
     'sass-rails', 
     'simple_form', 

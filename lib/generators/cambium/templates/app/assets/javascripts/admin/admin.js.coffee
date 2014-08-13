@@ -1,5 +1,7 @@
 #= require jquery
 #= require jquery_ujs
+#= require jquery-fileupload/basic
+#= require jquery-fileupload/vendor/tmpl
 #= require pickadate/picker
 #= require pickadate/picker.date
 #= require pickadate/picker.time

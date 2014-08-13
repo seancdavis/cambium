@@ -28,19 +28,19 @@
 
   <div class="group">
     <%= wysihtml5_icon 'createLink', 'link' %>
-    <%#= wysihtml5_icon 'insertImage', 'image', { :id => 'wysihtml5-insert-image' } %>
+    <%= wysihtml5_icon 'insertImage', 'image', { :id => 'wysihtml5-insert-image' } %>
 
     <div class="dialog" data-wysihtml5-dialog="createLink" style="display: none;">
       <input type="text" data-wysihtml5-dialog-field="href" value="http://" class="text">
       <a class="margin-right-medium" data-wysihtml5-dialog-action="save">Insert</a>
       <a data-wysihtml5-dialog-action="cancel">Cancel</a>
     </div>
-    <!-- <div class="dialog" data-wysihtml5-dialog="insertImage" style="display: none; margin-left: 36px;">
+    <div class="dialog" data-wysihtml5-dialog="insertImage" style="display: none; margin-left: 36px;">
       <input type="text" data-wysihtml5-dialog-field="src" value="http://" class="insert-image">
       <a class="insert-image" class="margin-right-medium" data-wysihtml5-dialog-action="save">Insert</a>
       <a class="browse-images">Browse Images</a>
       <a data-wysihtml5-dialog-action="cancel">Cancel</a>
-    </div> -->
+    </div>
   </div>
 
   <div class="group right">

@@ -1,0 +1,12 @@
+<div id="wysihtml5-insert-image-modal">
+  <div class="modal">
+    <a href="#" class="close">X</a>
+    <h1>Insert Image</h1>
+    <hr>
+    <%= form_for @image, url: @image_url do |f| %>
+      <%= f.file_field :filename, multiple: true %>
+    <% end %>
+    <hr>
+    <div class="images-container">Images Loading...</div>
+  </div>
+</div>

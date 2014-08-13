@@ -2,9 +2,6 @@ class Admin::PagesController < AdminController
 
   def index
     @items = @model.all.unscoped.order(:title)
-    if @model.respond_to?(:for_location) && current_user.is_location_admin
-      @items = @items.for_location(current_user.location_id)
-    end
   end
 
   def new

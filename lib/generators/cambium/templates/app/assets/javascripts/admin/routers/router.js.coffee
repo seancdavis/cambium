@@ -6,6 +6,7 @@ class Admin.Routers.Router extends Backbone.Router
   autoLoad: =>
     if $(".wysihtml5").length > 0
       for wysiwyg in $(".wysihtml5")
+        console.log 'wysihtml5'
         new Admin.Views.Wysiwyg
           id: $(wysiwyg).children('textarea').attr('id')
           toolbarID: $(wysiwyg).siblings('.wysihtml5-toolbar').attr('id')

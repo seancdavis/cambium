@@ -12,25 +12,12 @@ module Cambium
 
       source_root File.expand_path('../../templates', __FILE__)
 
-      # ------------------------------------------ Admin Controller
+      # ------------------------------------------ Admin Controllers
 
       def add_admin_controller
         template "app/controllers/admin_controller.rb", 
           "app/controllers/admin_controller.rb"
-      end
-
-      # ------------------------------------------ Admin Users Controller
-
-      def add_admin_users_controller
-        template "app/controllers/admin/users_controller.rb", 
-          "app/controllers/admin/users_controller.rb"
-      end
-
-      # ------------------------------------------ Admin Pages Controller
-
-      def add_admin_users_controller
-        template "app/controllers/admin/pages_controller.rb", 
-          "app/controllers/admin/pages_controller.rb"
+        directory "app/controllers/admin", "app/controllers/admin"
       end
 
       # ------------------------------------------ Admin Views
