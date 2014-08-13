@@ -6,8 +6,8 @@ require 'cambium/version'
 Gem::Specification.new do |spec|
   spec.name          = "cambium"
   spec.version       = Cambium::VERSION
-  spec.authors       = ["Sean C Davis"]
-  spec.email         = ["scdavis41@gmail.com"]
+  spec.authors       = ["Sean C Davis","Warren Harrison"]
+  spec.email         = ["scdavis41@gmail.com","warren@hungry-media.com"]
   spec.summary       = %q{Rails generators to facilitate development.}
   spec.description   = %q{}
   spec.homepage      = ""
@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
     'jbuilder', 
     'jquery-rails', 
     'jquery-fileupload-rails',
+    'kaminari',
     'pickadate-rails',
     'sass-rails', 
     'simple_form', 

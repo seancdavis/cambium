@@ -17,6 +17,9 @@
     <% if defined?(Page) == 'constant' && Page.class == Class %>
     resources :pages, :except => [:show]
     <% end %>
+    <% if defined?(Post) == 'constant' && Post.class == Class %>
+    resources :posts, :except => [:show]
+    <% end %>
     scope 'json' do
       resources :images, only: [:index, :create, :destroy]
     end

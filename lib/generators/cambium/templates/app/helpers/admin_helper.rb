@@ -109,6 +109,16 @@ module AdminHelper
         }
       )
     end
+    if File.exist?("#{Rails.root}/app/controllers/admin/posts_controller.rb")
+      items.unshift(
+        {
+          :label => 'Posts',
+          :icon => 'newspaper',
+          :path => admin_posts_path,
+          :controllers => ['posts']
+        }
+      )
+    end
     items
   end
 

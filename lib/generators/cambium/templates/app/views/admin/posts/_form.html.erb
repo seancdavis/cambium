@@ -1,0 +1,32 @@
+<%= render :partial => 'admin/shared/insert_image' %>
+<%= simple_form_for @item, :url => @url do |f| %>
+
+  <%= form_column 'overview' do %>
+    <%= f.input :title %>
+    <%= f.input :slug, :label => 'URL' %>
+    <%= f.input :tag_list %>
+    <div class="image-uploader">
+    <%= f.input :main_image %>
+    <% if @item.main_image.to_s.present? %>
+      <%= content_tag :div, :class => 'control-group' do %>
+        <%= image_tag(@item.main_image.thumb.url) %>
+        <br>
+        <%= f.check_box :remove_main_image %> Remove image
+      <% end %>
+    <% end %>
+    </div>
+
+  <% end %>
+
+  <%= form_column 'publish', 'right' do %>
+    <%= publishable_fields(f) %>
+    <%= f.input(:is_featured) %>
+  <% end %>
+
+  <%= form_section 'body' do %>
+    <%= wysiwyg(f) %>
+  <% end %>
+
+  <%= f.button :submit %>
+
+<% end %>
