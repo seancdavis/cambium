@@ -32,7 +32,8 @@ class AdminController < ActionController::Base
       @item.slug = @item.make_slug_unique(create_params[:slug])
     end
     if @item.save
-      redirect_to @routes[:index], :notice => "#{@model.to_s} was successfully created."
+      @routes[:edit] = send("edit_admin_#{model_table_singular}_path", @item)
+      redirect_to @routes[:edit], :notice => "#{@model.to_s} was successfully created."
     else
       render :action => "new"
     end
