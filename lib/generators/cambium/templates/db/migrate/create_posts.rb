@@ -4,7 +4,6 @@ class CreatePosts < ActiveRecord::Migration
       t.string   "title"
       t.text     "body"
       t.string   "slug"
-      t.string   "tag_list"
       t.datetime "active_at"
       t.datetime "inactive_at"
       t.datetime "created_at"
