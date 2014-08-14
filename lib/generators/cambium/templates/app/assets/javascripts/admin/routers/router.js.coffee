@@ -20,6 +20,18 @@ class Admin.Routers.Router extends Backbone.Router
 
   routes:
     'admin': 'initAdmin'
+    "admin/posts": "initPosts"
+    "admin/posts/new": "initNewPost"
+    "admin/posts/:id/edit": "initEditPost"
 
   initAdmin: =>
     console.log "Welcome to your CMS, powered by Ruby on Rails and Cambium!"
+
+  initEditPost: (id) =>
+    new Admin.Views.Tags
+      id: id
+      taggable: "Post"
+      url: "/admin/json/posts/#{id}/taggings"
+
+  initNewPost: =>
+    $('#tag-container').closest('.fields').hide()

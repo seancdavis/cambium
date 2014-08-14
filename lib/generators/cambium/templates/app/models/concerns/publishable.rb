@@ -17,6 +17,10 @@ module Publishable
                                 (active_at IS ? AND inactive_at IS ?)",
                                 Time.now, Time.now, nil, nil) }
 
+    # --------------------------------- Callbacks
+
+    before_save :convert_dates
+
   end
 
   # --------------------------------- Instance Methods
@@ -28,13 +32,16 @@ module Publishable
   end
 
   def formatted_active_date
-    return '' if active_at.nil?
-    active_at.strftime("%d %B, %Y")
+    formatted_date(active_at)
   end
 
   def formatted_inactive_date
-    return '' if inactive_at.nil?
-    inactive_at.strftime("%d %B, %Y")
+    formatted_date(inactive_at)
+  end
+
+  def formatted_date(date)
+    return '' if date.nil?
+    date.strftime("%d %B, %Y")
   end
 
   def formatted_active_time
@@ -45,6 +52,27 @@ module Publishable
   def formatted_inactive_time
     return '' if inactive_at.nil?
     inactive_at.strftime("%l:%M %p")
+  end
+
+  def convert_dates
+    self.active_time = Time.now.strftime("%l:%M %p") if self.active_time.blank?
+    self.inactive_time = '12:00 AM' if self.inactive_time.blank?
+    if self.active_date.blank?
+      self.active_at = nil
+    else
+      self.active_at = DateTime.strptime("#{self.active_date} 
+        #{self.active_time}", "%d %B, %Y %l:%M %p")
+    end
+    if self.inactive_date.blank?
+      self.inactive_at = nil
+    else
+      self.inactive_at = DateTime.strptime("#{self.inactive_date} 
+        #{self.inactive_time}", "%d %B, %Y %l:%M %p")
+    end
+  end
+
+  def publish!
+    update_column :active_at, Time.now
   end
 
 end

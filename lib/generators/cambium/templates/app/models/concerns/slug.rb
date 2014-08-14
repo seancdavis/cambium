@@ -3,6 +3,10 @@ module Slug
 
   included do
     after_save :sluggify_slug
+
+    def self.find(input)
+      input.to_i == 0 ? find_by_slug(input) : super
+    end
   end
 
   def sluggify_slug
