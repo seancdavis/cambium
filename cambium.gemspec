@@ -24,12 +24,12 @@ Gem::Specification.new do |spec|
 
   # [
   #   'ancestry', 
-  #   'annotate', 
+  #   'annotate',                     all models
   #   'backbone-on-rails',
   #   'bones-rails', 
   #   'bourbon', 
   #   'coffee-rails', 
-  #   'devise', 
+  #   'devise',                       model:user
   #   'factory_girl_rails', 
   #   'faker', 
   #   'hirb',

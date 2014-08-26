@@ -168,6 +168,17 @@ module Cambium
       bundle
     end
 
+    # Notifies the user of the gems that were installed and how desperately
+    # important they are.
+    # 
+    def gem_installation_notification(gems)
+      say "\nThis generator installed the following gems (and added them to "
+      say "your Gemfile):\n"
+      gems.each { |g| say "    #{g}" }
+      say "\nThese gems are necessary for Cambium to work properly. Please "
+      say "do not delete from your Gemfile."
+    end
+
     # ------------------------------------------ Miscellaneous
 
     # Return current time in migration timestamp format

@@ -7,15 +7,10 @@ module Cambium
     class AdminGenerator < Rails::Generators::Base
       desc "Setup admin files for new rails project"
 
-      # Template directory
-      # 
       source_root File.expand_path('../../templates', __FILE__)
-
-      # Make sure the users generator has been run first. If not, exit and ask
-      # user to run it (we need it to be two separate commands).
-      # 
+ 
       def set_dependencies
-        check_dependencies(['cambium:model:users'])
+        check_dependencies(['cambium:model:user'])
       end
 
       # Add base admin controllers

@@ -9,7 +9,12 @@ module Cambium
 
       source_root File.expand_path('../../templates', __FILE__)
 
+      # We'll begin by installing the gems we need to work the user model
+      # 
       def add_user_gems
+        @user_gems = ['devise','annotate']
+        install_gems @user_gems
+        bundle
       end
 
       # Install Devise
@@ -42,7 +47,7 @@ module Cambium
       # Add our customized User model file
       # 
       def add_user_model_file
-        copy_file "app/models/user.rb", "app/models/user.rb"
+        copy_file "app/models/user.rb", "app/models/user.rb", :force => true
       end
 
       # Create model from migration
@@ -60,6 +65,12 @@ module Cambium
           file_contents("app/controllers/application_controller.rb"),
           :after => ":exception"
         )
+      end
+
+      # Let the user know the gems we installed
+      # 
+      def finish_up
+        gem_installation_notification(@user_gems)
       end
 
     end

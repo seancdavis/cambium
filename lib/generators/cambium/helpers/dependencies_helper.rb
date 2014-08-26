@@ -42,7 +42,7 @@ module Cambium
     # responses.                                          
     ##########################################################################
 
-    def cambium_model_users_generated?
+    def cambium_model_user_generated?
       class_exists?('User')
     end
 
