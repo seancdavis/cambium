@@ -9,6 +9,9 @@ module Cambium
 
       source_root File.expand_path('../../templates', __FILE__)
 
+      def add_user_gems
+      end
+
       # Install Devise
       # 
       def install_devise
