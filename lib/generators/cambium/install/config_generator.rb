@@ -8,14 +8,18 @@ module Cambium
     class ConfigGenerator < Rails::Generators::Base
       desc "Setup config files for new rails project"
 
+      # Set template directory
       source_root File.expand_path('../../templates', __FILE__)
 
-      # ------------------------------------------ Config
-
+      # Initialize git repository. If repo was already initialized, repo is
+      # reinitialized, but that shouldn't hurt anything.
+      # 
       def git_init
         run_cmd "git init"
       end
 
+      # Set vars to use throughout this generator
+      # 
       def cambium_setup
         @config = {
           :db => {},
@@ -23,11 +27,13 @@ module Cambium
         }
       end
 
+      # Read existing project files to set default config values
+      # 
       def auto_config
-        # Read Gemfile
+        # read Gemfile
         File.open("#{Rails.root}/Gemfile") do |f|
           f.each_line do |line|
-            # Database
+            # find database adapter
             if line.include?("'mysql2'")
               @config[:db][:adapter] = "mysql2"
             elsif line.include?("'pg'")
@@ -35,119 +41,136 @@ module Cambium
             elsif line.include?("'sqlite3'")
               @config[:db][:adapter] = "sqlite3"
             end
-            # Rails Version
+            # find rails version
             if line.match(/gem\ \'rails\'/)
               @config[:app][:version] = line.gsub(/gem\ \'rails\'\,/, '').gsub(/\'/, '').strip
             end
           end
         end
-        # Application Class Name
+        # Find the application class name
         @config[:app][:name] = Rails.application.class.parent_name
       end
 
-      def user_config
-        # Database
-        if @config[:db][:adapter].present? && yes?("\nCambium, in all its wisdom, thinks your database adapter as #{set_color(@config[:db][:adapter], :green, :bold)}. Is this correct? [yes, no]")
-          say("Oh, goodie! Moving on...")
-        else
-          new_adapter = ask("What would you prefer?", :limited_to => ['mysql2','pg','sqlite3'])
-          unless new_adapter == @config[:db][:adapter]
-            say set_color("\nPlease add:", :red, :bold)
-            say "\n    gem '#{new_adapter}'"
-            say set_color("\nto your Gemfile. Then run `bundle install` and `bundle exec cambium setup`.", :red, :bold)
-            exit
+      # These next few methods let the user adjust the default config if they
+      # wish. Otherwise, we use default values from the previous method.
+      # 
+      # --------
+      # 
+      # Set correct database adapter.
+      # 
+      # Note: If the user wants to change the adapter, we *could* change the
+      # adapter on the fly and install the new one here. Instead, we tell the
+      # user what to do and exit. This make absolutely sure we've gotten rid of
+      # the original adapter in the Gemfile and added the new one.
+      # 
+      def set_database_adapter
+        if @config[:db][:adapter].present?
+          if yes?("\nCambium, in all its wisdom, thinks your database adapter as #{set_color(@config[:db][:adapter], :green, :bold)}. Is this correct? [yes, no]")
+            say("Oh, goodie! Moving on...")
+          else
+            new_adapter = ask("What would you prefer?", :limited_to => ['mysql2','pg','sqlite3'])
+            unless new_adapter == @config[:db][:adapter]
+              say set_color("\nPlease add:", :red, :bold)
+              say "\n    gem '#{new_adapter}'"
+              say set_color("\nto your Gemfile. Then run `bundle install` and `bundle exec cambium setup`.", :red, :bold)
+              exit
+            end
           end
         end
+      end
 
-        # Database Name
+      # Set the database base name (where we append "_#{stage}" to each stage)
+      # 
+      def set_database_name
         @config[:db][:name] = @config[:app][:name].underscore.downcase
         db_name = ask "\n#{set_color('Database Base Name:', :green, :bold)} [default: #{@config[:db][:name]}]"
         @config[:db][:name] = db_name unless db_name.blank?
+      end
 
-        # Database Credentials
+      # Set database credentials
+      # 
+      def set_database_creds
         @config[:db][:user] = confirm_ask("#{set_color('Database User', :green, :bold)}: [leave blank for no user]")
         if @config[:db][:user].present?
           @config[:db][:password] = confirm_ask("#{set_color('Database Password', :green, :bold)}: [leave blank for no password]")
         else
           @config[:db][:password] = ''
         end
-
-        # Root URL (for mailers)
-        @config[:app][:dev_url] = ask("\n#{set_color('Development URL', :green, :bold)}: [leave blank for localhost:3000]")
-        @config[:app][:dev_url] = 'localhost:3000' if @config[:app][:dev_url].blank?
-        @config[:app][:prod_url] = ask("#{set_color('Production URL', :green, :bold)}: [leave blank for localhost:3000]")
-        @config[:app][:prod_url] = 'localhost:3000' if @config[:app][:prod_url].blank?
       end
 
-      # ------------------------------------------ Application Settings & Config
-
-      def add_application_config
-        insert_into_file(
-          "config/application.rb",
-          file_contents("config/application.rb"),
-          :after => "class Application < Rails::Application"
+      # Set root URL (for mailers)
+      # 
+      def set_root_url
+        # development
+        @config[:app][:dev_url] = ask("\n#{set_color('Development URL', :green, :bold)}: [leave blank for localhost:3000]")
+        @config[:app][:dev_url] = 'localhost:3000' if @config[:app][:dev_url].blank?
+        environment(
+          "config.action_mailer.default_url_options = { :host => '#{@config[:app][:dev_url]}' }", 
+          :env => "development"
+        )
+        # production
+        @config[:app][:prod_url] = ask("#{set_color('Production URL', :green, :bold)}: [leave blank for localhost:3000]")
+        @config[:app][:prod_url] = 'localhost:3000' if @config[:app][:prod_url].blank?
+        environment(
+          "config.action_mailer.default_url_options = { :host => '#{@config[:app][:prod_url]}' }", 
+          :env => "production"
+        )
+        environment(
+          "config.assets.precompile += %w( admin/admin.css admin/admin.js admin/wysihtml5.css modernizr.js )",
+          :env => "production"
         )
       end
 
-      # ------------------------------------------ Environment Settings
-
-      def add_env_settings
-        insert_into_file "config/environments/development.rb", 
-          :after => "Rails.application.configure do" do
-            "\n\n  config.action_mailer.default_url_options = { :host => '#{@config[:app][:dev_url]}' }\n"
-        end
-        insert_into_file "config/environments/production.rb", 
-          :after => "Rails.application.configure do" do
-            output = ''
-            output += "\n\n  config.action_mailer.default_url_options = { :host => '#{@config[:app][:prod_url]}' }"
-            output += "\n\n  config.assets.precompile += %w( admin/admin.css admin/admin.js admin/wysihtml5.css modernizr.js )\n"
-            output
-        end
+      # Add settings to application config file (config/application.rb)
+      # 
+      def add_application_config
+        environment { file_contents("config/application.rb") }
       end
 
-      # ------------------------------------------ Assets Initializer
-
+      # Assets initializer for Rails 4.1+
+      # 
       def add_assets_initializer
         template "config/initializers/assets.rb", 
           "config/initializers/assets.rb"
       end
 
-      # ------------------------------------------ Database Setup
-
+      # Create database based on custom config
+      # 
       def setup_database
         copy_file "#{Rails.root}/config/database.yml", "config/database.sample.yml"
         remove_file "config/database.yml"
         template "config/database.#{@config[:db][:adapter]}.yml.erb", "config/database.yml"
-        rake "db:drop"
         rake "db:create"
         rake "db:migrate"
       end
 
-      # ------------------------------------------ .gitignore
-
+      # Add custom gitignore file
+      # 
       def add_gitignore
         remove_file ".gitignore"
         template "gitignore", ".gitignore"
       end
 
-      # ------------------------------------------ Gems & Gemfile
-
+      # We used to start the user out by installing all the gems we will need
+      # throughout the project. Now, we're going to ask the user if they want to
+      # replace their Gemfile with our custom file. If they say "no," then we
+      # will install the gems we need at a later step.
+      # 
       def surface_gems_in_gemfile
-        if yes? "Would you like to keep your existing Gemfile?"
-          insert_into_file(
-            "Gemfile",
-            file_contents("Gemfile"),
-            :after => "rubygems.org'"
-          )
-          say "\n#{set_color('Config completed! Please inspect your Gemfile, remove duplicates, then run `bundle install`.', 
-            :green, :bold)}"
-        else
+        if yes? "Would you like to replace your existing Gemfile with our default?"
           remove_file "Gemfile"
           template "Gemfile.erb", "Gemfile"
-          run_cmd "bundle clean"
-          run_cmd "bundle install"
-          say "\n#{set_color('Config completed!', :green, :bold)}"
         end
+        say "\nYour Gemfile has been updated, but now you need to run:"
+        say "\n    $ bundle install"
+        say "\nto install all your gems. Feel free to any gems you don't want, "
+        say "\nsince we will add gems to your project as we need them."
+      end
+
+      # Outgoing message
+      # 
+      def tell_user_we_are_done
+        say "\n#{set_color('Config completed!', :green, :bold)}"
       end
 
     end

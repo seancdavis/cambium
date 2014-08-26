@@ -128,12 +128,14 @@ module Cambium
     # Add gem to Gemfile
     # 
     def add_to_gemfile(name, options = {})
-      if options[:require].present?
-        text = "\n\ngem '#{name}', :require => '#{options[:require]}'"
-      else
-        text = "\n\ngem '#{name}'"
+      unless gem_exists?(name)
+        if options[:require].present?
+          text = "\n\ngem '#{name}', :require => '#{options[:require]}'"
+        else
+          text = "\n\ngem '#{name}'"
+        end
+        insert_into_file "Gemfile", text, :after => "rubygems.org'"
       end
-      insert_into_file "Gemfile", text, :after => "rubygems.org'"
     end
 
     # Find if a gem exists
@@ -154,7 +156,7 @@ module Cambium
       else
         run "gem install #{name} -i #{gem_dir}"
         add_to_gemfile(name, options)
-        bundle if !options[:bundle].present? || options[:bundle] == true
+        bundle if options[:bundle].nil? || options[:bundle] == true
       end
     end
 
