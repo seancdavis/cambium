@@ -82,6 +82,11 @@ module Cambium
       File.read(template_file(template))
     end
 
+    def template_snippet(template)
+      require 'erb'
+      ERB.new(File.read(template_file(template))).result(binding)
+    end
+
     # Copies model concern templates to the project
     # 
     def add_model_concern(name)
@@ -173,7 +178,7 @@ module Cambium
     # 
     def gem_installation_notification(gems)
       say "\nThis generator installed the following gems (and added them to "
-      say "your Gemfile):\n"
+      say "your Gemfile):\n\n"
       gems.each { |g| say "    #{g}" }
       say "\nThese gems are necessary for Cambium to work properly. Please "
       say "do not delete from your Gemfile."

@@ -9,8 +9,9 @@ module Cambium
 
       source_root File.expand_path('../../templates', __FILE__)
 
-      # ------------------------------------------ Default Public Controller
-
+      # Add a default public controller, so we have a working home page when
+      # we're done.
+      # 
       def add_home_controller
         generate "controller home index"
       end

@@ -62,7 +62,7 @@ module Cambium
       def add_application_controller_redirects
         insert_into_file(
           "app/controllers/application_controller.rb",
-          file_contents("app/controllers/application_controller.rb"),
+          template_snippet("app/controllers/application_controller.rb"),
           :after => ":exception"
         )
       end
