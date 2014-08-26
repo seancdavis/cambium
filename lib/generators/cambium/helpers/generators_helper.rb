@@ -60,6 +60,12 @@ module Cambium
 
     # ------------------------------------------ Templating
 
+    # Copy template file to project unless it's already there
+    # 
+    def copy_unless_exists(path, new_path = path)
+      copy_file(path, new_path) unless File.exists?("#{Rails.root}/#{new_path}")
+    end
+
     # Get the path to a particular template
     # 
     def template_file(name)
@@ -75,14 +81,19 @@ module Cambium
     # Copies model concern templates to the project
     # 
     def add_model_concern(name)
-      concern_path = "app/models/concerns/#{name}.rb"
-      copy_file concern_path, concern_path
+      copy_unless_exists "app/models/concerns/#{name}.rb"
     end
 
     # Alias for previous method
     # 
     def model_concern(name)
       add_model_concern(name)
+    end
+
+    # Add multiple concerns
+    # 
+    def add_model_concerns(concerns)
+      concerns.each { |c| add_model_concern(c) }
     end
 
     # ------------------------------------------ Gems

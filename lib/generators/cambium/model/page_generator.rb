@@ -8,29 +8,29 @@ module Cambium
     class PageGenerator < Rails::Generators::Base
       desc "Add pages to your project"
 
-      # ------------------------------------------ Class Methods
-
+      # Template root
+      # 
       source_root File.expand_path('../../templates', __FILE__)
 
-      # ------------------------------------------ Model Concern
-
-      def add_model_concerns
-        copy_file "app/models/concerns/publishable.rb", "app/models/concerns/publishable.rb"
-        copy_file "app/models/concerns/slug.rb", "app/models/concerns/slug.rb"
+      # Add model concerns
+      # 
+      def add_concerns
+        concerns = ['publishable', 'slug']
+        add_model_concerns(concerns)
       end
 
-      # ------------------------------------------ Add Model Templates
-
+      # Add the actual model file
+      # 
       def add_model_files
         model_path = "app/models/page.rb"
         template(model_path, model_path)
       end
 
-      # ------------------------------------------ Add Migration Templates
-
+      # Add migration templates
+      # 
       def add_migration_files
         template(
-          'db/migrate/create_pages.rb',
+          "db/migrate/create_pages.rb.erb",
           "db/migrate/#{timestamp}_create_pages.rb"
         )
       end

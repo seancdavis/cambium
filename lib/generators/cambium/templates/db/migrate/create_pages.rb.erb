@@ -1,6 +1,9 @@
 class CreatePages < ActiveRecord::Migration
+
   def up
+    <% if gem_exists? 'pg' %>
     execute 'CREATE EXTENSION IF NOT EXISTS hstore'
+    <% end %>
     create_table :pages do |t|
       t.string :title
       t.text :body
@@ -15,10 +18,14 @@ class CreatePages < ActiveRecord::Migration
       t.hstore :template_data
       t.timestamps
     end
-    add_index  :pages, :template_data, using: 'gin'
+    add_index  :pages, :template_data, :using => 'gin'
   end
+
   def down
     remove_table :pages
+    <% if gem_exists? 'pg' %>
     execute 'DROP EXTENSION hstore'
+    <% end %>
   end
+
 end
