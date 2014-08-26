@@ -21,6 +21,29 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_dependency "rake"
   spec.add_dependency "rails"
+
+  [
+  #   'ancestry', 
+    'annotate', 
+  #   'backbone-on-rails',
+  #   'bones-rails', 
+  #   'bourbon', 
+    'coffee-rails', 
+  #   'devise', 
+  #   'factory_girl_rails', 
+  #   'faker', 
+  #   'hirb',
+  #   'jbuilder', 
+  #   'jquery-rails', 
+  #   'jquery-fileupload-rails',
+  #   'kaminari',
+  #   'pickadate-rails',
+    'sass-rails', 
+    'simple_form', 
+    'uglifier', 
+    'unicorn-rails', 
+  #   'wysihtml5-rails',
+  ].each { |g| spec.add_dependency g }
   
   # [
   #   'ancestry', 
