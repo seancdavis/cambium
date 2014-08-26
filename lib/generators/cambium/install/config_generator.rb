@@ -149,22 +149,6 @@ module Cambium
         template "gitignore", ".gitignore"
       end
 
-      # We used to start the user out by installing all the gems we will need
-      # throughout the project. Now, we're going to ask the user if they want to
-      # replace their Gemfile with our custom file. If they say "no," then we
-      # will install the gems we need at a later step.
-      # 
-      def surface_gems_in_gemfile
-        if yes? "Would you like to replace your existing Gemfile with our default?"
-          remove_file "Gemfile"
-          template "Gemfile.erb", "Gemfile"
-        end
-        say "\nYour Gemfile has been updated, but now you need to run:"
-        say "\n    $ bundle install"
-        say "\nto install all your gems. Feel free to any gems you don't want, "
-        say "\nsince we will add gems to your project as we need them."
-      end
-
       # Outgoing message
       # 
       def tell_user_we_are_done
