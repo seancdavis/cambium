@@ -66,6 +66,10 @@ module Cambium
       copy_file(path, new_path) unless File.exists?("#{Rails.root}/#{new_path}")
     end
 
+    def copy_files(files, dir)
+      files.each { |f| copy_unless_exists("#{dir}/#{f}") }
+    end
+
     # Get the path to a particular template
     # 
     def template_file(name)
@@ -94,6 +98,14 @@ module Cambium
     # 
     def add_model_concerns(concerns)
       concerns.each { |c| add_model_concern(c) }
+    end
+
+    # Copy multiple directories
+    # 
+    def directories(dir_arr, container)
+      dir_arr.each do |dir|
+        directory "#{container}/#{dir}", "#{container}/#{dir}"
+      end
     end
 
     # ------------------------------------------ Gems

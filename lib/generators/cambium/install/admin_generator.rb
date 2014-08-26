@@ -8,22 +8,31 @@ module Cambium
     class AdminGenerator < Rails::Generators::Base
       desc "Setup admin files for new rails project"
 
-      # ------------------------------------------ Class Methods
-
+      # Template directory
+      # 
       source_root File.expand_path('../../templates', __FILE__)
 
-      # ------------------------------------------ Admin Controllers
-
+      # Add base admin controllers
+      # 
       def add_admin_controller
-        template "app/controllers/admin_controller.rb", 
-          "app/controllers/admin_controller.rb"
-        directory "app/controllers/admin", "app/controllers/admin"
+        copy_files [
+          'admin_controller.rb',
+          'admin/users_controller.rb'
+        ], "app/controllers"
       end
 
-      # ------------------------------------------ Admin Views
-
+      # Add base admin views
+      # 
       def add_admin_views
-        directory "app/views/admin", "app/views/admin"
+        copy_files [
+          '_buttons.html.erb',
+          '_form.html.erb',
+          '_title.html.erb',
+          'edit.html.erb',
+          'index.html.erb',
+          'new.html.erb'
+        ], "app/views/admin"
+        directories ['shared','users'], "app/views/admin"
       end
 
       # ------------------------------------------ Layouts
