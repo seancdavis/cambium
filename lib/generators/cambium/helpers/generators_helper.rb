@@ -168,10 +168,19 @@ module Cambium
       bundle
     end
 
+    # ------------------------------------------ Miscellaneous
+
     # Return current time in migration timestamp format
     # 
     def timestamp
       Time.now.gmtime.strftime('%Y%m%d%H%M%S')
+    end
+
+    # Check to see if a class exists. This can be helpful in determining if
+    # other generators have been run.
+    #
+    def class_exists?(class_name)
+      defined?(class_name.constantize) == 'constant' && class_name.constantize.class == Class
     end
 
   end

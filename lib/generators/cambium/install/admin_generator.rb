@@ -1,7 +1,6 @@
 require 'rake'
 require 'rails/generators'
-require "#{Gem::Specification.find_by_name("cambium").gem_dir}/lib/generators/cambium/helpers/generators_helper.rb"
-include Cambium::GeneratorsHelper
+require File.expand_path('../../helpers/_autoloader.rb', __FILE__)
 
 module Cambium
   module Install
@@ -11,6 +10,13 @@ module Cambium
       # Template directory
       # 
       source_root File.expand_path('../../templates', __FILE__)
+
+      # Make sure the users generator has been run first. If not, exit and ask
+      # user to run it (we need it to be two separate commands).
+      # 
+      def set_dependencies
+        check_dependencies(['cambium:model:users'])
+      end
 
       # Add base admin controllers
       # 

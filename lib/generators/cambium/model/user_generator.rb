@@ -1,17 +1,16 @@
 require 'rake'
 require 'rails/generators'
-require "#{Gem::Specification.find_by_name("cambium").gem_dir}/lib/generators/cambium/helpers/generators_helper.rb"
-include Cambium::GeneratorsHelper
+require File.expand_path('../../helpers/_autoloader.rb', __FILE__)
 
 module Cambium
-  module Install
-    class UsersGenerator < Rails::Generators::Base
+  module Model
+    class UserGenerator < Rails::Generators::Base
       desc "Setup users model for new rails project"
 
       source_root File.expand_path('../../templates', __FILE__)
 
-      # ------------------------------------------ Install Devise
-
+      # Install Devise
+      # 
       def install_devise
         unless File.exist?("#{Rails.root}/config/initializers/devise.rb")
           generate "devise:install"
@@ -21,29 +20,37 @@ module Cambium
         end
       end
 
-      # ------------------------------------------ User Model
-
+      # Inject the is_admin column into the migration file if user plans on
+      # using the admin module.
+      # 
       def add_admin_column_to_users
-        file = Dir.glob("#{Rails.root}/db/migrate/*devise_create_users.rb").first
-        insert_into_file(
-          file, 
-          "## Admin\n      t.boolean :is_admin, :default => false \n\n      ", 
-          :before => "t.timestamps"
-        )
+        @admin = false
+        if yes? "Would you like to add admin authentication to User model?"
+          @admin = true
+          file = Dir.glob("#{Rails.root}/db/migrate/*devise_create_users.rb").first
+          insert_into_file(
+            file, 
+            "## Admin\n      t.boolean :is_admin, :default => false \n\n      ", 
+            :before => "t.timestamps"
+          )
+        end
       end
 
+      # Add our customized User model file
+      # 
       def add_user_model_file
-        remove_file "app/models/user.rb"
-        template "app/models/user.rb", "app/models/user.rb"
+        copy_file "app/models/user.rb", "app/models/user.rb"
       end
 
+      # Create model from migration
+      # 
       def migrate_and_annotate
         rake "db:migrate"
         run_cmd "#{be} annotate"
       end
 
-      # ------------------------------------------ Log In/Out Redirects
-
+      # Add the default login/logout redirects
+      # 
       def add_application_controller_redirects
         insert_into_file(
           "app/controllers/application_controller.rb",
