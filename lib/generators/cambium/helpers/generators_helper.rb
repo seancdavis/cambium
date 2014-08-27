@@ -210,7 +210,8 @@ module Cambium
     # other generators have been run.
     #
     def class_exists?(class_name)
-      defined?(class_name.constantize) == 'constant' && class_name.constantize.class == Class
+      klass = Module.const_get(class_name)
+      klass.is_a?(Class)
     end
 
   end

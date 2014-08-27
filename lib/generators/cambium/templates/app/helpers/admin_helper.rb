@@ -99,26 +99,6 @@ module AdminHelper
         :path => destroy_user_session_path
       }
     ]
-    if File.exist?("#{Rails.root}/app/controllers/admin/pages_controller.rb")
-      items.unshift(
-        {
-          :label => 'Pages',
-          :icon => 'file3',
-          :path => admin_pages_path,
-          :controllers => ['pages']
-        }
-      )
-    end
-    if File.exist?("#{Rails.root}/app/controllers/admin/posts_controller.rb")
-      items.unshift(
-        {
-          :label => 'Posts',
-          :icon => 'newspaper',
-          :path => admin_posts_path,
-          :controllers => ['posts']
-        }
-      )
-    end
     items
   end
 
