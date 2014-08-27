@@ -99,7 +99,6 @@ module AdminHelper
         :path => destroy_user_session_path
       }
     ]
-    items
   end
 
   def nav_active?(controllers)
