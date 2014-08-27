@@ -64,6 +64,13 @@ module Cambium
           "app/controllers/admin/pages_controller.rb")
       end
 
+      # We add the customized views that override the default admin views, while
+      # the app views are driven by the page template
+      # 
+      def add_admin_views
+        directory("app/views/admin/pages", "app/views/admin/pages")
+      end
+
       # We need to add routes to routes file for the app and the admin. We
       # expect to see an admin, so we don't have a check, but we do need the
       # public route. Since the contents of the routes file are variable, we
