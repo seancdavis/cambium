@@ -1,45 +1,38 @@
 require 'rake'
 require 'rails/generators'
-require "#{Gem::Specification.find_by_name("cambium").gem_dir}/lib/generators/cambium/helpers/generators_helper.rb"
-include Cambium::GeneratorsHelper
+require File.expand_path('../../helpers/_autoloader.rb', __FILE__)
 
 module Cambium
   module Model
     class TagGenerator < Rails::Generators::Base
       desc "Add tags to your project"
 
-      # ------------------------------------------ Class Methods
-
       source_root File.expand_path('../../templates', __FILE__)
 
-      # ------------------------------------------ Model Concern
-
-      def add_model_concern
-        copy_file "app/models/concerns/tags.rb", "app/models/concerns/tags.rb"
+      # Make sure the tags concern is in the project. If not, add it!
+      # 
+      def add_concerns
+        add_model_concerns(['tags'])
       end
 
-      # ------------------------------------------ Generate Models & Migrations
-
+      # Since the models are simple enough, we can generate from the command
+      # line.
+      # 
       def generate_models
         generate "model Tag name ci_name slug"
         generate "model Tagging tag_id:integer taggable_id:integer taggable_type"
       end
 
-      # ------------------------------------------ Add Model Templates
-
+      # Add our customized model files. 
+      # 
       def add_model_files
-        ['tag','tagging'].each do |file| 
-          model_path = "app/models/#{file}.rb"
-          remove_file(model_path)
-          template(model_path, model_path)
+        ['tag','tagging'].each do |file|
+          template("app/models/#{file}.rb", "app/models/#{file}.rb")
         end
       end
 
-      # ------------------------------------------ Migrate & Annotate
-
-      def migrate_and_annotate
-        rake "db:migrate"
-        run_cmd "#{be} annotate"
+      def finish_up
+        migrate_and_annotate
       end
 
     end
