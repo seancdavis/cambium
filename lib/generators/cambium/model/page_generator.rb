@@ -1,69 +1,76 @@
 require 'rake'
 require 'rails/generators'
-require "#{Gem::Specification.find_by_name("cambium").gem_dir}/lib/generators/cambium/helpers/generators_helper.rb"
-include Cambium::GeneratorsHelper
+require File.expand_path('../../helpers/_autoloader.rb', __FILE__)
 
 module Cambium
   module Model
     class PageGenerator < Rails::Generators::Base
       desc "Add pages to your project"
 
-      # Template root
-      # 
       source_root File.expand_path('../../templates', __FILE__)
 
-      # Add model concerns
+      # Since we're using images, we need to make sure the image generator has
+      # already been run.
+      # 
+      def set_dependencies
+        check_dependencies(['cambium:model:image'])
+      end
+
+      # We need a couple concerns, so we add them here unless they are already
+      # part of the project.
       # 
       def add_concerns
-        concerns = ['publishable', 'slug']
-        add_model_concerns(concerns)
+        add_model_concerns(['publishable', 'slug'])
       end
 
-      # Add the actual model file
+      # Add our model file.
       # 
       def add_model_files
-        model_path = "app/models/page.rb"
-        template(model_path, model_path)
+        template("app/models/page.rb", "app/models/page.rb")
       end
 
-      # Add migration templates
+      # Since we have to customize the up/down methods in the migration, we
+      # don't generate the model, we just copy an interpreted template.
       # 
       def add_migration_files
         template(
           "db/migrate/create_pages.rb.erb",
           "db/migrate/#{timestamp}_create_pages.rb"
         )
+        migrate_and_annotate
       end
 
-      # Application config
+      # We are setting a global template directory for reference throughout the
+      # project.
       # 
       def add_application_config
         application 'config.template_directory = "#{Rails.root}/app/views/page_templates"'
       end
 
-      # Add page templaes
+      # We add our page templates directory and our default template.
       # 
       def add_page_templates
         directory('app/views/page_templates','app/views/page_templates')
       end
 
-      # Add controller templates
+      # We have two controllers here -- one for the app and one for the admin.
+      # We'll add them both instead of generating them since they are
+      # customized.
       # 
       def add_controller_files
-        controller_path = "app/controllers/pages_controller.rb"
-        template(controller_path, controller_path)
+        template("app/controllers/pages_controller.rb", 
+          "app/controllers/pages_controller.rb")
+        template("app/controllers/admin/pages_controller.rb", 
+          "app/controllers/admin/pages_controller.rb")
       end
 
-      # Migrate & Annotate
-      # 
-      def migrate_and_annotate
-        rake "db:migrate"
-        run_cmd "#{be} annotate"
-      end
-
-      # Add routes
+      # We need to add routes to routes file for the app and the admin. We
+      # expect to see an admin, so we don't have a check, but we do need the
+      # public route. Since the contents of the routes file are variable, we
+      # have a check and notify the user if we can't find what we need.
       # 
       def add_routes
+        # App
         insert_into_file(
           "config/routes.rb",
           "get '/:slug', :to => 'pages#show', :as => 'page'\n\n  ",
@@ -77,6 +84,24 @@ module Cambium
         else
           add_routes_manually
         end
+        # Admin
+        insert_into_file(
+          "config/routes.rb",
+          "    resources :pages, :except => [:show]\n",
+          :after => /namespace\ \:admin(.*)\n/
+        )
+      end
+
+      # In the admin helper, we can add a link and an icon to the sidebar. The
+      # easiest way to do this is to add it to the top. The user can move if
+      # they'd like.
+      # 
+      def add_admin_icon
+        insert_into_file(
+          "app/helpers/admin_helper.rb",
+          file_contents('_partials/pages/admin_icon.rb'),
+          :after => /items\ \=\ \[\n/
+        )
       end
 
       private

@@ -15,7 +15,6 @@ module Cambium
       dependencies.each do |d|
         cmds << d unless eval("#{d.split(':').join('_')}_generated?")
       end
-      puts cmds.size
       if cmds.size > 0
         display_dependency_errors(cmds)
         exit
@@ -45,6 +44,10 @@ module Cambium
 
     def cambium_model_user_generated?
       class_exists?('User')
+    end
+
+    def cambium_model_image_generated?
+      class_exists?('Image')
     end
 
   end

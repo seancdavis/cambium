@@ -48,6 +48,8 @@ module Cambium
     # Annotate our models and tests
     # 
     def annotate
+      # need to make sure we have the annotate gem to avoid errors
+      install_gem('annotate')
       run_cmd "#{be} annotate"
     end
 
@@ -74,6 +76,13 @@ module Cambium
     # 
     def template_file(name)
       File.expand_path("../../templates/#{name}", __FILE__)
+    end
+
+    # Partial template path are for templates that aren't the entire file to be
+    # copied.
+    # 
+    def template_partial_path(name)
+      File.expand_path("../../templates/_partials/#{name}", __FILE__)
     end
 
     # Read a template and return its contents
