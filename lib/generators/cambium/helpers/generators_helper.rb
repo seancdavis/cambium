@@ -143,6 +143,11 @@ module Cambium
       end
     end
 
+    # Add several gems to the gemfile
+    def add_gems_to_gemfile(gems)
+      gems.each { |g| add_to_gemfile(g) }
+    end
+
     # Find if a gem exists
     # 
     def gem_exists?(name)
@@ -181,6 +186,16 @@ module Cambium
       say "your Gemfile):\n\n"
       gems.each { |g| say "    #{g}" }
       say "\nThese gems *may* be necessary for Cambium to work properly. "
+    end
+
+    # Similar to gem_installation_notification, except here we just tell the
+    # user we added gems to the gemfile and they will have to bundle
+    # 
+    def gemfile_update_notification(gems)
+      say "\nThis generator added some gems to your Gemfile. You will want to "
+      say "run:\n\n    $ bundle install"
+      say "\nto complete this generator. Please note, "
+      say "these gems *may* be necessary for Cambium to work properly."
     end
 
     # ------------------------------------------ Miscellaneous

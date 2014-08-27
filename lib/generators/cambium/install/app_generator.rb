@@ -9,22 +9,6 @@ module Cambium
 
       source_root File.expand_path('../../templates', __FILE__)
 
-      # We'll begin by installing gems 
-      # 
-      def add_application_gems
-        @gems_to_install = [
-          'unicorn-rails',
-          'jquery-rails',
-          'uglifier',
-          'sass-rails',
-          'bourbon',
-          'coffee-rails',
-          'backbone-on-rails'
-        ]
-        install_gems @gems_to_install
-        bundle
-      end
-
       # Add a default public controller, so we have a working home page when
       # we're done.
       # 
@@ -46,7 +30,8 @@ module Cambium
       # Add our default public views
       # 
       def add_public_views
-        directories ['application','home'], "app/views"
+        directory "app/views/application"
+        directory "app/views/home", :force => true
       end
 
       # Our layouts are templated so we can start with some custom information.
@@ -105,7 +90,7 @@ module Cambium
       # with a longer method.
       # 
       def add_public_manifest
-        q = "We're going to add our default application.scss file and remove yours. Is that ok?"
+        q = "\nWe're going to add our default application.scss file and remove yours. Is that ok?"
         if yes? q
           ['css','scss','scss.css'].each { |ext| remove_file "app/assets/stylesheets/application.#{ext}" }
         end
@@ -121,16 +106,31 @@ module Cambium
           create_user
         else
           msg = "\nUser model does not exist yet. If you want to use Cambium "
-          msg += "to add a user model, then you can run:\n",
+          msg += "to add a user model, then you can run:\n"
           say set_color(msg, :yellow, :bold)
-          say "   bundle exec rake cambium:model:user\n\n" 
+          say "   $ bundle exec rake cambium:model:user\n\n" 
+          msg = "and Cambium will handle the installation of Devise.\n"
+          say set_color(msg, :yellow, :bold)
         end
       end
 
-      # Let the user know the gems we installed
+      # Add some gems to the gemfile, but don't install (we've been running into
+      # dependency issues)
       # 
-      def finish_up
-        gem_installation_notification(@gems_to_install)
+      def add_application_gems
+        gems = [
+          'unicorn-rails',
+          'jquery-rails',
+          'uglifier',
+          'sass-rails',
+          'bourbon',
+          'coffee-rails',
+          'backbone-on-rails'
+        ]
+        add_gems_to_gemfile(gems)
+        added_gems = []
+        gems.each { |g| added_gems << g unless gem_exists?(g) }
+        gemfile_update_notification(added_gems)
       end
 
       # ------------------------------------------ Private Methods
