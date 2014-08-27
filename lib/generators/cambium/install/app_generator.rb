@@ -14,6 +14,7 @@ module Cambium
       # 
       def add_home_controller
         generate "controller home index"
+        gsub_file("config/routes.rb", /\ \ get\ \'home\/index\'\n\n/, '')
       end
 
       # Add our default routes, ommitting admin routes (which are added via the
