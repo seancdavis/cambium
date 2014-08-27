@@ -12,13 +12,14 @@ module Cambium
     # 
     def check_dependencies(dependencies = [])
       cmds = []
-      dependencies.each do |d| 
+      dependencies.each do |d|
         cmds << d unless eval("#{d.split(':').join('_')}_generated?")
       end
+      puts cmds.size
       if cmds.size > 0
         display_dependency_errors(cmds)
+        exit
       end
-      exit
     end
 
     # Gives the user output of the errors
