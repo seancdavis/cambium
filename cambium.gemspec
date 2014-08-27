@@ -25,23 +25,23 @@ Gem::Specification.new do |spec|
   # [
   #   'ancestry', 
   #   'annotate',                     all models
-  #   'backbone-on-rails',
+  #   'backbone-on-rails',            install:app
   #   'bones-rails', 
-  #   'bourbon', 
-  #   'coffee-rails', 
+  #   'bourbon',                      install:app
+  #   'coffee-rails',                 install:app
   #   'devise',                       model:user
-  #   'factory_girl_rails', 
-  #   'faker', 
-  #   'hirb',
+  #   'factory_girl_rails',           
+  #   'faker',                        
+  #   'hirb',                         
   #   'jbuilder', 
-  #   'jquery-rails', 
+  #   'jquery-rails',                 install:app
   #   'jquery-fileupload-rails',
   #   'kaminari',
   #   'pickadate-rails',
-  #   'sass-rails', 
-  #   'simple_form', 
-  #   'uglifier', 
-  #   'unicorn-rails', 
+  #   'sass-rails',                   install:app
+  #   'simple_form',                  
+  #   'uglifier',                     install:app
+  #   'unicorn-rails',                install:app
   #   'wysihtml5-rails',
   # ].each { |g| spec.add_dependency g }
 

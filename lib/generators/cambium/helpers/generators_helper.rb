@@ -180,8 +180,7 @@ module Cambium
       say "\nThis generator installed the following gems (and added them to "
       say "your Gemfile):\n\n"
       gems.each { |g| say "    #{g}" }
-      say "\nThese gems are necessary for Cambium to work properly. Please "
-      say "do not delete from your Gemfile."
+      say "\nThese gems *may* be necessary for Cambium to work properly. "
     end
 
     # ------------------------------------------ Miscellaneous
