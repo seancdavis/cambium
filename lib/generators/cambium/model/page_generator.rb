@@ -13,7 +13,7 @@ module Cambium
       # already been run.
       # 
       def set_dependencies
-        check_dependencies(['cambium:model:image'])
+        check_dependencies(['cambium:install:admin','cambium:model:image'])
       end
 
       # We need a couple concerns, so we add them here unless they are already

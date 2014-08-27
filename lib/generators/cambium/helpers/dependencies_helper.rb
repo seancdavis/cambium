@@ -42,6 +42,10 @@ module Cambium
     # responses.                                          
     ##########################################################################
 
+    def cambium_install_model_generated?
+      class_exists?('AdminController')
+    end
+
     def cambium_model_user_generated?
       class_exists?('User')
     end
