@@ -1,7 +1,6 @@
 require 'rake'
 require 'rails/generators'
-require "#{Gem::Specification.find_by_name("cambium").gem_dir}/lib/generators/cambium/helpers/generators_helper.rb"
-include Cambium::GeneratorsHelper
+require File.expand_path('../../helpers/_autoloader.rb', __FILE__)
 
 module Cambium
   module Model
@@ -10,14 +9,21 @@ module Cambium
 
       source_root File.expand_path('../../templates', __FILE__)
 
+      # Let's make sure we have the admin setup already.
+      # 
+      def set_dependencies
+        check_dependencies(['cambium:install:admin'])
+      end
+
       # Install gems we need for images
       # 
-      def install_dependencies
+      def install_gem_dependencies
         install_gem 'carrierwave'
         install_gem 'rmagick', :require => 'RMagick'
       end
 
-      # Generate our blank model file and prepared migration
+      # Since the Image model is so simple, we can generate it from the command
+      # line instead of copying templates.
       # 
       def generate_model
         generate "model Image filename"
@@ -26,11 +32,10 @@ module Cambium
       # Add our pre-built model file
       # 
       def add_model_files
-        model_path = "app/models/image.rb"
-        copy_file model_path, model_path, :force => true
+        copy_file("app/models/image.rb", "app/models/image.rb", :force => true)
       end
 
-      # Add uploader
+      # Add our image uploader, which uses CarrierWave
       # 
       def add_uploaders
         generate "uploader Image"
@@ -38,14 +43,21 @@ module Cambium
         copy_file uploader_path, uploader_path, :force => true
       end
 
-      # Add our image cropper model concern
+      # Add our image cropper model concern. Currently, we don't have the
+      # cropping tool functional within the admin.
       # 
       def add_model_concerns
         add_model_concern 'image_cropper'
       end
 
-      # Migrate and annotate
+      # Before we finish up, we need to add our admin files.
       # 
+      def add_admin_files
+        template("app/controllers/admin/images_controller.rb", 
+          "app/controllers/admin/images_controller.rb")
+        directory("app/views/admin/images", "app/views/admin/images")
+      end
+
       def finish_up
         migrate_and_annotate
       end

@@ -10,7 +10,8 @@ module Cambium
       source_root File.expand_path('../../templates', __FILE__)
 
       # Since we're using images, we need to make sure the image generator has
-      # already been run.
+      # already been run. And, like all other models, we want to make sure we
+      # already have an admin available to us.
       # 
       def set_dependencies
         check_dependencies(['cambium:install:admin','cambium:model:image'])
