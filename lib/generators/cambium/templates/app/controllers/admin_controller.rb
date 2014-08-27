@@ -35,6 +35,7 @@ class AdminController < ActionController::Base
       @routes[:edit] = send("edit_admin_#{model_table_singular}_path", @item)
       redirect_to @routes[:edit], :notice => "#{@model.to_s} was successfully created."
     else
+      @url = @routes[:index]
       render :action => "new"
     end
   end
@@ -49,6 +50,7 @@ class AdminController < ActionController::Base
       @routes[:edit] = send("edit_admin_#{model_table_singular}_path", @item)
       redirect_to @routes[:edit], :notice => "#{@model.to_s} was updated successfully."
     else
+      @url = @routes[:show]
       render :action => "edit"
     end
   end
