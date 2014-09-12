@@ -42,7 +42,6 @@ class AdminController < ActionController::Base
 
   def update
     convert_dates if @item.attributes.has_key?('active_at')
-    update_params ||= create_params
     if @item.attributes.has_key? 'slug' && !update_params[:slug].blank?
       update_params[:slug] = @item.make_slug_unique(update_params[:slug])
     end
@@ -86,6 +85,12 @@ class AdminController < ActionController::Base
       else
         p[:inactive_at] = DateTime.parse("#{p[:inactive_date]} #{p[:inactive_time]}")
       end
+    end
+
+    def create_params
+    end
+
+    def update_params
     end
 
 end
