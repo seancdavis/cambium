@@ -91,6 +91,7 @@ class AdminController < ActionController::Base
     end
 
     def update_params
+      create_params
     end
 
 end
