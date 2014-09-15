@@ -12,7 +12,11 @@
 
   <section class="form-container">
     <%= render :partial => 'admin/shared/status' %>
-    <%= render :partial => 'form' %>
+    <% if action_name == 'edit' || action_name == 'edit' %>
+      <%= render :partial => 'edit_form' %>
+    <% else %>
+      <%= render :partial => 'form' %>
+    <% end %>
   </section>
 
 </div>
