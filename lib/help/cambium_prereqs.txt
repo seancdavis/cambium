@@ -1,0 +1,13 @@
+
+==================== WARNING! ====================
+
+No config file found. Please run:
+
+    rails g cambium:install
+
+Before running this generator. If you wish to
+skip this config check, you can run:
+
+    rails g cambium:install --no-config-check
+
+==================================================
