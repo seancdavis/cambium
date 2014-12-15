@@ -2,39 +2,84 @@ source 'https://rubygems.org'
 
 # ------------------------------------------ Base
 
-gem 'rails', '<%= @config[:app][:version] %>'
+# rails version
+gem 'rails', '<%= @rails_version %>'
+
+# app server
 gem 'unicorn-rails'
-gem '<%= @config[:db][:adapter] %>'
+
+# database adapter
+gem '<%= @db_gem %>'
 
 # ------------------------------------------ Assets
 
+# stylesheets helpers
 gem 'sass-rails'
+<%= "gem 'compass-rails'" if @stylesheets.include?(:compass) %>
+<%= "gem 'bones-rails'" if @stylesheets.include?(:bones) %>
+
+# javascripts helpers
 gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'bones-rails'
-gem 'bourbon'
-gem 'backbone-on-rails'
+<%= "gem 'backbone-on-rails'" if @javascripts.include?(:backbone) %>
 
 # ------------------------------------------ View Helpers
 
-gem 'jbuilder'
 gem 'simple_form'
+gem 'jbuilder'
 gem 'wysihtml5-rails'
 gem 'pickadate-rails'
+gem 'kaminari'
+
+# ------------------------------------------ File Uploads
+
+<% if @uploader == :dragonfly %>
+gem 'dragonfly'
+gem 'dragonfly-s3_data_store'
+<% elsif @uploader == :carrierwave %>
+gem 'carrierwave'
+<% end %>
+gem 'jquery-fileupload-rails'
+gem 'jcrop-rails-v2'
+
 
 # ------------------------------------------ Utilities
 
-gem 'cambium'
 gem 'devise'
-gem 'carrierwave'
-gem 'hirb'
+gem 'cambium'
 
-# ------------------------------------------ Development/Test
+# ------------------------------------------ Console Helpers
 
-group :development do
-  gem 'annotate'
+gem 'rails-console-tweaks'
+
+group :console do
+  gem 'wirb'
+  gem 'hirb'
+  gem 'awesome_print'
 end
 
-gem 'factory_girl_rails'
-gem 'faker'
+# ------------------------------------------ Error Handling
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'dbsync'
+end
+
+<% if @uploader == :dragonfly %>
+# ------------------------------------------ Performance
+
+group :production do
+  gem 'rack-cache', :require => 'rack/cache'
+end
+<% end %>
+
+# ------------------------------------------ Testing
+
+group :development, :test do
+  gem 'annotate'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'rspec-rails'
+end
