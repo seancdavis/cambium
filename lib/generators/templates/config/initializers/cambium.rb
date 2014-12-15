@@ -1,10 +1,22 @@
 Cambium.configure do |config|
 
+  # -------------------------------------------------- App URLs
+  # 
+  # Cambium uses these to set your root urls for 
+  # mailers and other fun stuff.
+  # 
+  config.development_url = 'localhost:3000'
+  config.production_url = 'example.com'
+
   # -------------------------------------------------- Assets
   # 
   # The asset helpers define what Cambium will add to 
   # your Gemfile. They also tell Cambium which 
   # frameworks to install and configure.
+  # 
+  # NOTE: Only those listed below are available at this 
+  # time. All others should be added to your Gemfile 
+  # and configured manuallly.
   # 
   config.stylesheets_helpers = [:compass, :bones]
   config.javascripts_helpers = [:backbone]

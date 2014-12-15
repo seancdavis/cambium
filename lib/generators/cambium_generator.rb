@@ -1,5 +1,6 @@
 require 'rake'
 require 'rails/generators'
+require File.expand_path('../helpers/_autoloader.rb', __FILE__)
 
 class CambiumGenerator < Rails::Generators::Base
 
@@ -14,8 +15,8 @@ class CambiumGenerator < Rails::Generators::Base
     :description => "Verify config at config/initializers/cambium.rb"
   )
 
-  # If there is no configuration file tell the user to run that generator
-  # first (unless user has manually overridden).
+  # If there is no configuration file tell the user to run 
+  # that generator first (unless user has manually overridden).
   # 
   def verify_configuration
     if options.config_check?
@@ -24,6 +25,54 @@ class CambiumGenerator < Rails::Generators::Base
         exit
       end
     end
+  end
+
+  # Wrap our config values up in an easier-to-type variable
+  # 
+  def set_config
+    @config = Cambium.configuration
+  end
+
+  # Set root url for mailer in development and production
+  # 
+  def set_url_config
+    environment(
+      "config.action_mailer.default_url_options = { :host => '#{@config.development_url}' }", 
+      :env => "development"
+    )
+    environment(
+      "config.action_mailer.default_url_options = { :host => '#{@config.production_url}' }", 
+      :env => "production"
+    )
+  end
+
+  # Add modernizr to our list of assets to precompile when 
+  # we're ready to deploy
+  # 
+  def set_precompiled_assets
+    environment(
+      "config.assets.precompile += %w( modernizr.js )",
+      :env => "production"
+    )
+  end
+
+  # Add settings to application config file (config/application.rb)
+  # 
+  def add_application_config
+    environment { file_contents("config/application.rb") }
+  end
+
+  # Assets initializer for Rails 4.1+
+  # 
+  def add_assets_initializer
+    file = "config/initializers/assets.rb"
+    template(file, file)
+  end
+
+  # Add custom gitignore file
+  # 
+  def add_gitignore
+    copy_file("gitignore", ".gitignore")
   end
 
   private

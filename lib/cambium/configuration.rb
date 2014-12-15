@@ -2,11 +2,15 @@ module Cambium
   class Configuration
 
     attr_accessor \
+      :development_url,
+      :production_url,
       :stylesheets_helpers,
       :javascripts_helpers,
-      :uploader
+      :uploader,
 
     def initialize
+      @development_url      = 'localhost:3000'
+      @production_url       = 'example.com'
       @stylesheets_helpers  = [:compass, :bones]
       @javascripts_helpers  = [:backbone]
       @uploader             = :dragonfly
