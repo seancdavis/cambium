@@ -173,6 +173,31 @@ class CambiumGenerator < Rails::Generators::Base
     template normalize, normalize
   end
 
+  def install_devise
+    generate "devise:install"
+  end
+
+  def add_devise_user_model
+    generate "devise User"
+  end
+
+  def add_user_model_file
+    copy_file "app/models/user.rb", "app/models/user.rb", :force => true
+  end
+
+  # def migrate_and_annotate
+  #   rake "db:migrate"
+  #   run_cmd "#{be} annotate"
+  # end
+
+  def add_application_controller_redirects
+    insert_into_file(
+      "app/controllers/application_controller.rb",
+      template_snippet("app/controllers/application_controller.rb"),
+      :after => ":exception"
+    )
+  end
+
   private
 
     def gem_root
