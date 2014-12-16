@@ -1,7 +1,0 @@
-<% if @image.new_record? %>
-  alert("Failed to upload image: <%= j @image.errors.full_messages.join(', ').html_safe %>");
-<% elsif @project %>
-  $(".images-container").prepend("<div class=\"image\"><a href='<%= edit_admin_project_image_path(@project,@image) %>' class='edit'><i class=\"icon-pencil\"></i></a><a href='#' class='delete' data-id=\"<%= @image.id %>\"><i class=\"icon-remove2\"></i></a><img src=\"<%= @image.filename.thumb.url %>\" class=\"project-preview\" data-id=\"<%= @image.id %>\"></div>");
-<% elsif @page or @post %>
-  $(".images-container").prepend("<div class=\"image\"><img src=\"<%= @image.filename.thumb.url %>\" data-src=\"<%= @image.filename.url %>\" class=\"\" data-id=\"<%= @image.id %>\"></div>");
-<% end -%>
