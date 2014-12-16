@@ -1,3 +1,3 @@
-<% flash.each do |level,message| %>
-  <p class="<%= level %>"><%= message %></p>
+<% flash.each do |lvl, msg| %>
+  <%= content_tag(:p, msg, :class => lvl) %>
 <% end %>
