@@ -223,5 +223,13 @@ module Cambium
       klass.is_a?(Class)
     end
 
+    def gem_root
+      Gem::Specification.find_by_name("cambium").gem_dir
+    end
+
+    def help_message(file)
+      puts File.read("#{gem_root}/lib/help/#{file}.txt")
+    end
+
   end
 end

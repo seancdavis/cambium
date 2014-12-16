@@ -72,7 +72,8 @@ class CambiumGenerator < Rails::Generators::Base
   # Add custom gitignore file
   # 
   def add_gitignore
-    copy_file("gitignore", ".gitignore")
+    remove_file ".gitignore"
+    template "gitignore", ".gitignore"
   end
 
   # Add a default public controller, so we have a working 
@@ -198,14 +199,29 @@ class CambiumGenerator < Rails::Generators::Base
     )
   end
 
-  private
+  # ------------------------------------------ Settings Files
 
-    def gem_root
-      Gem::Specification.find_by_name("cambium").gem_dir
+  def add_settings_files
+    template "config/initializers/_settings.rb", 
+      "config/initializers/_settings.rb"
+    ['settings','settings_private','settings_private.sample'].each do |s|
+      template "config/#{s}.yml", "config/#{s}.yml"
     end
+  end
 
-    def help_message(file)
-      puts File.read("#{gem_root}/lib/help/#{file}.txt")
+  # ------------------------------------------ Seeds
+
+  def add_seed_generator
+    remove_file "db/seeds.rb"
+    template "db/seeds.rb", "db/seeds.rb"
+  end
+
+  # ------------------------------------------ Rake Tasks
+
+  def add_rake_tasks
+    ['db','rename'].each do |task|
+      template "lib/tasks/#{task}.rake", "lib/tasks/#{task}.rake"
     end
+  end
 
 end
