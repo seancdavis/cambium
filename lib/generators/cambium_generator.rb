@@ -118,7 +118,7 @@ class CambiumGenerator < Rails::Generators::Base
   def add_js_framework
     if @config.javascripts_helpers.include?(:backbone)
       directory(
-        "app/assets/javascripts/backbone",
+        "app/assets/javascripts",
         "app/assets/javascripts"
       )
     end
@@ -130,7 +130,8 @@ class CambiumGenerator < Rails::Generators::Base
   def add_js_manifest
     app_js = "app/assets/javascripts/application.js"
     remove_file app_js
-    template "#{app_js}.erb", app_js
+    app_js += ".coffee" if @config.javascripts_helpers.include?(:backbone)
+    template app_js, app_js
     gsub_file app_js, /\n\n+?/, "\n"
   end
 
