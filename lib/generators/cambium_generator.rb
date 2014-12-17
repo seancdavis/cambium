@@ -132,7 +132,6 @@ class CambiumGenerator < Rails::Generators::Base
     remove_file app_js
     app_js += ".coffee" if @config.javascripts_helpers.include?(:backbone)
     template app_js, app_js
-    gsub_file app_js, /\n\n+?/, "\n"
   end
 
   # Don't forget about modernizr! This is where all the other vendor scripts

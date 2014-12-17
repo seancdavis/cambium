@@ -16,7 +16,7 @@ gem '<%= @db_gem %>'
 # stylesheets helpers
 gem 'sass-rails'
 <%= "gem 'compass-rails'" if @stylesheets.include?(:compass) %>
-<%= "gem 'bones-rails'" if @stylesheets.include?(:bones) %>
+<%= "gem 'bourbon'\ngem 'bones-rails'" if @stylesheets.include?(:bones) %>
 
 # javascripts helpers
 gem 'uglifier'
