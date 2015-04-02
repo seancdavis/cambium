@@ -1,30 +1,81 @@
-# Cambium
+Cambium
+==========
 
-Cambium speeds up app development to keep you focusing on business logic and not
-worrying about repetitive tasks.
+Cambium serves three main purposes in Ruby on Rails applications:
 
-**Initial sprint in progress. Documentation will be provided when the gem is
-ready for distribution.**
+1. Bootstrap Rails' standard installation by performing additional setup
+   (things I find myself doing at the beginning of every project).
+2. Facilitate development throughout the life of any project by abstracting
+   repeatable bits of code.
+3. Provide a simple, but flexible CMS for those applications that require it.
 
-## Installation
+For now, the documentation will be continued in the README. This will be moved
+out over time.
 
-Add this line to your application's Gemfile:
+Setup
+----------
 
-    gem 'cambium'
+Cambium lets you get up and running real fast. First, start you rails project
+as you normally would.
 
-And then execute:
+```text
+$ rails new my_app -d postgresql
+```
 
-    $ bundle
+> Note: Cambium only supports PostgreSQL. If you need to use another database,
+> I suggest you add an option into Cambium and create a pull request. However,
+> I strongly encourage you to give PostgreSQL a try.
 
-Or install it yourself as:
+Add Cambium to your Gemfile.
 
-    $ gem install cambium
+```ruby
+gem 'cambium', '>= 1.0.0'
+```
 
-## Usage
+> I would probably commit at this time (so it's easy to rollback if you don't
+> like something Cambium did).
 
-TODO: Write usage instructions here
+Generate Cambium's (simple) configuration file.
 
-## Contributing
+```text
+$ bundle exec rails g cambium:install
+```
+
+Edit the config (config/initializers/cambium.rb) to your liking.
+
+Then, get your PostgreSQL database configured by editing `config/database.yml`
+to your appropriate settings.
+
+> **Make sure you do not commit between this step and finishing the setup
+> process.** Cambium will ignore this database.yml file, which is good, as it
+> may contain sensitive data.
+
+Then, create your database:
+
+```text
+$ bundle exec rake db:create
+```
+
+Although optional, I suggest you at least start with the default `Gemfile`.
+
+```text
+$ bundle exec rails g cambium:gemfile
+```
+
+Remove the gems you don't want and then bundle.
+
+```text
+$ bundle install
+```
+
+And now you can run Cambium's auto-setup generator.
+
+```text
+$ bundle exec rails g cambium:app
+```
+
+Contributing
+----------
 
 1. Fork it ( https://github.com/[my-github-username]/cambium/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
