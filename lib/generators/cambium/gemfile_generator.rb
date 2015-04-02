@@ -9,15 +9,16 @@ module Cambium
     source_root File.expand_path('../../templates', __FILE__)
 
     class_option(
-      :config_check, 
-      :type => :boolean, 
-      :default => true, 
+      :config_check,
+      :type => :boolean,
+      :default => true,
       :description => "Verify config at config/initializers/cambium.rb"
     )
 
-    # If there is no configuration file tell the user to run that generator
-    # first (unless user has manually overridden).
-    # 
+    # If there is no configuration file tell the user to run
+    # that generator first (unless user has manually
+    # overridden).
+    #
     def verify_configuration
       if options.config_check?
         unless File.exists?("#{Rails.root}/config/initializers/cambium.rb")
@@ -27,9 +28,9 @@ module Cambium
       end
     end
 
-    # Here we figure out some of the more complicated logic before rendering the
-    # Gemfile template
-    # 
+    # Here we figure out some of the more complicated logic
+    # before rendering the Gemfile template
+    #
     def resolve_options
 
       # database adapter
@@ -54,7 +55,7 @@ module Cambium
     end
 
     # Move our default Gemfile to the project's Gemfile.
-    # 
+    #
     def add_config_file
       template "Gemfile.erb", "Gemfile", :force => true
       gsub_file "Gemfile", /\n\n\n+?/, "\n\n"

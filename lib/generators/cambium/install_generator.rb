@@ -7,9 +7,9 @@ module Cambium
 
     source_root File.expand_path('../../templates', __FILE__)
 
-    # Copy our Cambium config file into the project's config/initializers
-    # directory.
-    # 
+    # Copy our Cambium config file into the project's
+    # config/initializers directory.
+    #
     def add_config_file
       config_file = "config/initializers/cambium.rb"
       copy_file config_file, config_file

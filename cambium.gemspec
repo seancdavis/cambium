@@ -6,8 +6,8 @@ require 'cambium/version'
 Gem::Specification.new do |spec|
   spec.name          = "cambium"
   spec.version       = Cambium::VERSION
-  spec.authors       = ["Sean C Davis","Warren Harrison"]
-  spec.email         = ["scdavis41@gmail.com","warren@hungry-media.com"]
+  spec.authors       = ["Sean C Davis", "Warren Harrison"]
+  spec.email         = ["scdavis41@gmail.com", "warren@hungry-media.com"]
   spec.summary       = %q{Rails generators to facilitate development.}
   spec.description   = %q{}
   spec.homepage      = ""
@@ -24,23 +24,23 @@ Gem::Specification.new do |spec|
   spec.add_dependency "superslug"
 
   # [
-  #   'ancestry', 
+  #   'ancestry',
   #   'annotate',                     all models
   #   'backbone-on-rails',            install:app
-  #   'bones-rails', 
+  #   'bones-rails',
   #   'bourbon',                      install:app
   #   'coffee-rails',                 install:app
   #   'devise',                       model:user
-  #   'factory_girl_rails',           
-  #   'faker',                        
-  #   'hirb',                         
-  #   'jbuilder', 
+  #   'factory_girl_rails',
+  #   'faker',
+  #   'hirb',
+  #   'jbuilder',
   #   'jquery-rails',                 install:app
   #   'jquery-fileupload-rails',
   #   'kaminari',
   #   'pickadate-rails',
   #   'sass-rails',                   install:app
-  #   'simple_form',                  
+  #   'simple_form',
   #   'uglifier',                     install:app
   #   'unicorn-rails',                install:app
   #   'wysihtml5-rails',
