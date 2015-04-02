@@ -18,7 +18,7 @@ namespace :rename do
     ]
     filenames.each do |filename|
       text = File.read(filename)
-      File.open(filename, "w") do |file| 
+      File.open(filename, "w") do |file|
         file << text.gsub(/Roots/, args[:new_name])
       end
       puts "CHECKED FILE >> #{filename}"

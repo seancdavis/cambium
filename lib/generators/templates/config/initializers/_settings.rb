@@ -1,11 +1,18 @@
-# Loads config/settings.yml into SETTINGS[]
-config_file = File.join(Rails.root,'config','settings.yml')
-if File.exists?(config_file)
-  SETTINGS = YAML.load_file(config_file)[Rails.env]
+# Load config/settings.yml into Settings OpenStruct
+#
+begin
+  config_file = File.join(Rails.root,'config','settings.yml')
+  Settings = YAML.load_file(config_file)[Rails.env].to_ostruct
+rescue
+  raise "Can't find file: #{config_file}"
 end
 
-# Loads config/settings_private.yml (sensitive settings) into PRIVATE[]
-private_file = File.join(Rails.root,'config','settings_private.yml')
-if File.exists?(private_file)
-  PRIVATE = YAML.load_file(private_file)[Rails.env]
+# Loads config/private.yml (sensitive settings) into Private
+# OpenStruct
+#
+begin
+  private_file = File.join(Rails.root,'config','private.yml')
+  Private = YAML.load_file(private_file)[Rails.env].to_ostruct
+rescue
+  raise "Can't find file: #{private_file}"
 end

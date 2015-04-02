@@ -1,8 +1,9 @@
-# 
+#
 # This file is for storing NON-SENSITIVE settings.
 #
-# Values here are loaded into the SETTINGS constant. For example, below you can
-# access "Hello" through SETTINGS['say']['hello']
+# Values here are accessible through a recursive `Settings`
+# OpenStruct. For example, you can access "ABC123" using the
+# example below through Setting.say.hello
 #
 development: &default
   say:
