@@ -12,9 +12,12 @@
     <%= javascript_include_tag "modernizr" %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body class="cambium admin">
 
     <%#= render :partial => 'status' %>
+
+    <%#= render :partial => 'cambium/admin/shared/header' %>
+    <%= render 'header' %>
 
     <%= yield %>
 
