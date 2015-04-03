@@ -1,0 +1,7 @@
+users:
+  title: Site Users
+  model: User
+  scope: all
+  columns:
+    email:
+      heading: Email
