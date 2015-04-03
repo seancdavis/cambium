@@ -1,0 +1,12 @@
+#title-bar {
+  background: $color-light;
+  padding: 0 25px;
+  border-bottom: 1px solid $color-light-darker;
+  .page-title {
+    margin: 0;
+    padding: 10px 0;
+    text-transform: uppercase;
+    font-size: 26px;
+    line-height: 26px;
+  }
+}
