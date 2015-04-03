@@ -25,6 +25,10 @@ module Cambium
       @admin_table ||= admin_view.table
     end
 
+    def admin_form
+      @admin_form ||= admin_view.form
+    end
+
     def cambium_page_title(title)
       content_tag(:div, :id => 'title-bar') do
         content_tag(:h2, title, :class => 'page-title')
@@ -66,6 +70,24 @@ module Cambium
             end
             o2.html_safe
           end
+          o.html_safe
+        end
+      end
+    end
+
+    def cambium_form(obj, fields)
+      content_tag(:section, :class => 'form') do
+        simple_form_for [:admin, obj] do |f|
+          o = ''
+          fields.to_h.each do |data|
+            attr = data.first.to_s
+            options = data.last
+            o += f.input(
+              attr.to_sym,
+              :as => options.type
+            )
+          end
+          o += f.submit
           o.html_safe
         end
       end

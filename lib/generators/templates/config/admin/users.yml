@@ -5,3 +5,12 @@ table:
   columns:
     email:
       heading: Email
+form:
+  title: Edit User
+  fields:
+    email:
+      type: string
+    password:
+      type: string
+    password_confirmation:
+      type: string

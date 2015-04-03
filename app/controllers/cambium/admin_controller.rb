@@ -12,6 +12,11 @@ module Cambium
     end
 
     def edit
+      set_object
+    end
+
+    def update
+      set_object
     end
 
     private
