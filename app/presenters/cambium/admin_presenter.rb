@@ -15,7 +15,7 @@ module Cambium
         if attrs.path.split('.').first == 'cambium'
           attrs.path = @view.cambium.send(path)
         else
-          attrs.path = send(path)
+          attrs.path = @view.main_app.send(path)
         end
         # figure out if it's active
         attrs.active = false
