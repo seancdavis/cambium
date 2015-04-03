@@ -29,4 +29,22 @@ module Cambium
       end
     end
 
+    # Generate a migration so we can keep users from
+    # accessing the admin if they don't have permission
+    #
+    def add_admin_migration
+      generate "migration add_is_admin_to_users" # is_admin:boolean"
+      Dir.glob("#{Rails.root.join('db','migrate')}/*.rb").each do |file|
+        filename = file.split('/').last
+        if filename =~ /is\_admin/
+          insert_into_file(
+            "db/migrate/#{filename}",
+            "\n    add_column :users, :is_admin, :boolean, :default => false",
+            :after => "def change"
+          )
+        end
+      end
+    end
+
+  end
 end
