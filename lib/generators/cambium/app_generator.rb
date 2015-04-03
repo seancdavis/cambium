@@ -87,20 +87,6 @@ module Cambium
       generate "controller home index"
     end
 
-    # Add our default routes file, which is commented out
-    # except for the root path to the home controller.
-    #
-    # We don't override routes here in case the user started
-    # to edit their routes file before running this generator.
-    #
-    def add_default_routes
-      insert_into_file(
-        "config/routes.rb",
-        file_contents("config/app_routes.rb"),
-        :after => "Rails.application.routes.draw do"
-      )
-    end
-
     # Add our default public views
     #
     def add_public_views
@@ -113,7 +99,7 @@ module Cambium
     #
     def add_layouts
       app = "app/views/layouts/application.html.erb"
-      template app, app
+      template app, app, :force => true
     end
 
     # We're going to automatically install backbone unless
@@ -203,6 +189,16 @@ module Cambium
     def add_seed_generator
       remove_file "db/seeds.rb"
       template "db/seeds.rb", "db/seeds.rb"
+    end
+
+    # Add our default routes file, which is commented out
+    # except for the root path to the home controller.
+    #
+    # We don't override routes here in case the user started
+    # to edit their routes file before running this generator.
+    #
+    def add_default_routes
+      template "config/routes.rb", "config/routes.rb", :force => true
     end
 
   end
