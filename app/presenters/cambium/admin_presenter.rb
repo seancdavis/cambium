@@ -35,22 +35,11 @@ module Cambium
       end
     end
 
-    # Resolves the logic from config/admin/tables.yml and
-    # places them in a hash that can be retrieved via the
-    # `table` method
+    # Gets all the data from the desired config file, which
+    # are further broken up in other methods
     #
-    def tables
-      @tables ||= begin
-        tables = {}
-        load_config('tables').each { |k, attrs| tables[k] = attrs.to_ostruct }
-        tables
-      end
-    end
-
-    # Retrieve data for one table
-    #
-    def table(name)
-      tables[name]
+    def view(name)
+      load_config(name).to_ostruct
     end
 
     private

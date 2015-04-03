@@ -8,10 +8,26 @@ module Cambium
     include CambiumHelper
 
     def index
-      @collection = admin_view.model.constantize.send(admin_view.scope)
+      @collection = m.send(admin_table.scope)
+    end
+
+    def edit
     end
 
     private
+
+      def set_object
+        if @object.respond_to?(:slug) && params[:slug]
+          @object = m.find_by_slug(params[:slug])
+        else
+          @object = m.find_by_id(params[:id])
+        end
+        @obj = @object
+      end
+
+      def m
+        admin_view.model.constantize
+      end
 
       def authenticate_admin!
         authenticate_user!

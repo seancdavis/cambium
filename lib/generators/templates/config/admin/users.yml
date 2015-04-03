@@ -1,6 +1,6 @@
-users:
+model: User
+table:
   title: Site Users
-  model: User
   scope: all
   columns:
     email:

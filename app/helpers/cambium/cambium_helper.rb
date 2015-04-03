@@ -18,7 +18,11 @@ module Cambium
     end
 
     def admin_view
-      @admin_view ||= admin.table(controller_name)
+      @admin_view ||= admin.view(controller_name)
+    end
+
+    def admin_table
+      @admin_table ||= admin_view.table
     end
 
     def cambium_page_title(title)
