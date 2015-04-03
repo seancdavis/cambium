@@ -2,8 +2,22 @@
   <div class="logo">
     <%= link_to Cambium.configuration.app_title, admin_dashboard_path %>
   </div>
-  <%= link_to('#', :class => 'user') do %>
-    <%= content_tag(:span, current_user.email, :class => 'name') %>
-    <%= avatar(current_user, 84) %>
-  <% end %>
+  <div class="user dropdown-container">
+    <%= link_to('#', :class => 'dropdown-trigger') do %>
+      <%= content_tag(:span, current_user.email, :class => 'name') %>
+      <%= avatar(current_user, 84) %>
+    <% end %>
+    <div class="dropdown-menu">
+      <ul>
+        <%= content_tag(
+          :li,
+          link_to(
+            'Sign Out',
+            main_app.destroy_user_session_path,
+            :method => :delete
+          )
+        ) %>
+      </ul>
+    </div>
+  </div>
 </header>

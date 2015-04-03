@@ -1,0 +1,17 @@
+.dropdown-container {
+  position: relative;
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    &.active {
+      display: block;
+    }
+    ul {
+      @include clear-list;
+    }
+  }
+}
