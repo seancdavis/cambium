@@ -1,4 +1,6 @@
 #title-bar {
+  position: fixed;
+  width: 100%;
   background: $color-light;
   padding: 0 25px;
   border-bottom: 1px solid $color-light-darker;
