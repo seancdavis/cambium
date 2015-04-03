@@ -1,5 +1,8 @@
 Cambium::Engine.routes.draw do
 
-  get 'admin' => 'admin#dashboard', :as => :admin
+  namespace :admin do
+    get '/' => 'dashboard#index', :as => :root
+    get 'dashboard' => 'dashboard#show', :as => :dashboard
+  end
 
 end
