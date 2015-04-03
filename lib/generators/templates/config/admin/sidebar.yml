@@ -1,0 +1,8 @@
+dashboard:
+  label: Dashboard
+  path: cambium.admin_dashboard
+  icon: dashboard
+users:
+  label: Users
+  path: cambium.admin_users
+  icon: users

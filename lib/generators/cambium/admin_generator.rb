@@ -46,5 +46,11 @@ module Cambium
       end
     end
 
+    # Add admin sidebar file to the project
+    #
+    def add_admin_routes
+      template "config/admin/sidebar.yml", "config/admin/sidebar.yml"
+    end
+
   end
 end

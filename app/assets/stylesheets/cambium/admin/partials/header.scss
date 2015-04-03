@@ -3,6 +3,9 @@ header {
 
   .logo {
     display: inline-block;
+    width: 300px;
+    text-align: center;
+    border-right: 1px solid $color-5-dark;
     a {
       display: block;
       padding: 15px 25px;
@@ -58,21 +61,22 @@ header {
       }
     }
     .dropdown-menu {
-      background: $color-5;
-      border: 1px solid $color-5-dark;
-      border-top: none;
+      background: $color-dark;
+      // border: 1px solid $color-5;
+      // border-top: none;
       ul {
         li {
           display: block;
           a {
             display: block;
-            padding: 5px 15px;
+            padding: 10px 15px;
             font-weight: 400;
             font-size: 15px;
-            color: $color-light;
+            color: $color-light-darkest;
             @include transition-all;
-            &:hover {
-              background: $color-5-light;
+            &:hover, &:active, &:focus {
+              color: $color-light;
+              background: $color-dark-light;
             }
           }
         }
