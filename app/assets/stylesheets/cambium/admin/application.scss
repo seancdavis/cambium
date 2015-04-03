@@ -1,14 +1,14 @@
 // Vendor
 @import 'bourbon';
-@import 'admin/bones/bones';
+@import 'cambium/admin/bones/bones';
 @import 'pickadate/classic';
 @import 'pickadate/classic.date';
 @import 'pickadate/classic.time';
 
 // Partials
-@import 'admin/partials/globals';
-@import 'admin/partials/wireframe';
-@import 'admin/partials/nav';
-@import 'admin/partials/header';
-@import 'admin/partials/form';
-@import 'admin/partials/content';
+@import 'cambium/admin/partials/globals';
+@import 'cambium/admin/partials/wireframe';
+@import 'cambium/admin/partials/nav';
+@import 'cambium/admin/partials/header';
+@import 'cambium/admin/partials/form';
+@import 'cambium/admin/partials/content';
