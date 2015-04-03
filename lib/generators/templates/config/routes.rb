@@ -16,6 +16,14 @@ Rails.application.routes.draw do
     get '/logout' => 'devise/sessions#destroy', :as => :destroy_user_session
   end
   #
+  # ------------------------------------------ Admin
+  #
+  # Cambium already namespaces all its own routes, so it's
+  # best to just mount it at the root. This is the base
+  # setup if you are using Cambium's CMS
+  #
+  mount Cambium::Engine => '/'
+  #
   # ------------------------------------------ JSON
   #
   # If you plan to use any public json routes, it's good to
