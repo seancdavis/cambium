@@ -14,7 +14,7 @@ module Cambium
     end
 
     def admin
-      @admin ||= Cambium::AdminPresenter.new
+      @admin ||= Cambium::AdminPresenter.new(self)
     end
 
   end
