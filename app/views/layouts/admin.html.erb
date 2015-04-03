@@ -17,8 +17,7 @@
     <%#= render 'status' %>
     <%= render 'header' %>
     <%= render 'sidebar' %>
-
-    <%= yield %>
+    <%= content_tag(:div, yield, :id => 'container') %>
 
     <%= javascript_include_tag 'cambium/admin/application' %>
   </body>

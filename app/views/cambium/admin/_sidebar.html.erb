@@ -4,7 +4,10 @@
       <% admin.sidebar.each do |item| %>
         <%= content_tag(
           :li,
-          link_to(item.path) {
+          link_to(
+            item.path,
+            :class => item.active == true ? 'active' : nil
+          ) {
             "#{content_tag(
               :i, nil, :class => "icon-#{item.icon}"
             )} #{item.label}".html_safe

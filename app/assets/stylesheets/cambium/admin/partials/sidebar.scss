@@ -21,6 +21,11 @@ aside#nav {
             border-left-color: $color-1;
             border-bottom: none;
           }
+          &.active {
+            color: $color-dark;
+            background: $color-2;
+            border-left-color: $color-2;
+          }
           i {
             display: inline-block;
             margin: 0 7.5px 0 0;

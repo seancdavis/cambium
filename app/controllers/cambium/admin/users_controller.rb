@@ -1,6 +1,8 @@
-require_dependency "cambium/application_controller"
-
 module Cambium
-  class Admin::UsersController < ApplicationController
+  class Admin::UsersController < AdminController
+
+    def index
+    end
+
   end
 end

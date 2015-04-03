@@ -6,3 +6,4 @@ users:
   label: Users
   path: cambium.admin_users
   icon: users
+  controllers: ['users']
