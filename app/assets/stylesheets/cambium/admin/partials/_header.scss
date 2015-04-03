@@ -1,121 +1,54 @@
 header {
-  position: relative;
-  background: $color-light-dark;
-  margin: 0 0 25px 0;
-  padding: 25px;
-  @include media(tablet) {
-    margin-bottom: 0;
-  }
+  background: $color-1;
 
-  h1 {
-    margin: 0;
-    font-weight: 200;
-  }
-
-  a.new {
-    margin: -5px 0 0 25px;
-    padding: 20px;
-    font-size: 22px;
-    span, i {
-      color: $color-light;
-      font-size: 22px;
-    }
-  }
-
-  div.dropdown-toggle {
-    a.trigger {
-      &.active {
-        background: $color-1-darker;
-      }
-    }
-    ul {
-      display: none;
-      position: absolute;
-      top: 46px;
-      right: -3px;
-      min-width: 200px;
-      padding: 0;
-      list-style: none;
-      border-right: 3px solid white;
-      border-bottom: 3px solid white;
-      border-left: 3px solid white;
-      li {
-        a {
-          display: block;
-          padding: 10px;
-          font-size: 16px;
-          color: $color-light;
-          background: $color-1;
-          &:hover {
-            color: $color-light;
-            background: $color-1-light;
-          }
-        }
-      }
-    }
-  }
-
-  div.button-toggle {
-    float: right;
-    position: relative;
-  }
-
-  div.title-toggle {
+  .logo {
     display: inline-block;
-    position: relative;
-    h1 a {
-      padding: 7.5px 10px;
-      background: $color-1;
-      &.trigger {
-        display: inline-block;
-        vertical-align: middle;
-      }
-      i {
-        font-size: 28px;
-        color: $color-light;
-      }
-    }
-    ul {
-      top: 39px;
-    }
-  }
-
-  .breadcrumbs {
-    margin-bottom: 15px;
     a {
-      &.disabled {
-        color: $shade-4;
-        &:hover {
-          cursor: default;
-        }
+      display: block;
+      padding: 15px 25px;
+      font-size: 24px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: $color-light;
+      // background: $color-1-light;
+      @include transition-all;
+      &:hover {
+        background: $color-1-light;
       }
-    }
-    span {
-      color: $shade-3;
-      margin: 0 5px;
     }
   }
 
-  .published-toggle {
-    position: absolute;
-    top: 40px;
-    right: 30px;
-    padding: 10px 15px;
-    background: $color-danger;
-    span, i {
+  a.user {
+    float: right;
+    height: 60px;
+    padding: 10px 25px;
+    overflow: hidden;
+    // background: $color-1-light;
+    @include box-sizing(border-box);
+    border-left: 1px solid $color-1-dark;
+    @include transition-all;
+    &:hover {
+      background: $color-1-light;
+    }
+    .name {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px 0 0;
       color: $color-light;
     }
-    i {
-      margin-right: 10px;
-    }
-    &:hover {
-      color: $color-danger-dark;
-    }
-    &.published {
-      background: $color-success;
-      &:hover {
-        background: $color-success-dark;
+    .avatar-container {
+      display: inline-block;
+      vertical-align: middle;
+      height: 40px;
+      width: 40px;
+      overflow: hidden;
+      border-radius: 100%;
+      border: 2px solid $color-light;
+      background: $color-light;
+      img {
+        width: 100%;
       }
     }
+
   }
 }

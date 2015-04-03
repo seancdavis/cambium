@@ -5,15 +5,13 @@ module Cambium
 
     layout "admin"
 
-    # include Cambium::CambiumHelper
+    include CambiumHelper
 
     private
 
       def authenticate_admin!
         authenticate_user!
-        if user_signed_in? && current_user.is_admin?
-          not_found
-        end
+        not_found unless current_user.is_admin?
       end
 
   end
