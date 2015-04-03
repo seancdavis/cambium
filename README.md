@@ -12,7 +12,7 @@ Cambium serves three main purposes in Ruby on Rails applications:
 For now, the documentation will be continued in the README. This will be moved
 out over time.
 
-Setup
+App Setup
 ----------
 
 Cambium lets you get up and running real fast. First, start you rails project
@@ -72,6 +72,53 @@ And now you can run Cambium's auto-setup generator.
 
 ```text
 $ bundle exec rails g cambium:app
+```
+
+When you're done, you can migrate (and annotate), and be on your way!
+
+```text
+$ bundle exec rake db:migrate
+$ bundle exec annotate
+```
+
+Admin / CMS
+----------
+
+### Install CMS
+
+If you want to also setup a CMS, it's as simple as running the generator.
+
+```text
+$ bundle exec rails g cambium:admin
+```
+
+Run the migrations Cambium created with the admin generator.
+
+```text
+$ bundle exec rake db:migrate
+$ bundle exec annotate
+```
+
+Make sure Cambium's engine is mounted in your `config/routes.rb` file.
+
+```ruby
+mount Cambium::Engine => '/'
+```
+
+It's best to mount it at the root because Cambium automatically namespaces its
+routes.
+
+At this point, you should be able to go to `localhost:3000/admin` and be
+redirected to the login page (if you are not signed in). Once you have an admin
+user and sign in successfully, you will be redirected to the admin dashboard.
+
+### Adding Users
+
+We have a generator for creating a new user, which takes an `--admin` option if
+you want the user to have admin access.
+
+```text
+$ bundle exec rails g cambium:user [username] [password] [--admin / --no-admin]
 ```
 
 Contributing
