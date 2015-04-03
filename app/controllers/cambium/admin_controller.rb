@@ -7,6 +7,10 @@ module Cambium
 
     include CambiumHelper
 
+    def index
+      @collection = admin_view.model.constantize.send(admin_view.scope)
+    end
+
     private
 
       def authenticate_admin!

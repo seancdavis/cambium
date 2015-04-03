@@ -1,0 +1,7 @@
+<%= cambium_page_title(admin_view.title) %>
+
+<%= content_tag(
+  :div,
+  cambium_table(@collection, admin_view.columns),
+  :id => 'page-content'
+) %>

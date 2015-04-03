@@ -1,0 +1,45 @@
+section.data-table {
+  table {
+    border: none;
+    thead {
+      tr {
+        background: transparent;
+        border-bottom: 1px solid $color-light-darker;
+        th {
+          padding: 5px 15px;
+          text-align: left;
+          font-size: 18px;
+          font-weight: 400;
+          text-transform: uppercase;
+          color: $color-1;
+        }
+      }
+    }
+    tbody {
+      tr {
+        position: relative;
+        @include transition-all;
+        border-bottom: 1px solid $color-light-dark;
+        // &:hover {
+        //   background: $color-light-dark;
+        // }
+        td {
+          padding: 10px 15px;
+          &.actions {
+            width: 25px;
+            text-align: center;
+            a {
+              &:before {
+                font-family: 'icomoon';
+                content: "\e732";
+              }
+              &:hover {
+                color: $color-1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
