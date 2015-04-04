@@ -42,6 +42,32 @@ module Cambium
       load_config(name).to_ostruct
     end
 
+    # Resolve the routes for the given controller
+    #
+    def routes(object)
+      if @view.cambium.respond_to?(
+        "admin_#{@view.controller_name.pluralize}_path".to_sym
+      )
+        n = @view.cambium
+      else
+        n = @view.main_app
+      end
+      r = {
+        :index => n.send("admin_#{@view.controller_name.pluralize}_path")
+      }
+      unless object.nil?
+        r[:edit] = n.send(
+          "edit_admin_#{@view.controller_name.singularize}_path",
+          object
+        )
+        r[:show] = n.send(
+          "admin_#{@view.controller_name.singularize}_path",
+          object
+        )
+      end
+      r.to_ostruct
+    end
+
     private
 
       def load_config(filename)

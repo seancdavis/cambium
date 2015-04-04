@@ -29,6 +29,10 @@ module Cambium
       @admin_form ||= admin_view.form
     end
 
+    def admin_routes
+      @admin_routes ||= admin.routes(@object)
+    end
+
     def cambium_page_title(title)
       content_tag(:div, :id => 'title-bar') do
         content_tag(:h2, title, :class => 'page-title')

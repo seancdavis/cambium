@@ -17,6 +17,14 @@ module Cambium
 
     def update
       set_object
+      if @object.update(update_params)
+        redirect_to(
+          admin_routes.index,
+          :notice => "#{@object.class.to_s} updated!"
+        )
+      else
+        render 'edit'
+      end
     end
 
     private
@@ -37,6 +45,12 @@ module Cambium
       def authenticate_admin!
         authenticate_user!
         not_found unless current_user.is_admin?
+      end
+
+      def update_params
+        params
+          .require(@object.class.to_s.humanize.downcase.to_sym)
+          .permit(admin_form.fields.to_h.keys)
       end
 
   end
