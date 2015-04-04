@@ -11,6 +11,20 @@ module Cambium
       @collection = m.send(admin_table.scope)
     end
 
+    def new
+      @object = m.new
+    end
+
+    def create
+      set_object
+      @object = m.new(create_params)
+      if @object.save
+        redirect_to(admin_routes.index, :notice => "#{m.to_s} created!")
+      else
+        render 'new'
+      end
+    end
+
     def edit
       set_object
     end
@@ -18,10 +32,7 @@ module Cambium
     def update
       set_object
       if @object.update(update_params)
-        redirect_to(
-          admin_routes.index,
-          :notice => "#{@object.class.to_s} updated!"
-        )
+        redirect_to(admin_routes.index, :notice => "#{m.to_s} updated!")
       else
         render 'edit'
       end
@@ -47,10 +58,14 @@ module Cambium
         not_found unless current_user.is_admin?
       end
 
-      def update_params
+      def create_params
         params
-          .require(@object.class.to_s.humanize.downcase.to_sym)
+          .require(m.to_s.humanize.downcase.to_sym)
           .permit(admin_form.fields.to_h.keys)
+      end
+
+      def update_params
+        create_params
       end
 
   end
