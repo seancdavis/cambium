@@ -11,6 +11,11 @@ module Cambium
       @collection = m.send(admin_table.scope)
     end
 
+    def show
+      set_object
+      redirect_to(admin_routes.edit)
+    end
+
     def new
       @object = m.new
     end
