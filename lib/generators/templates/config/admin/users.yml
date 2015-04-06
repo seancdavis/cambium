@@ -11,6 +11,8 @@ form:
   new: &new
     title: New User
     fields:
+      name:
+        type: string
       email:
         type: string
       password:

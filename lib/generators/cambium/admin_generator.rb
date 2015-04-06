@@ -46,6 +46,12 @@ module Cambium
       end
     end
 
+    # Add another migration for user profile fields
+    #
+    def add_user_profile
+      generate "migration add_user_profile_fields_to_users name:string"
+    end
+
     # Add admin sidebar file to the project
     #
     def add_admin_routes
