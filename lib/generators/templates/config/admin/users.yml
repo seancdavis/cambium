@@ -5,6 +5,8 @@ table:
   columns:
     email:
       heading: Email
+  buttons:
+    new: New User
 form:
   new: &new
     title: New User
@@ -12,9 +14,9 @@ form:
       email:
         type: string
       password:
-        type: string
+        type: password
       password_confirmation:
-        type: string
+        type: password
   edit:
     <<: *new
     title: Edit User

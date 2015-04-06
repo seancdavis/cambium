@@ -62,7 +62,7 @@ module Cambium
       def create_params
         params
           .require(admin_model.to_s.humanize.downcase.to_sym)
-          .permit(admin_model.fields.to_h.keys)
+          .permit(admin_form.fields.to_h.keys)
       end
 
       def update_params
