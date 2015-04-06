@@ -15,3 +15,13 @@
     }
   }
 }
+
+.button {
+  &.new:before {
+    font-family: 'icomoon';
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0 5px 0 0;
+  }
+  &.new:before { content: "\e702"; }
+}

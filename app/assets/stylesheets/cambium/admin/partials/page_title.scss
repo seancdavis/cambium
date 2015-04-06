@@ -6,10 +6,30 @@
   padding: 0 25px;
   border-bottom: 1px solid $color-light-darker;
   .page-title {
+    display: inline-block;
     margin: 0;
     padding: 10px 0;
     text-transform: uppercase;
     font-size: 26px;
     line-height: 26px;
+  }
+  .button {
+    display: inline-block;
+    background: $color-1;
+    margin: 10px 5px;
+    padding: 6px 10px;
+    font-size: 15px;
+    font-weight: 400;
+    color: $color-dark;
+    vertical-align: top;
+    &.new {
+      margin: 12px 0 0 10px;
+      padding: 3px 8px;
+      font-size: 13px;
+      background: $color-2;
+      &:before {
+        font-size: 10px;
+      }
+    }
   }
 }

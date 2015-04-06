@@ -8,7 +8,7 @@ module Cambium
     include CambiumHelper
 
     def index
-      @collection = m.send(admin_table.scope)
+      @collection = admin_model.send(admin_table.scope)
     end
 
     def show
@@ -17,14 +17,14 @@ module Cambium
     end
 
     def new
-      @object = m.new
+      @object = admin_model.new
     end
 
     def create
       set_object
-      @object = m.new(create_params)
+      @object = admin_model.new(create_params)
       if @object.save
-        redirect_to(admin_routes.index, :notice => "#{m.to_s} created!")
+        redirect_to(admin_routes.index, :notice => "#{admin_model.to_s} created!")
       else
         render 'new'
       end
@@ -37,7 +37,7 @@ module Cambium
     def update
       set_object
       if @object.update(update_params)
-        redirect_to(admin_routes.index, :notice => "#{m.to_s} updated!")
+        redirect_to(admin_routes.index, :notice => "#{admin_model.to_s} updated!")
       else
         render 'edit'
       end
@@ -47,15 +47,11 @@ module Cambium
 
       def set_object
         if @object.respond_to?(:slug) && params[:slug]
-          @object = m.find_by_slug(params[:slug])
+          @object = admin_model.find_by_slug(params[:slug])
         else
-          @object = m.find_by_id(params[:id])
+          @object = admin_model.find_by_id(params[:id])
         end
         @obj = @object
-      end
-
-      def m
-        admin_view.model.constantize
       end
 
       def authenticate_admin!
@@ -65,8 +61,8 @@ module Cambium
 
       def create_params
         params
-          .require(m.to_s.humanize.downcase.to_sym)
-          .permit(admin_form.fields.to_h.keys)
+          .require(admin_model.to_s.humanize.downcase.to_sym)
+          .permit(admin_model.fields.to_h.keys)
       end
 
       def update_params

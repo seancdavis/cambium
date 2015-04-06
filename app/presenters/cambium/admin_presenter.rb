@@ -53,9 +53,10 @@ module Cambium
         n = @view.main_app
       end
       r = {
-        :index => n.send("admin_#{@view.controller_name.pluralize}_path")
+        :index => n.send("admin_#{@view.controller_name.pluralize}_path"),
+        :new => n.send("new_admin_#{@view.controller_name.singularize}_path")
       }
-      unless object.nil?
+      if !object.nil? && object.id.present?
         r[:edit] = n.send(
           "edit_admin_#{@view.controller_name.singularize}_path",
           object

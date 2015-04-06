@@ -39,9 +39,21 @@ module Cambium
       @admin_routes ||= admin.routes(@object)
     end
 
+    def admin_model
+      @admin_model ||= admin_view.model.constantize
+    end
+
     def cambium_page_title(title)
       content_tag(:div, :id => 'title-bar') do
-        content_tag(:h2, title, :class => 'page-title')
+        o  = content_tag(:h2, title, :class => 'page-title')
+        if admin_table.buttons.new.present? && action_name == 'index'
+          o += link_to(
+            "New #{admin_model.to_s.humanize}",
+            admin_routes.new,
+            :class => 'button new'
+          )
+        end
+        o.html_safe
       end
     end
 
