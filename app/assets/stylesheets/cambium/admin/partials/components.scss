@@ -1,3 +1,24 @@
+div.status{
+  position: absolute;
+  top: -60px;
+  left: 0;
+  width: 100%;
+  z-index: 99999;
+  text-align: center;
+  @include box-sizing(border-box);
+  p.notice, p.alert {
+    margin: 0;
+    padding: 25px 0;
+    background: rgba($color-2, 0.93);
+    color: $color-light;
+    font-size: 25px;
+    line-height: 32px;
+    &.alert {
+      background: rgba($color-danger, 0.93);
+    }
+  }
+}
+
 .dropdown-container {
   position: relative;
   .dropdown-menu {
