@@ -26,7 +26,13 @@ module Cambium
     end
 
     def admin_form
-      @admin_form ||= admin_view.form
+      @admin_form ||= begin
+        if action_name == 'new' || action_name == 'create'
+          admin_view.form.new
+        else
+          admin_view.form.edit
+        end
+      end
     end
 
     def admin_routes

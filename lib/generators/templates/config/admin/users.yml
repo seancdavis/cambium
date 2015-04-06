@@ -6,11 +6,15 @@ table:
     email:
       heading: Email
 form:
-  title: Edit User
-  fields:
-    email:
-      type: string
-    password:
-      type: string
-    password_confirmation:
-      type: string
+  new: &new
+    title: New User
+    fields:
+      email:
+        type: string
+      password:
+        type: string
+      password_confirmation:
+        type: string
+  edit:
+    <<: *new
+    title: Edit User
