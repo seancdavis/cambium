@@ -20,12 +20,20 @@ module Cambium
 
     # Create a user with the provided credentials
     def create_user
-      User.create!(
-        :email => email,
-        :password => password,
-        :password_confirmation => password,
-        :is_admin => options.admin
-      )
+      if options.admin == true
+        User.create!(
+          :email => email,
+          :password => password,
+          :password_confirmation => password,
+          :is_admin => options.admin
+        )
+      else
+        User.create!(
+          :email => email,
+          :password => password,
+          :password_confirmation => password
+        )
+      end
     end
 
   end
