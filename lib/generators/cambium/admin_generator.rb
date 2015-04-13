@@ -60,5 +60,17 @@ module Cambium
       end
     end
 
+    # Add migration for paper_trail versions
+    #
+    def add_paper_trail
+      generate 'paper_trail:install'
+      Dir.glob("#{Rails.root}/app/models/*.rb").each do |f|
+        insert_into_file f.to_s, :after => "ActiveRecord::Base\n" do
+          '  has_paper_trail'
+        end
+        puts "Added paper_trail to #{f.to_s}"
+      end
+    end
+
   end
 end
