@@ -1,0 +1,7 @@
+<tr>
+  <td><%= version.item_type %></td>
+  <td><%= version.item.to_s %></td>
+  <td><%= version.event %></td>
+  <td><%= User.find(version.whodunnit).email if version.whodunnit.present? %></td>
+  <td><%= version.created_at %></td>
+</tr>

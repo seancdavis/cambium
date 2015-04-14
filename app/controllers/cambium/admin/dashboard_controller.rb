@@ -6,6 +6,7 @@ module Cambium
     end
 
     def show
+      @versions = PaperTrail::Version.order(:created_at => :desc)
     end
 
   end
