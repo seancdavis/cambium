@@ -66,9 +66,27 @@ module Cambium
       generate 'paper_trail:install'
       Dir.glob("#{Rails.root}/app/models/*.rb").each do |f|
         insert_into_file f.to_s, :after => "ActiveRecord::Base\n" do
-          '  has_paper_trail'
+          "  # ------------------------------------------ Plugins\n" +
+          "  has_paper_trail\n"
         end
-        puts "Added paper_trail to #{f.to_s}"
+      end
+    end
+
+    # Add migration for pg_search
+    #
+    def add_pg_search
+      generate 'pg_search:migration:multisearch'
+      help_message('pg_search_post_install')
+    end
+
+    # Add pg_search to users
+    #
+    def add_user_search
+      insert_into_file(
+        "#{Rails.root}/app/models/user.rb", :after => "---- Plugins\n"
+      ) do
+        "  include PgSearch\n" + 
+        "  multisearchable :against => [:name, :email]\n"
       end
     end
 

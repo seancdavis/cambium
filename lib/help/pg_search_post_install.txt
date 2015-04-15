@@ -1,0 +1,13 @@
+
+==================== PG SEARCH ====================
+
+Add the following to each model that you would like 
+to be searchable:
+
+    include PgSearch
+    multisearchable :against => [:title, :author]
+
+where :title and :author are the attributes you 
+wish to be searched
+
+==================================================
