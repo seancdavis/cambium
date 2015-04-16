@@ -1,0 +1,29 @@
+<div id="title-bar">
+  <h2 class="page-title">Search Results for &ldquo;<%= params[:q] %>&rdquo;</h2>
+</div>
+
+<div id="page-content">
+  <section class="data-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Content Item</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @collection.each do |item| %>
+        <tr>
+          <td>
+            <%= item.searchable_type %> : 
+            <%= item.searchable.to_s %>
+          </td>
+          <td class="actions">
+            <a href="/<%= "edit_admin_#{item.searchable_type.downcase}_path(#{item.searchable.id})" %>"></a>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>

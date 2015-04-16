@@ -2,6 +2,7 @@
   <div class="logo">
     <%= link_to Cambium.configuration.app_title, admin_dashboard_path %>
   </div>
+
   <div class="user dropdown-container">
     <%= link_to('#', :class => 'dropdown-trigger') do %>
       <%= content_tag(
@@ -30,4 +31,11 @@
       </ul>
     </div>
   </div>
+
+  <div class="search-box">
+    <form action="<%= admin_search_path %>">
+      <input type="text" name="q" placeholder="search">
+    </form>
+  </div>
+
 </header>
