@@ -6,7 +6,9 @@ module Cambium
     end
 
     def show
-      @versions = PaperTrail::Version.order(:created_at => :desc)
+      @versions = PaperTrail::Version.order(:created_at => :desc).includes(:item)
+      @users = User.where(:id => @versions.collect(&:whodunnit)
+        .reject(&:blank?).map(&:to_i))
     end
 
   end

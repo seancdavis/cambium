@@ -1,15 +1,5 @@
-<h1>Latest Activity</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Name</th>
-      <th>Action</th>
-      <th>User</th>
-      <th>When</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @versions %>
-  </tbody>
-</table>
+<%= cambium_page_title('Latest Activity') %>
+
+<div id="page-content">
+  <%= content_tag(:ul, render(@versions)) %>
+</div>

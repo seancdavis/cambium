@@ -39,7 +39,7 @@ module Cambium
     # are further broken up in other methods
     #
     def view(name)
-      load_config(name).to_ostruct
+      load_config(name).nil? ? nil : load_config(name).to_ostruct
     end
 
     # Resolve the routes for the given controller
@@ -73,7 +73,7 @@ module Cambium
 
       def load_config(filename)
         file = File.join(Rails.root,'config','admin',"#{filename}.yml")
-        YAML.load_file(file)
+        File.exists?(file) ? YAML.load_file(file) : nil
       end
 
   end

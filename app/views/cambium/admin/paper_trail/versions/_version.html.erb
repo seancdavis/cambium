@@ -1,7 +1,9 @@
-<tr>
-  <td><%= version.item_type %></td>
-  <td><%= version.item.to_s %></td>
-  <td><%= version.event %></td>
-  <td><%= User.find(version.whodunnit).email if version.whodunnit.present? %></td>
-  <td><%= version.created_at %></td>
-</tr>
+<% if version.whodunnit.present? %>
+  <li>
+    <%= @users.select { |u| u.id == version.whodunnit.to_i }.first.name %>
+    <%= "#{version.event}d" %>
+    <%= version.item_type.downcase %>
+    <%= version.item.name %>
+    <%= "#{time_ago_in_words(version.created_at)} ago" %>
+  </li>
+<% end %>

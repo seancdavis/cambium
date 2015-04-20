@@ -22,7 +22,7 @@ module Cambium
     end
 
     def admin_table
-      @admin_table ||= admin_view.table
+      @admin_table ||= admin_view.nil? ? nil : admin_view.table
     end
 
     def admin_form
@@ -46,7 +46,11 @@ module Cambium
     def cambium_page_title(title)
       content_tag(:div, :id => 'title-bar') do
         o  = content_tag(:h2, title, :class => 'page-title')
-        if admin_table.buttons.new.present? && action_name == 'index'
+        if(
+          !admin_table.nil? &&
+          admin_table.buttons.new.present? &&
+          action_name == 'index'
+        )
           o += link_to(
             "New #{admin_model.to_s.humanize}",
             admin_routes.new,
