@@ -1,9 +1,17 @@
 <% if version.whodunnit.present? %>
-  <li>
-    <%= @users.select { |u| u.id == version.whodunnit.to_i }.first.name %>
-    <%= "#{version.event}d" %>
-    <%= version.item_type.downcase %>
-    <%= version.item.name %>
-    <%= "#{time_ago_in_words(version.created_at)} ago" %>
-  </li>
+  <% user = @users.select { |u| u.id == version.whodunnit.to_i }.first %>
+  <article>
+    <%= avatar(user, 72) %>
+    <div class="content">
+      <p class="date">
+        <%= "#{time_ago_in_words(version.created_at)} ago" %>
+      </p>
+      <p class="action">
+        <%= content_tag(:strong, user.name) %>
+        <%= "#{version.event}d" %>
+        <%= version.item_type.downcase %>
+        <%= content_tag(:strong, version.item.name) %>
+      </p>
+    </div>
+  </article>
 <% end %>

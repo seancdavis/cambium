@@ -46,3 +46,15 @@ div.status{
   }
   &.new:before { content: "\e702"; }
 }
+
+.avatar-container {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  border: 2px solid white;
+  overflow: hidden;
+  img {
+    width: 100%;
+  }
+}
