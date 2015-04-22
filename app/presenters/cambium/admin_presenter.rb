@@ -1,3 +1,5 @@
+require 'csv'
+
 module Cambium
   class AdminPresenter
 
@@ -66,6 +68,52 @@ module Cambium
         )
       end
       r.to_ostruct
+    end
+
+    # Export a collection of objects to csv, based on the
+    # configuration
+    #
+    def to_csv(collection)
+      config = view(@view.controller_name).export
+      output = CSV.generate do |csv|
+        # Grab headings and methods
+        headings = []
+        methods = []
+        config.columns.each_pair do |key, data|
+          if data.label.nil?
+            headings << key.to_s.titleize
+          else
+            headings << data.label
+          end
+          if data.output.nil?
+            methods << key.to_s
+          else
+            methods << data.output
+          end
+        end
+        csv << headings
+
+        # Get the data
+        collection.each do |obj|
+          vals = []
+          methods.each do |m|
+            chain = m.split('.').reject(&:blank?)
+            if chain.size > 1
+              val = obj
+              chain.each do |c|
+                args = c[/\(.*?\)/]
+                args = args.nil? ? [] : args[1..-2].split(',').map { |s| eval(s) }
+                method = c.split('(').first
+                val = args.size > 0 ? val.send(method, *args) : val.send(method)
+              end
+              vals << val
+            else
+              vals << obj.send(m)
+            end
+          end
+          csv << vals
+        end
+      end
     end
 
     private

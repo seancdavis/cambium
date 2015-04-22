@@ -9,8 +9,16 @@ module Cambium
     include CambiumHelper
 
     def index
-      @collection = admin_model.send(admin_table.scope)
-        .page(params[:page] || 1).per(15)
+      respond_to do |format|
+        format.html do
+          @collection = admin_model.send(admin_table.scope)
+            .page(params[:page] || 1).per(15)
+        end
+        format.csv do
+          @collection = admin_model.send(admin_table.scope)
+          send_data admin.to_csv(@collection)
+        end
+      end
     end
 
     def show

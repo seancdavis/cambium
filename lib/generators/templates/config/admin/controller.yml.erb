@@ -7,6 +7,11 @@ table:
       heading: <%= "#{col.name.titleize}" %><% end %>
   buttons:
     new: New <%= @model.to_s %>
+export:
+  button: Export <%= @model.to_s.pluralize %>
+  columns:<% @columns.each do |col| %>
+    <%= "#{col.name}:" %>
+      label: <%= "#{col.name.titleize}" %><% end %>
 form:
   new: &new
     title: New <%= @model.to_s %>

@@ -46,15 +46,18 @@ module Cambium
     def cambium_page_title(title)
       content_tag(:div, :id => 'title-bar') do
         o  = content_tag(:h2, title, :class => 'page-title')
-        if(
-          !admin_table.nil? &&
-          admin_table.buttons.new.present? &&
-          action_name == 'index'
-        )
+        if is_index? && has_new_form?
           o += link_to(
-            "New #{admin_model.to_s.humanize}",
+            admin_view.form.new.title,
             admin_routes.new,
             :class => 'button new'
+          )
+        end
+        if is_index? && admin_view.export.present?
+          o += link_to(
+            admin_view.export.button || "Export #{admin_table.title}",
+            "#{admin_routes.index}.csv",
+            :class => 'button export'
           )
         end
         o.html_safe
@@ -179,6 +182,14 @@ module Cambium
       rescue
         link_to('', main_app.send(path, obj))
       end
+    end
+
+    def is_index?
+      action_name == 'index'
+    end
+
+    def has_new_form?
+      admin_view.form.present? && admin_view.form.new.present?
     end
 
   end

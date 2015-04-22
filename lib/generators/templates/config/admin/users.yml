@@ -7,6 +7,13 @@ table:
       heading: Email
   buttons:
     new: New User
+export:
+  button: Export Users
+  columns:
+    name:
+      label: Name
+    email:
+      label: Email
 form:
   new: &new
     title: New User

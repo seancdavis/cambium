@@ -24,14 +24,19 @@
     font-weight: 400;
     color: $color-dark;
     vertical-align: top;
-    &.new {
+    &.new, &.export {
       margin: 12px 0 0 10px;
       padding: 3px 8px;
       font-size: 13px;
-      background: $color-2;
       &:before {
         font-size: 10px;
       }
+    }
+    &.new {
+      background: $color-2;
+    }
+    &.export {
+      float: right;
     }
   }
 }
