@@ -41,6 +41,11 @@ module Cambium
 
     def generate_controller
       generate "controller admin/#{@model_pl}"
+      template(
+        "app/controllers/admin/controller.rb.erb",
+        "app/controllers/admin/#{@model_pl}_controller.rb",
+        :force => true
+      )
     end
 
     def add_routes
