@@ -170,5 +170,15 @@ module Cambium
       end
     end
 
+    def cambium_search_route(obj)
+      controller = obj.class.to_s.humanize.singularize.downcase
+      path = "admin_#{controller}_path"
+      begin
+        link_to('', cambium.send(path, obj))
+      rescue
+        link_to('', main_app.send(path, obj))
+      end
+    end
+
   end
 end

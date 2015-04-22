@@ -20,11 +20,20 @@ section.data-table {
         position: relative;
         @include transition-all;
         border-bottom: 1px solid $color-light-dark;
-        // &:hover {
-        //   background: $color-light-dark;
-        // }
         td {
           padding: 10px 15px;
+          &.search-type {
+            font-weight: 400;
+            text-transform: uppercase;
+          }
+          &.no-results {
+            text-align: center;
+            font-weight: 400;
+            color: $color-dark-lighter;
+            font-size: 22px;
+            line-height: 26px;
+            font-style: italic;
+          }
           &.actions {
             width: 25px;
             text-align: center;
