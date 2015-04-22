@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   [
     'paper_trail',
     'pg_search',
+    'pickadate-rails',
     'rails',
     'rake',
     'superslug',
@@ -40,7 +41,6 @@ Gem::Specification.new do |spec|
   #   'jquery-rails',                 install:app
   #   'jquery-fileupload-rails',
   #   'kaminari',
-  #   'pickadate-rails',
   #   'sass-rails',                   install:app
   #   'simple_form',
   #   'uglifier',                     install:app

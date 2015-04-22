@@ -7,6 +7,7 @@ require 'cambium/configuration'
 require 'paper_trail'
 require 'pg_search'
 require 'superslug'
+require 'pickadate-rails'
 
 module Cambium
   require 'cambium/engine' if defined?(Rails)
