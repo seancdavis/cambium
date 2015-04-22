@@ -2,17 +2,18 @@ model: <%= @model.to_s %>
 table:
   title: <%= @model_pl.titleize %>
   scope: all
-  columns:
-    title:
-      heading: Title
+  columns:<% @columns.each do |col| %>
+    <%= "#{col.name}:" %>
+      heading: <%= "#{col.name.titleize}" %><% end %>
   buttons:
     new: New <%= @model.to_s %>
 form:
   new: &new
     title: New <%= @model.to_s %>
-    fields:
-      title:
-        type: string
+    fields:<% @columns.each do |col| %>
+      <%= "#{col.name}:" %>
+        type: <%= ['integer','decimal','float'].include?(col.type.to_s) ?
+          'string' : col.type.to_s %><% end %>
   edit:
     <<: *new
     title: Edit <%= @model.to_s %>

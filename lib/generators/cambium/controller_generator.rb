@@ -33,10 +33,15 @@ module Cambium
 
     def confirm_model
       @model = model.constantize
-      @model_pl = @model.to_s.humanize.downcase.pluralize
     rescue
       puts "Can't find the model: #{model}"
       exit
+    end
+
+    def set_model_attrs
+      @model_pl = @model.to_s.humanize.downcase.pluralize
+      @columns = @model.columns.reject { |col|
+        ['id','created_at','updated_at'].include?(col.name) }
     end
 
     def generate_controller
