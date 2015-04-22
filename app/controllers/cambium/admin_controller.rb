@@ -10,6 +10,7 @@ module Cambium
 
     def index
       @collection = admin_model.send(admin_table.scope)
+        .page(params[:page] || 1).per(15)
     end
 
     def show

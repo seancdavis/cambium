@@ -51,4 +51,30 @@ section.data-table {
       }
     }
   }
+
+  .pagination {
+    text-align: right;
+    &:first-child {
+      margin: 0 0 15px 0;
+    }
+    &:last-child {
+      margin: 15px 0 0 0;
+    }
+    span {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      font-weight: 400;
+      &.current {
+        padding: 3px;
+        font-weight: 600;
+      }
+      a {
+        margin: 0;
+        padding: 3px;
+        font-size: inherit;
+        font-weight: inherit;
+      }
+    }
+  }
 }

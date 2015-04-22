@@ -64,7 +64,7 @@ module Cambium
     def cambium_table(collection, columns)
       obj_methods = []
       content_tag(:section, :class => 'data-table') do
-        content_tag(:table) do
+        p = content_tag(:table) do
           o = content_tag(:thead) do
             content_tag(:tr) do
               o2 = ''
@@ -98,6 +98,7 @@ module Cambium
           end
           o.html_safe
         end
+        p += paginate(collection)
       end
     end
 

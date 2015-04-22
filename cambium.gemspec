@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.6"
 
   [
+    'kaminari',
     'paper_trail',
     'pg_search',
     'pickadate-rails',
@@ -40,7 +41,6 @@ Gem::Specification.new do |spec|
   #   'jbuilder',
   #   'jquery-rails',                 install:app
   #   'jquery-fileupload-rails',
-  #   'kaminari',
   #   'sass-rails',                   install:app
   #   'simple_form',
   #   'uglifier',                     install:app
