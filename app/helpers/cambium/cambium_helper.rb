@@ -85,9 +85,9 @@ module Cambium
                   o3 += content_tag(:td, obj.send(method))
                 end
                 path = "edit_admin_#{controller_name.singularize}_path"
-                if cambium.respond_to?(path.to_sym)
+                begin
                   route = cambium.send(path, obj)
-                else
+                rescue
                   route = main_app.send(path, obj)
                 end
                 o3 += content_tag(:td, link_to('', route), :class => 'actions')
@@ -108,10 +108,61 @@ module Cambium
           fields.to_h.each do |data|
             attr = data.first.to_s
             options = data.last
-            o += f.input(
-              attr.to_sym,
-              :as => options.type
-            )
+            if ['select','check_boxes','radio_buttons'].include?(options.type)
+              o += f.input(
+                attr.to_sym,
+                :as => options.type,
+                :collection => options.options
+              )
+            elsif ['date','time'].include?(options.type)
+              if obj.send(attr).present?
+                val = (options.type == 'date') ?
+                  obj.send(attr).strftime("%d %B, %Y") :
+                  obj.send(attr).strftime("%l:%M %p")
+              end
+              o += f.input(
+                attr.to_sym,
+                :as => :string,
+                :input_html => {
+                  :class => "picka#{options.type}",
+                  :value => val.nil? ? nil : val
+                }
+              )
+            elsif options.type == 'datetime'
+              o += content_tag(:div, :class => 'input string pickadatetime') do
+                o2 = content_tag(:label, attr.to_s.humanize.titleize)
+                o2 += content_tag(
+                  :input,
+                  '',
+                  :placeholder => 'Date',
+                  :type => 'text',
+                  :class => 'pickadatetime-date',
+                  :value => obj.send(attr).present? ?
+                    obj.send(attr).strftime("%d %B, %Y") : ''
+                )
+                o2 += content_tag(
+                  :input,
+                  '',
+                  :placeholder => 'Time',
+                  :type => 'text',
+                  :class => 'pickadatetime-time',
+                  :value => obj.send(attr).present? ?
+                    obj.send(attr).strftime("%l:%M %p") : ''
+                )
+                o2 += f.input(
+                  attr.to_sym,
+                  :as => :hidden,
+                  :wrapper => false,
+                  :label => false,
+                  :input_html => { :class => 'pickadatetime' }
+                )
+              end
+            else
+              o += f.input(
+                attr.to_sym,
+                :as => options.type
+              )
+            end
           end
           o += f.submit
           o.html_safe
