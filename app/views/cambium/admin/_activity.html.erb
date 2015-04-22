@@ -1,3 +1,6 @@
 <aside id="activity">
-  <%= render(@activities) %>
+  <%= render(
+    :partial => 'cambium/admin/paper_trail/versions/version',
+    :collection => @activities
+  ) %>
 </aside>

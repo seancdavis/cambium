@@ -45,11 +45,10 @@ module Cambium
     # Resolve the routes for the given controller
     #
     def routes(object)
-      if @view.cambium.respond_to?(
-        "admin_#{@view.controller_name.pluralize}_path".to_sym
-      )
+      begin
         n = @view.cambium
-      else
+        @view.cambium.send("admin_#{@view.controller_name.pluralize}_path")
+      rescue
         n = @view.main_app
       end
       r = {

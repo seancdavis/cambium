@@ -1,0 +1,18 @@
+model: <%= @model.to_s %>
+table:
+  title: <%= @model_pl.titleize %>
+  scope: all
+  columns:
+    title:
+      heading: Title
+  buttons:
+    new: New <%= @model.to_s %>
+form:
+  new: &new
+    title: New <%= @model.to_s %>
+    fields:
+      title:
+        type: string
+  edit:
+    <<: *new
+    title: Edit <%= @model.to_s %>

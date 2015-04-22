@@ -1,6 +1,6 @@
 <header>
   <div class="logo">
-    <%= link_to Cambium.configuration.app_title, admin_dashboard_path %>
+    <%= link_to Cambium.configuration.app_title, cambium.admin_dashboard_path %>
   </div>
 
   <div class="user dropdown-container">
@@ -33,7 +33,7 @@
   </div>
 
   <div class="search-box">
-    <form action="<%= admin_search_path %>">
+    <form action="<%= cambium.admin_search_path %>">
       <input type="text" name="q" placeholder="search ...">
     </form>
   </div>

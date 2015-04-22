@@ -14,11 +14,11 @@
   </head>
   <body class="cambium admin <%= 'dashboard' if controller_name == 'dashboard' %>">
 
-    <%= render 'status' %>
-    <%= render 'header' %>
-    <%= render 'sidebar' %>
+    <%= render 'cambium/admin/status' %>
+    <%= render 'cambium/admin/header' %>
+    <%= render 'cambium/admin/sidebar' %>
     <%= content_tag(:div, yield, :id => 'container') %>
-    <%= render 'activity' unless controller_name == 'dashboard' %>
+    <%= render 'cambium/admin/activity' unless controller_name == 'dashboard' %>
 
     <%= javascript_include_tag 'cambium/admin/application' %>
   </body>
