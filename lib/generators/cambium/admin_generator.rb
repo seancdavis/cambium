@@ -1,5 +1,6 @@
 require 'rake'
 require 'rails/generators'
+require 'fileutils'
 require File.expand_path('../../helpers/_autoloader.rb', __FILE__)
 
 module Cambium
@@ -85,9 +86,18 @@ module Cambium
       insert_into_file(
         "#{Rails.root}/app/models/user.rb", :after => "---- Plugins\n"
       ) do
-        "  include PgSearch\n" + 
+        "  include PgSearch\n" +
         "  multisearchable :against => [:name, :email]\n"
       end
+    end
+
+    # Adds a manifest SCSS file to the project, so the
+    # developer can override any admin styles with creating
+    # a new layout
+    #
+    def add_css_override
+      file = "app/assets/stylesheets/admin/admin.scss"
+      template(file, file)
     end
 
   end
