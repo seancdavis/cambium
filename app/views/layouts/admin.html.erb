@@ -12,13 +12,13 @@
     <%= javascript_include_tag "modernizr" %>
     <%= csrf_meta_tags %>
   </head>
-  <body class="cambium admin">
+  <body class="cambium admin <%= 'dashboard' if controller_name == 'dashboard' %>">
 
     <%= render 'status' %>
     <%= render 'header' %>
     <%= render 'sidebar' %>
     <%= content_tag(:div, yield, :id => 'container') %>
-    <%= render 'activity' %>
+    <%= render 'activity' unless controller_name == 'dashboard' %>
 
     <%= javascript_include_tag 'cambium/admin/application' %>
   </body>
