@@ -10,7 +10,7 @@
         <%= content_tag(:strong, user.name) %>
         <%= "#{version.event}d" %>
         <%= version.item_type.downcase %>
-        <%= content_tag(:strong, version.item.name) %>
+        <%= content_tag(:strong, version.item.to_s) %>
       </p>
     </div>
   </article>
