@@ -71,7 +71,8 @@ module Cambium
       end
 
       def set_activities
-        @activities = PaperTrail::Version.order(:created_at => :desc).includes(:item)
+        @activities = PaperTrail::Version.order(:created_at => :desc)
+          .includes(:item).limit(20)
         @users = User.where(:id => @activities.collect(&:whodunnit)
           .reject(&:blank?).map(&:to_i))
       end
