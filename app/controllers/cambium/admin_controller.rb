@@ -2,6 +2,7 @@ module Cambium
   class AdminController < ActionController::Base
 
     before_filter :authenticate_admin!
+    before_filter :set_activities
 
     layout "admin"
 
@@ -67,6 +68,12 @@ module Cambium
 
       def update_params
         create_params
+      end
+
+      def set_activities
+        @activities = PaperTrail::Version.order(:created_at => :desc).includes(:item)
+        @users = User.where(:id => @activities.collect(&:whodunnit)
+          .reject(&:blank?).map(&:to_i))
       end
 
   end

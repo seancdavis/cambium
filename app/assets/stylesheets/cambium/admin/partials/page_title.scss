@@ -1,9 +1,11 @@
 #title-bar {
   position: fixed;
   width: 100%;
+  top: 60px;
+  left: 0;
+  padding: 0 275px;
   z-index: 1;
   background: $color-light;
-  padding: 0 25px;
   border-bottom: 1px solid $color-light-darker;
   .page-title {
     display: inline-block;
