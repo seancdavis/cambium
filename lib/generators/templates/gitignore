@@ -19,7 +19,7 @@ esproj
 
 # Sensitive Data
 config/database.yml
-config/settings_private.yml
+config/private.yml
 
 # Public Uploads
 public/uploads/

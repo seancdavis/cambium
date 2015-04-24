@@ -1,0 +1,20 @@
+<% if version.whodunnit.present? %>
+  <% user = @users.select { |u| u.id == version.whodunnit.to_i }.first %>
+  <article>
+    <%= avatar(user, 72) %>
+    <div class="content">
+      <p class="date">
+        <%= "#{time_ago_in_words(version.created_at)} ago" %>
+      </p>
+      <p class="action">
+        <%= content_tag(:strong, user.name) %>
+        <%= "#{version.event}d" %>
+        <%= version.item_type.downcase %>
+        <%= content_tag(
+          :strong,
+          link_to(version.item.to_s, cambium_edit_route(version.item))
+        ) %>
+      </p>
+    </div>
+  </article>
+<% end %>

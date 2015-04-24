@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html class="public">
+  <head>
+    <title>Cambium</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <%= stylesheet_link_tag 'cambium/admin/application', :media => 'all' %>
+    <%= javascript_include_tag "modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="cambium admin <%= 'dashboard' if controller_name == 'dashboard' %>">
+
+    <%= render 'cambium/admin/status' %>
+    <%= render 'cambium/admin/header' %>
+    <%= render 'cambium/admin/sidebar' %>
+    <%= content_tag(:div, yield, :id => 'container') %>
+    <%= render 'cambium/admin/activity' unless controller_name == 'dashboard' %>
+
+    <%= javascript_include_tag 'cambium/admin/application' %>
+  </body>
+</html>

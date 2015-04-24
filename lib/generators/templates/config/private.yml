@@ -1,0 +1,16 @@
+# This file is for storing SENSITIVE settings. This file is
+# not tracked.
+#
+# Values here are accessible through a recursive `Private`
+# OpenStruct. For example, you can access "ABC123" using the
+# example below through Private.my_group.my_special_key
+#
+development: &default
+  my_group:
+    my_special_key: "ABC123"
+
+test:
+  <<: *default
+
+production:
+  <<: *default

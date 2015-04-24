@@ -1,0 +1,41 @@
+<header>
+  <div class="logo">
+    <%= link_to Cambium.configuration.app_title, cambium.admin_dashboard_path %>
+  </div>
+
+  <div class="user dropdown-container">
+    <%= link_to('#', :class => 'dropdown-trigger') do %>
+      <%= content_tag(
+        :span,
+        current_user.name.blank? ? current_user.email : current_user.name,
+        :class => 'name'
+      ) %>
+      <%= avatar(current_user, 84) %>
+    <% end %>
+    <div class="dropdown-menu">
+      <ul>
+        <%= content_tag(
+          :li,
+          link_to(
+            'Edit Profile',
+            cambium.edit_admin_user_path(current_user)
+          )
+        ) %>
+        <%= content_tag(
+          :li,
+          link_to(
+            'Sign Out',
+            main_app.destroy_user_session_path,
+          )
+        ) %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="search-box">
+    <form action="<%= cambium.admin_search_path %>">
+      <input type="text" name="q" placeholder="search ...">
+    </form>
+  </div>
+
+</header>

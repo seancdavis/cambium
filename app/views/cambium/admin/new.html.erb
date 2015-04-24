@@ -1,0 +1,7 @@
+<%= cambium_page_title(admin_form.title) %>
+
+<%= content_tag(
+  :div,
+  cambium_form(@object, admin_form.fields),
+  :id => 'page-content'
+) %>

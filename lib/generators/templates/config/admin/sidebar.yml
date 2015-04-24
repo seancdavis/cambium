@@ -1,0 +1,9 @@
+dashboard:
+  label: Dashboard
+  route: cambium.admin_dashboard
+  icon: dashboard
+users:
+  label: Users
+  route: cambium.admin_users
+  icon: users
+  controllers: ['users']

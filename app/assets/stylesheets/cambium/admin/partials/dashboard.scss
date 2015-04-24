@@ -1,0 +1,48 @@
+#page-content.dashboard {
+  > section {
+    article {
+      margin: 0 0 30px 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .avatar-container {
+        margin: 0 10px 0 0;
+        border-color: $color-light-darker;
+        vertical-align: middle;
+      }
+      .content {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+        p {
+          margin: 0;
+          font-size: 15px;
+          line-height: 20px;
+          &.action {
+            margin-top: 5px;
+          }
+          &.date {
+            color: darken($color-light-darkest, 10%);
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 14px;
+          }
+          strong {
+            font-size: inherit;
+            line-height: inherit;
+            a {
+              font-size: inherit;
+              line-height: inherit;
+              font-weight: inherit;
+              color: inherit;
+              @include transition-all;
+              &:hover {
+                color: $color-dark-lightest;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

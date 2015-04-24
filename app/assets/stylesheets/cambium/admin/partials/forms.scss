@@ -1,0 +1,107 @@
+section.form {
+  form {
+
+    div.input {
+      font-size: 0;
+      padding: 20px 0;
+      label {
+        position: relative;
+        display: inline-block;
+        width: 25%;
+        margin-top: 5px;
+        vertical-align: top;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        &.boolean {
+          margin: 0;
+        }
+        &.radio_buttons, &.check_boxes {
+          float: left;
+          margin-top: 0;
+        }
+        input.boolean {
+          position: absolute;
+          left: 100%;
+          top: 3px;
+        }
+      }
+      input, textarea, select, div.markdown {
+        position: relative;
+        display: inline-block;
+        width: 75%;
+        margin: 0;
+        padding: 5px;
+        vertical-align: bottom;
+        font-size: 16px;
+        border: none;
+      }
+      input {
+        border-bottom: 1px solid $color-light-darker;
+        &.pickadatetime-date {
+          width: 37%;
+          margin-right: 1%;
+        }
+        &.pickadatetime-time {
+          width: 37%;
+          + div.picker {
+            left: 62%;
+          }
+        }
+      }
+      textarea {
+        height: 200px;
+        border: 1px solid $color-light-darker;
+      }
+      select {}
+      div.markdown {
+        padding: 0;
+      }
+      span.radio, span.checkbox {
+        display: block;
+        width: 75%;
+        margin-left: 25%;
+        &:last-child {
+          label {
+            margin-bottom: 0;
+          }
+        }
+        label {
+          display: block;
+          margin: 0 0 12px 0;
+          line-height: 14px;
+        }
+        input {
+          width: auto;
+          margin: 0 5px 0 0;
+        }
+      }
+      div.picker {
+        left: 25%;
+        .picker__weekday {
+          color: $color-light;
+        }
+        .picker__button--today, .picker__button--clear, .picker__button--close {
+          color: $color-dark;
+        }
+      }
+    }
+
+    input[type=submit] {
+      display: block;
+      width: 100%;
+      margin: 15px 0 0 0;
+      @include box-sizing(border-box);
+      @include transition(all 0.35s linear);
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      &:hover, &:active, &:focus {
+        border: none;
+        outline: none;
+        background: $color-2;
+        color: $color-dark;
+      }
+    }
+  }
+}

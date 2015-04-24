@@ -12,6 +12,6 @@
       g.request_specs false
       g.stylesheets false
       g.javascripts false
-      g.helper false
-      g.skip_routes  true
+      g.helpers false
+      g.skip_routes true
     end

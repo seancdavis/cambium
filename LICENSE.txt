@@ -1,4 +1,4 @@
-Copyright (c) 2014 Sean C Davis
+Copyright (c) 2014-2015 Sean C Davis, Warren Harrison
 
 MIT License
 

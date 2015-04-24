@@ -1,0 +1,68 @@
+/*! Bones CSS Framework | v1.0 | Sean C. Davis | MIT License | git.io/imidoQ */
+
+/*
+ * Welcome to Bones CSS Framework!
+ *
+ * This is the manifest file for Bones' CSS. It brings all files
+ * together.
+ *
+ * To add or remove modules, simply comment or uncomment and then
+ * use Compass to recompile and compress.
+ *
+ * Files are noted as recommended and required where applicable.
+ *
+ * Refer to the ../docs/ directory for more detailed instruction.
+ *
+ */
+
+/* Vendor
+============================ */
+@import 'bones/vendor/normalize'; // highly recommended for cross-browser consistency
+
+/* Config
+============================ */
+/*
+ * These are your configuration files. You should always
+ * load all of these files, as the variable values are
+ * resolved and do not contribute any size to the final
+ * bones.css file.
+ *
+ */
+@import 'cambium/admin/bones/bones-config/colors';
+@import 'cambium/admin/bones/bones-config/_default';
+@import 'cambium/admin/bones/bones-config/wireframe';
+@import 'cambium/admin/bones/bones-config/typography';
+@import 'cambium/admin/bones/bones-config/buttons';
+@import 'cambium/admin/bones/bones-config/forms';
+@import 'cambium/admin/bones/bones-config/tables';
+@import 'cambium/admin/bones/bones-config/nav';
+@import 'cambium/admin/bones/bones-config/images';
+@import 'cambium/admin/bones/bones-config/components';
+@import 'cambium/admin/bones/bones-config/helpers';
+
+/* Main Styles
+============================ */
+@import 'bones/styles/_default'; // required
+@import 'bones/styles/wireframe';
+@import 'bones/styles/typography';
+@import 'bones/styles/icons';
+@import 'bones/styles/buttons';
+@import 'bones/styles/forms';
+@import 'bones/styles/tables';
+@import 'bones/styles/nav';
+@import 'bones/styles/images';
+@import 'bones/styles/components';
+
+/* Helpers
+============================ */
+@import 'bones/styles/helpers/margin';
+@import 'bones/styles/helpers/padding';
+@import 'bones/styles/helpers/positioning';
+@import 'bones/styles/helpers/color';
+@import 'bones/styles/helpers/background';
+@import 'bones/styles/helpers/border';
+@import 'bones/styles/helpers/size';
+
+/* Plugins
+============================ */
+// @import 'bones/styles/plugins/syntax_highlighting';

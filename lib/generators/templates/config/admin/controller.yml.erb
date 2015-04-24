@@ -1,0 +1,24 @@
+model: <%= @model.to_s %>
+table:
+  title: <%= @model_pl.titleize %>
+  scope: all
+  columns:<% @columns.each do |col| %>
+    <%= "#{col.name}:" %>
+      heading: <%= "#{col.name.titleize}" %><% end %>
+  buttons:
+    new: New <%= @model.to_s %>
+export:
+  button: Export <%= @model.to_s.pluralize %>
+  columns:<% @columns.each do |col| %>
+    <%= "#{col.name}:" %>
+      label: <%= "#{col.name.titleize}" %><% end %>
+form:
+  new: &new
+    title: New <%= @model.to_s %>
+    fields:<% @columns.each do |col| %>
+      <%= "#{col.name}:" %>
+        type: <%= ['integer','decimal','float'].include?(col.type.to_s) ?
+          'string' : col.type.to_s %><% end %>
+  edit:
+    <<: *new
+    title: Edit <%= @model.to_s %>

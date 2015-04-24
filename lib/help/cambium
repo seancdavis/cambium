@@ -1,7 +1,0 @@
-
-Usage:
-    bundle exec cambium [ACTION]
-
-[ACTION] Options:
-
-    [setup]      Run setup commands

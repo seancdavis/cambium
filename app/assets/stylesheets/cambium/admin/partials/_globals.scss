@@ -1,0 +1,21 @@
+* {
+  font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+@mixin transition-all {
+  @include transition(all 0.25s ease-in-out);
+}
+
+@mixin clear-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  li {
+    margin: 0;
+    padding: 0;
+    a {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
