@@ -10,7 +10,10 @@
         <%= content_tag(:strong, user.name) %>
         <%= "#{version.event}d" %>
         <%= version.item_type.downcase %>
-        <%= content_tag(:strong, version.item.to_s) %>
+        <%= content_tag(
+          :strong,
+          link_to(version.item.to_s, cambium_edit_route(version.item))
+        ) %>
       </p>
     </div>
   </article>

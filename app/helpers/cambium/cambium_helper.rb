@@ -183,13 +183,13 @@ module Cambium
       end
     end
 
-    def cambium_search_route(obj)
+    def cambium_edit_route(obj)
       controller = obj.class.to_s.humanize.singularize.downcase
       path = "admin_#{controller}_path"
       begin
-        link_to('', cambium.send(path, obj))
+        cambium.send(path, obj)
       rescue
-        link_to('', main_app.send(path, obj))
+        main_app.send(path, obj)
       end
     end
 

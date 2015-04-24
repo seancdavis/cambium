@@ -35,6 +35,16 @@ aside#activity {
         strong {
           font-size: inherit;
           line-height: inherit;
+          a {
+            font-size: inherit;
+            line-height: inherit;
+            font-weight: inherit;
+            color: inherit;
+            @include transition-all;
+            &:hover {
+              color: $color-dark-lightest;
+            }
+          }
         }
       }
     }

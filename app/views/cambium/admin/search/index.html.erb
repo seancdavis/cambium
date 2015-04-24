@@ -20,7 +20,7 @@
               <%= content_tag(:td, item.searchable.to_s) %>
               <%= content_tag(
                 :td,
-                cambium_search_route(item.searchable),
+                link_to('', cambium_edit_route(item.searchable)),
                 :class => 'actions'
               ) %>
             </tr>
