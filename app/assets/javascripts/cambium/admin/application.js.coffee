@@ -1,5 +1,6 @@
 #= require jquery
 #= require jquery_ujs
+#= require mark_it_zero/mark_it_zero
 #= require pickadate/picker
 #= require pickadate/picker.date
 #= require pickadate/picker.time

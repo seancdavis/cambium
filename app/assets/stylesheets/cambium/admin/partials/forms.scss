@@ -26,7 +26,7 @@ section.form {
           top: 3px;
         }
       }
-      input, textarea, select {
+      input, textarea, select, div.markdown {
         position: relative;
         display: inline-block;
         width: 75%;
@@ -54,6 +54,9 @@ section.form {
         border: 1px solid $color-light-darker;
       }
       select {}
+      div.markdown {
+        padding: 0;
+      }
       span.radio, span.checkbox {
         display: block;
         width: 75%;

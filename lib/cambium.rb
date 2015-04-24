@@ -5,6 +5,7 @@ require 'cambium/configuration'
 # Gem to load by default (in case they are removed from
 # Gemfile)
 require 'kaminari'
+require 'mark_it_zero'
 require 'paper_trail'
 require 'pg_search'
 require 'pickadate-rails'

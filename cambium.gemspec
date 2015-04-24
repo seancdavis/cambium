@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
 
   [
     'kaminari',
+    'mark_it_zero',
     'paper_trail',
     'pg_search',
     'pickadate-rails',
