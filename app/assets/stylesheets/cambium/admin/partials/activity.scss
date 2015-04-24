@@ -49,42 +49,4 @@ aside#activity {
       }
     }
   }
-  // nav {
-  //   ul {
-  //     float: none;
-  //     margin: 25px 0 0 0;
-  //     li {
-  //       display: block;
-  //       a {
-  //         display: block;
-  //         margin: 0;
-  //         padding: 15px 0 15px 25px;
-  //         font-size: 16px;
-  //         font-weight: 400;
-  //         border-left: 1px solid transparent;
-  //         border-bottom: none;
-  //         color: $color-light-darkest;
-  //         @include transition-all;
-  //         &:hover, &:active, &:focus {
-  //           color: $color-light;
-  //           background: $color-dark-light;
-  //           border-left-color: $color-1;
-  //           border-bottom: none;
-  //         }
-  //         &.active {
-  //           color: $color-dark;
-  //           background: $color-2;
-  //           border-left-color: $color-2;
-  //         }
-  //         i {
-  //           display: inline-block;
-  //           margin: 0 7.5px 0 0;
-  //           font-size: inherit;
-  //           font-weight: inherit;
-  //           color: inherit;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 }
