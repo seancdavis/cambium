@@ -273,6 +273,80 @@ Every setting plays a role. Let's step through each one.
 * `form:[new/edit]:fields:[field]:type`: The type of the HTML field to render,
   which uses [SimpleForm](https://github.com/plataformatec/simple_form).
 
+> Note: Aside from the usual form field types, Cambium uses [Mark It
+> Zero!](https://github.com/seancdavis/mark_it_zero) to render markdown
+> editors. You can pass `markdown` as the `type` option and it will give you a
+> markdown editor.
+
+Model Options
+----------
+
+Cambium makes use of many gems, and uses the behavior of those gems to drive
+much of its power. In many cases, this requires added options to your model.
+
+### Searchable Models
+
+To make items searchable (in the CMS and in the app), we use
+[pg_search](https://github.com/Casecommons/pg_search). You need to include the
+`PgSearch` module, and then call out the columns you want to search.
+
+For example, if you have a `Page` model and you want `title` and `body` to be
+searchable, you're model might look like this:
+
+```ruby
+class Page < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:title, :body]
+end
+```
+
+### Activity Log
+
+If you want to track the history of a model's records (which also means adding
+it to the activity log in the CMS), you need to add `has_paper_trail` to your
+model.
+
+```ruby
+class Page < ActiveRecord::Base
+  has_paper_trail
+end
+```
+
+The activity log in particular makes use of the `to_s` method for the model. In
+this way, we make no assumptions about the default attribute that describes a
+model's record. Usually this is something like `title` or `name`. If it were
+`title`, then your model (from above) is:
+
+```ruby
+class Page < ActiveRecord::Base
+  has_paper_trail
+
+  def to_s
+    title
+  end
+end
+```
+
+### Markdown to HTML
+
+As mentioned above, Cambium uses [Mark It
+Zero!](https://github.com/seancdavis/mark_it_zero) to render markdown editors.
+You, therefore, also have the option to store a markdown text attribute and
+have it automatically converted to HTML using the `after_save` callback.
+
+If, for our `Page` example, you have `body_markdown` and `body_html` fields,
+you can add your `body_markdown` attribute to the form and then the following
+to your model:
+
+```ruby
+class Page < ActiveRecord::Base
+  converts_markdown :body_markdown, :body_html
+end
+```
+
+See [this section](https://github.com/seancdavis/mark_it_zero#converting-to-
+html) of the Mark It Zero! docs for more information and options.
+
 Contributing
 ----------
 
