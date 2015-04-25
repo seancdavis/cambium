@@ -19,20 +19,19 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.6"
 
-  [
-    'kaminari',
-    'mark_it_zero',
-    'paper_trail',
-    'pg_search',
-    'pickadate-rails',
-    'rails',
-    'rake',
-    'superslug',
+  spec.add_dependency 'bones-rails', '>= 1.1.3'
+  spec.add_dependency 'kaminari'
+  spec.add_dependency 'mark_it_zero'
+  spec.add_dependency 'paper_trail'
+  spec.add_dependency 'pg_search'
+  spec.add_dependency 'pickadate-rails'
+  spec.add_dependency 'rails'
+  spec.add_dependency 'rake'
+  spec.add_dependency 'superslug'
+
   #   'ancestry',
   #   'annotate',                     all models
   #   'backbone-on-rails',            install:app
-  #   'bones-rails',
-  #   'bourbon',                      install:app
   #   'coffee-rails',                 install:app
   #   'devise',                       model:user
   #   'factory_girl_rails',
@@ -41,11 +40,9 @@ Gem::Specification.new do |spec|
   #   'jbuilder',
   #   'jquery-rails',                 install:app
   #   'jquery-fileupload-rails',
-  #   'sass-rails',                   install:app
   #   'simple_form',
   #   'uglifier',                     install:app
   #   'unicorn-rails',                install:app
   #   'wysihtml5-rails',
-  ].each { |g| spec.add_dependency g }
 
 end
