@@ -7,7 +7,7 @@
         <%= "#{time_ago_in_words(version.created_at)} ago" %>
       </p>
       <p class="action">
-        <%= content_tag(:strong, user.name) %>
+        <%= content_tag(:strong, user.name.present? ? user.name : user.email) %>
         <%= "#{version.event}d" %>
         <%= version.item_type.downcase %>
         <% if cambium_edit_route(version.item).nil? %>
