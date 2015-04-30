@@ -189,7 +189,11 @@ module Cambium
       begin
         cambium.send(path, obj)
       rescue
-        main_app.send(path, obj)
+        begin
+          main_app.send(path, obj)
+        rescue
+          nil
+        end
       end
     end
 
