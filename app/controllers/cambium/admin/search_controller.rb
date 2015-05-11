@@ -1,9 +1,7 @@
-module Cambium
-  class Admin::SearchController < AdminController
+class Cambium::Admin::SearchController < Cambium::AdminController
 
-    def index
-      @collection = PgSearch.multisearch(params[:q]).includes(:searchable)
-    end
-
+  def index
+    @collection = PgSearch.multisearch(params[:q]).includes(:searchable)
   end
+
 end
