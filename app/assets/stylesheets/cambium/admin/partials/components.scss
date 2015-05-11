@@ -37,8 +37,8 @@ div.status{
   }
 }
 
-.button {
-  &.new, &.export {
+a {
+  &.new, &.export, &.file {
     &:before {
       font-family: 'icomoon';
       font-size: inherit;
@@ -48,6 +48,7 @@ div.status{
   }
   &.new:before { content: "\e702"; }
   &.export:before { content: "\e65e"; }
+  &.file:before { content: "\e622"; }
 }
 
 .avatar-container {

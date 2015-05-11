@@ -12,6 +12,20 @@ section.form {
     div.input {
       font-size: 0;
       padding: 20px 0;
+      &.file {
+        padding: 20px 0 0 0;
+        & + a.file {
+          display: block;
+          width: 100%;
+          padding: 5px 0 20px 0;
+          font-size: 14px;
+          line-height: 14px;
+          text-align: right;
+        }
+        & + div.input {
+          padding-top: 40px;
+        }
+      }
       label {
         position: relative;
         display: inline-block;
@@ -43,6 +57,7 @@ section.form {
         vertical-align: bottom;
         font-size: 16px;
         border: none;
+        @include box-sizing(border-box);
         &[readonly=readonly] {
           background-color: $color-light-dark;
           border-bottom-color: $color-light-dark;

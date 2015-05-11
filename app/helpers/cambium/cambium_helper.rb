@@ -194,6 +194,19 @@ module Cambium
               :class => 'markdown'
             )
           end
+        elsif options.type == 'file'
+          o += f.input(
+            attr.to_sym,
+            :as => options.type,
+            :label => label,
+            :readonly => readonly
+          )
+          o += link_to(
+            obj.send(attr).name,
+            obj.send(attr).url,
+            :class => 'file',
+            :target => :blank
+          ) unless obj.send(attr).blank?
         else
           o += f.input(
             attr.to_sym,
