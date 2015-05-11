@@ -1,6 +1,14 @@
 section.form {
   form {
 
+    h2 {
+      margin: 10px 0;
+      font-size: 22px;
+      line-height: 28px;
+      color: $color-dark-lightest;
+      font-weight: 400;
+    }
+
     div.input {
       font-size: 0;
       padding: 20px 0;
