@@ -10,12 +10,12 @@
         <%= content_tag(:strong, user.name.present? ? user.name : user.email) %>
         <%= "#{version.event}d" %>
         <%= version.item_type.downcase %>
-        <% if cambium_edit_route(version.item).nil? %>
+        <% if cambium_route(:edit, version.item).nil? %>
           <%= content_tag(:strong, version.item.to_s) %>
         <% else %>
           <%= content_tag(
             :strong,
-            link_to(version.item.to_s, cambium_edit_route(version.item))
+            link_to(version.item.to_s, cambium_route(:edit, version.item))
           ) %>
         <% end %>
       </p>

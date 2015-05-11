@@ -107,92 +107,112 @@ module Cambium
 
     def cambium_form(obj, fields)
       content_tag(:section, :class => 'form') do
-        simple_form_for [:admin, obj] do |f|
-          o = ''
-          fields.to_h.each do |data|
-            attr = data.first.to_s
-            options = data.last
-            if ['select','check_boxes','radio_buttons'].include?(options.type)
-              o += f.input(
-                attr.to_sym,
-                :as => options.type,
-                :collection => options.options
-              )
-            elsif ['date','time'].include?(options.type)
-              if obj.send(attr).present?
-                val = (options.type == 'date') ?
-                  obj.send(attr).strftime("%d %B, %Y") :
-                  obj.send(attr).strftime("%l:%M %p")
-              end
-              o += f.input(
-                attr.to_sym,
-                :as => :string,
-                :input_html => {
-                  :class => "picka#{options.type}",
-                  :value => val.nil? ? nil : val
-                }
-              )
-            elsif options.type == 'datetime'
-              o += content_tag(:div, :class => 'input string pickadatetime') do
-                o2 = content_tag(:label, attr.to_s.humanize.titleize)
-                o2 += content_tag(
-                  :input,
-                  '',
-                  :placeholder => 'Date',
-                  :type => 'text',
-                  :class => 'pickadatetime-date',
-                  :value => obj.send(attr).present? ?
-                    obj.send(attr).strftime("%d %B, %Y") : ''
-                )
-                o2 += content_tag(
-                  :input,
-                  '',
-                  :placeholder => 'Time',
-                  :type => 'text',
-                  :class => 'pickadatetime-time',
-                  :value => obj.send(attr).present? ?
-                    obj.send(attr).strftime("%l:%M %p") : ''
-                )
-                o2 += f.input(
-                  attr.to_sym,
-                  :as => :hidden,
-                  :wrapper => false,
-                  :label => false,
-                  :input_html => { :class => 'pickadatetime' }
-                )
-              end
-            elsif options.type == 'markdown'
-              o += content_tag(:div, :class => "input text optional #{attr}") do
-                o2  = content_tag(:label, attr.titleize, :for => attr)
-                o2 += content_tag(
-                  :div,
-                  f.markdown(attr.to_sym),
-                  :class => 'markdown'
-                )
-              end
-            else
-              o += f.input(
-                attr.to_sym,
-                :as => options.type
-              )
-            end
-          end
-          o += f.submit
-          o.html_safe
+        case action_name
+        when 'edit', 'update'
+          url = cambium_route(:show, obj)
+        else
+          url = cambium_route(:index, obj)
+        end
+        simple_form_for obj, :url => url do |f|
+          cambium_form_fields(f, obj, fields)
         end
       end
     end
 
-    def cambium_edit_route(obj)
-      controller = obj.class.to_s.humanize.singularize.downcase
-      path = "admin_#{controller}_path"
-      begin
-        cambium.send(path, obj)
-      rescue
+    def cambium_form_fields(f, obj, fields)
+      o = ''
+      fields.to_h.each do |data|
+        attr = data.first.to_s
+        options = data.last
+        if ['select','check_boxes','radio_buttons'].include?(options.type)
+          o += f.input(
+            attr.to_sym,
+            :as => options.type,
+            :collection => options.options
+          )
+        elsif ['date','time'].include?(options.type)
+          if obj.send(attr).present?
+            val = (options.type == 'date') ?
+              obj.send(attr).strftime("%d %B, %Y") :
+              obj.send(attr).strftime("%l:%M %p")
+          end
+          o += f.input(
+            attr.to_sym,
+            :as => :string,
+            :input_html => {
+              :class => "picka#{options.type}",
+              :value => val.nil? ? nil : val
+            }
+          )
+        elsif options.type == 'datetime'
+          o += content_tag(:div, :class => 'input string pickadatetime') do
+            o2 = content_tag(:label, attr.to_s.humanize.titleize)
+            o2 += content_tag(
+              :input,
+              '',
+              :placeholder => 'Date',
+              :type => 'text',
+              :class => 'pickadatetime-date',
+              :value => obj.send(attr).present? ?
+                obj.send(attr).strftime("%d %B, %Y") : ''
+            )
+            o2 += content_tag(
+              :input,
+              '',
+              :placeholder => 'Time',
+              :type => 'text',
+              :class => 'pickadatetime-time',
+              :value => obj.send(attr).present? ?
+                obj.send(attr).strftime("%l:%M %p") : ''
+            )
+            o2 += f.input(
+              attr.to_sym,
+              :as => :hidden,
+              :wrapper => false,
+              :label => false,
+              :input_html => { :class => 'pickadatetime' }
+            )
+          end
+        elsif options.type == 'markdown'
+          o += content_tag(:div, :class => "input text optional #{attr}") do
+            o2  = content_tag(:label, attr.titleize, :for => attr)
+            o2 += content_tag(
+              :div,
+              f.markdown(attr.to_sym),
+              :class => 'markdown'
+            )
+          end
+        else
+          o += f.input(
+            attr.to_sym,
+            :as => options.type
+          )
+        end
+      end
+      o += f.submit
+      o.html_safe
+    end
+
+    def cambium_route(action, obj = nil)
+      case action
+      when :index
         begin
-          main_app.send(path, obj)
+          main_app
+            .polymorphic_path [:admin, obj.class.to_s.downcase.pluralize.to_sym]
         rescue
-          nil
+          polymorphic_path [:admin, obj.class.to_s.downcase.pluralize.to_sym]
+        end
+      when :edit
+        begin
+          main_app.polymorphic_path [:edit, :admin, obj]
+        rescue
+          polymorphic_path [:edit, :admin, obj]
+        end
+      else
+        begin
+          main_app.polymorphic_path [:admin, obj]
+        rescue
+          polymorphic_path [:admin, obj]
         end
       end
     end
