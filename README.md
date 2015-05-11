@@ -278,6 +278,32 @@ Every setting plays a role. Let's step through each one.
 > editors. You can pass `markdown` as the `type` option and it will give you a
 > markdown editor.
 
+### Overriding the Base Controller
+
+I've rearranged Cambium's CMS controllers so there is a blank `BaseController`
+from which it inherits. You can manually override this in your app by creating
+a `Cambium::BaseController` and loading the appropriate files.
+
+First, generate the controller.
+
+```text
+$ bundle exec rails g controller cambium/base
+```
+
+That controller can inherit from any other controller in your app. The only
+thing you need to ensure is that it loads the `CambiumHelper` from the
+`Cambium` namespace. So, the base file should look like this:
+
+```ruby
+class Cambium::BaseController < ApplicationController
+  helper Cambium::CambiumHelper
+end
+```
+
+You can change `ApplicationController` to any other controller in your
+application.
+
+
 Model Options
 ----------
 
