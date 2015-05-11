@@ -231,6 +231,7 @@ form:
         type: string
       email:
         type: string
+        readonly: true
       password:
         type: password
       password_confirmation:
@@ -272,6 +273,8 @@ Every setting plays a role. Let's step through each one.
   set it apart from the others.
 * `form:[new/edit]:fields:[field]:type`: The type of the HTML field to render,
   which uses [SimpleForm](https://github.com/plataformatec/simple_form).
+* `form:[new/edit]:fields:[field]:readonly`: If set to `true`, it will add the
+  `readonly` attribute to the input field. *Not supported for markdown fields*.
 
 > Note: Aside from the usual form field types, Cambium uses [Mark It
 > Zero!](https://github.com/seancdavis/mark_it_zero) to render markdown
