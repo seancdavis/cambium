@@ -124,11 +124,14 @@ module Cambium
       fields.to_h.each do |data|
         attr = data.first.to_s
         options = data.last
+        readonly = options.readonly.present? && options.readonly == true ?
+          true : false
         if ['select','check_boxes','radio_buttons'].include?(options.type)
           o += f.input(
             attr.to_sym,
             :as => options.type,
-            :collection => options.options
+            :collection => options.options,
+            :readonly => readonly
           )
         elsif ['date','time'].include?(options.type)
           if obj.send(attr).present?
@@ -142,7 +145,8 @@ module Cambium
             :input_html => {
               :class => "picka#{options.type}",
               :value => val.nil? ? nil : val
-            }
+            },
+            :readonly => readonly
           )
         elsif options.type == 'datetime'
           o += content_tag(:div, :class => 'input string pickadatetime') do
@@ -154,7 +158,8 @@ module Cambium
               :type => 'text',
               :class => 'pickadatetime-date',
               :value => obj.send(attr).present? ?
-                obj.send(attr).strftime("%d %B, %Y") : ''
+                obj.send(attr).strftime("%d %B, %Y") : '',
+              :readonly => readonly
             )
             o2 += content_tag(
               :input,
@@ -163,7 +168,8 @@ module Cambium
               :type => 'text',
               :class => 'pickadatetime-time',
               :value => obj.send(attr).present? ?
-                obj.send(attr).strftime("%l:%M %p") : ''
+                obj.send(attr).strftime("%l:%M %p") : '',
+              :readonly => readonly
             )
             o2 += f.input(
               attr.to_sym,
@@ -185,7 +191,8 @@ module Cambium
         else
           o += f.input(
             attr.to_sym,
-            :as => options.type
+            :as => options.type,
+            :readonly => readonly
           )
         end
       end

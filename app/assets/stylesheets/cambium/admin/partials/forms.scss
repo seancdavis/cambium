@@ -35,6 +35,10 @@ section.form {
         vertical-align: bottom;
         font-size: 16px;
         border: none;
+        &[readonly=readonly] {
+          background-color: $color-light-dark;
+          border-bottom-color: $color-light-dark;
+        }
       }
       input {
         border-bottom: 1px solid $color-light-darker;
