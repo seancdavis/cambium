@@ -55,10 +55,12 @@ class Cambium::AdminController < Cambium::BaseController
   private
 
     def set_object
-      if @object.respond_to?(:slug) && params[:slug]
-        @object = admin_model.find_by_slug(params[:slug])
+      if admin_model.new.respond_to?(:slug) && params[:slug]
+        slug = params[:"#{admin_model.to_s.underscore}_slug"] || params[:slug]
+        @object = admin_model.find_by_slug(slug)
       else
-        @object = admin_model.find_by_id(params[:id])
+        id = params[:"#{admin_model.to_s.underscore}_id"] || params[:id]
+        @object = admin_model.find_by_id(id.to_i)
       end
       @obj = @object
     end
