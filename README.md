@@ -272,7 +272,8 @@ Every setting plays a role. Let's step through each one.
 * `form:[new/edit]:fields:[field]`: Each form field gets its own unique key to
   set it apart from the others.
 * `form:[new/edit]:fields:[field]:type`: The type of the HTML field to render,
-  which uses [SimpleForm](https://github.com/plataformatec/simple_form).
+  which uses [SimpleForm](https://github.com/plataformatec/simple_form). *You
+  can use `heading` here to break up your fields.*
 * `form:[new/edit]:fields:[field]:readonly`: If set to `true`, it will add the
   `readonly` attribute to the input field. *Not supported for markdown fields*.
 
