@@ -1,24 +1,26 @@
 <% if version.whodunnit.present? %>
   <% user = @users.select { |u| u.id == version.whodunnit.to_i }.first %>
-  <article>
-    <%= avatar(user, 72) %>
-    <div class="content">
-      <p class="date">
-        <%= "#{time_ago_in_words(version.created_at)} ago" %>
-      </p>
-      <p class="action">
-        <%= content_tag(:strong, user.name.present? ? user.name : user.email) %>
-        <%= "#{version.event}d" %>
-        <%= version.item_type.downcase %>
-        <% if cambium_route(:edit, version.item).nil? %>
-          <%= content_tag(:strong, version.item.to_s) %>
-        <% else %>
-          <%= content_tag(
-            :strong,
-            link_to(version.item.to_s, cambium_route(:edit, version.item))
-          ) %>
-        <% end %>
-      </p>
-    </div>
-  </article>
+  <% unless user.nil? %>
+    <article>
+      <%= avatar(user, 72) %>
+      <div class="content">
+        <p class="date">
+          <%= "#{time_ago_in_words(version.created_at)} ago" %>
+        </p>
+        <p class="action">
+          <%= content_tag(:strong, user.name.present? ? user.name : user.email) %>
+          <%= "#{version.event}d" %>
+          <%= version.item_type.downcase %>
+          <% if cambium_route(:edit, version.item).nil? %>
+            <%= content_tag(:strong, version.item.to_s) %>
+          <% else %>
+            <%= content_tag(
+              :strong,
+              link_to(version.item.to_s, cambium_route(:edit, version.item))
+            ) %>
+          <% end %>
+        </p>
+      </div>
+    </article>
+  <% end %>
 <% end %>
