@@ -105,13 +105,15 @@ module Cambium
       end
     end
 
-    def cambium_form(obj, fields)
+    def cambium_form(obj, fields, url=nil)
       content_tag(:section, :class => 'form') do
-        case action_name
-        when 'edit', 'update'
-          url = cambium_route(:show, obj)
-        else
-          url = cambium_route(:index, obj)
+        if url.nil?
+          case action_name
+          when 'edit', 'update'
+            url = cambium_route(:show, obj)
+          else
+            url = cambium_route(:index, obj)
+          end
         end
         simple_form_for obj, :url => url do |f|
           cambium_form_fields(f, obj, fields)
