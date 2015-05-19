@@ -72,7 +72,7 @@ class Cambium::AdminController < Cambium::BaseController
 
     def create_params
       params
-        .require(admin_model.to_s.humanize.downcase.to_sym)
+        .require(admin_model.to_s.tableize.singularize.to_sym)
         .permit(admin_form.fields.to_h.keys)
     end
 
