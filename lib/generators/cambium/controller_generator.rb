@@ -39,7 +39,7 @@ module Cambium
     end
 
     def set_model_attrs
-      @model_pl = @model.to_s.humanize.downcase.pluralize
+      @model_pl = @model.to_s.tableize.downcase.pluralize
       @columns = @model.columns.reject { |col|
         ['id','created_at','updated_at'].include?(col.name) }
     end
