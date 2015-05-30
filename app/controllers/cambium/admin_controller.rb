@@ -83,7 +83,8 @@ class Cambium::AdminController < Cambium::BaseController
     def set_activities
       @activities = PaperTrail::Version.order(:created_at => :desc)
         .includes(:item).limit(40)
-      @activities = @activities.reject { |a| a.item.blank? }.first(20)
+      @activities = @activities
+        .reject { |a| a.item.blank? || a.whodunnit.blank? }.first(20)
       @users = User.where(:id => @activities.collect(&:whodunnit)
         .reject(&:blank?).map(&:to_i))
     end
