@@ -244,19 +244,19 @@ module Cambium
           main_app
             .polymorphic_path [:admin, obj.class.to_s.tableize.pluralize.to_sym]
         rescue
-          polymorphic_path [:admin, obj.class.to_s.tableize.pluralize.to_sym]
+          cambium.polymorphic_path [:admin, obj.class.to_s.tableize.pluralize.to_sym]
         end
       when :edit
         begin
           main_app.polymorphic_path [:edit, :admin, obj]
         rescue
-          polymorphic_path [:edit, :admin, obj]
+          cambium.polymorphic_path [:edit, :admin, obj]
         end
       else
         begin
           main_app.polymorphic_path [:admin, obj]
         rescue
-          polymorphic_path [:admin, obj]
+          cambium.polymorphic_path [:admin, obj]
         end
       end
     end
