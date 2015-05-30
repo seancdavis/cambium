@@ -189,7 +189,7 @@ module Cambium
           end
         elsif options.type == 'markdown'
           o += content_tag(:div, :class => "input text optional #{attr}") do
-            o2  = content_tag(:label, attr.titleize, :for => attr)
+            o2  = content_tag(:label, label, :for => attr)
             o2 += content_tag(
               :div,
               f.markdown(attr.to_sym),
