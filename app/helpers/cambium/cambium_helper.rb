@@ -131,10 +131,16 @@ module Cambium
         if options.type == 'heading'
           o += content_tag(:h2, options.label || attr.titleize)
         elsif ['select','check_boxes','radio_buttons'].include?(options.type)
+          parts = options.options.split('.')
+          if parts.size > 1
+            collection = parts[0].constantize.send(parts[1])
+          else
+            collection = options.options
+          end
           o += f.input(
             attr.to_sym,
             :as => options.type,
-            :collection => options.options,
+            :collection => collection,
             :label => label,
             :readonly => readonly
           )
