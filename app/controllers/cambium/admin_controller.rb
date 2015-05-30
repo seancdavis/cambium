@@ -9,12 +9,19 @@ class Cambium::AdminController < Cambium::BaseController
 
   def index
     respond_to do |format|
-      format.html do
+      scope = admin_table.scope
+      if scope.split('.').size > 1
+        @collection = admin_model
+        scope.split('.').each do |s|
+          @collection = @collection.send(s)
+        end
+      else
         @collection = admin_model.send(admin_table.scope)
-          .page(params[:page] || 1).per(15)
+      end
+      format.html do
+        @collection = @collection.page(params[:page] || 1).per(15)
       end
       format.csv do
-        @collection = admin_model.send(admin_table.scope)
         send_data admin.to_csv(@collection)
       end
     end
