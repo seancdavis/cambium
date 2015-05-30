@@ -112,6 +112,12 @@ section.form {
           color: $color-dark;
         }
       }
+      .error {
+        display: block;
+        font-weight: 600;
+        color: $color-danger;
+        text-transform: uppercase;
+      }
     }
 
     input[type=submit] {
