@@ -224,6 +224,8 @@ export:
     email:
       label: Email
 form:
+  buttons:
+    delete: Delete User
   new: &new
     title: New User
     fields:
@@ -265,6 +267,9 @@ Every setting plays a role. Let's step through each one.
 * `export:columns:[column]:output`: An optional method you can pass to each
   object to help with display.
 * `form`: Settings for the form.
+* `form:buttons:delete`: Label for the delete button. If you remove `delete`
+  entirely, then no delete button will exist (though you'd have to manually
+  remove the route from your routes file).
 * `form:[new/edit]`: New is the defaut, and most of the time Edit will inherit
   from new (the `<<: *new` is what handles that). But you can optionally
   override new values for your edit form.
