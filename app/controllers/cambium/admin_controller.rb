@@ -37,7 +37,6 @@ class Cambium::AdminController < Cambium::BaseController
   end
 
   def create
-    set_object
     @object = admin_model.new(create_params)
     if @object.save
       redirect_to(admin_routes.index, :notice => "#{admin_model.to_s} created!")
