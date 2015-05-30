@@ -13,6 +13,8 @@ export:
     <%= "#{col.name}:" %>
       label: <%= "#{col.name.titleize}" %><% end %>
 form:
+  buttons:
+    delete: Delete <%= @model.to_s %>
   new: &new
     title: New <%= @model.to_s %>
     fields:<% @columns.each do |col| %>
