@@ -58,6 +58,12 @@ class Cambium::AdminController < Cambium::BaseController
     end
   end
 
+  def destroy
+    set_object
+    @object.destroy
+    redirect_to(admin_routes.index, :notice => "#{admin_model.to_s} deleted!")
+  end
+
   private
 
     def set_object

@@ -66,6 +66,7 @@ module Cambium
           "admin_#{@view.controller_name.singularize}_path",
           object
         )
+        r[:delete] = r[:show]
       end
       r.to_ostruct
     end

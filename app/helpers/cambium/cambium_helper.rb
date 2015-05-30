@@ -60,6 +60,15 @@ module Cambium
             :class => 'button export'
           )
         end
+        if is_edit? && can_delete?
+          o += link_to(
+            admin_view.form.buttons.delete,
+            admin_routes.delete,
+            :class => 'button delete',
+            :method => :delete,
+            :data => { :confirm => 'Are you sure?' }
+          )
+        end
         o.html_safe
       end
     end
@@ -256,8 +265,17 @@ module Cambium
       action_name == 'index'
     end
 
+    def is_edit?
+      ['edit','update'].include?(action_name)
+    end
+
     def has_new_form?
       admin_view.form.present? && admin_view.form.new.present?
+    end
+
+    def can_delete?
+      admin_view.form.present? && admin_view.form.buttons.present? &&
+        admin_view.form.buttons.delete.present?
     end
 
   end

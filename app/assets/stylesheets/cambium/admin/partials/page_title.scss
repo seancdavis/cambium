@@ -24,7 +24,7 @@
     font-weight: 400;
     color: $color-dark;
     vertical-align: top;
-    &.new, &.export {
+    &.new, &.export, &.delete {
       margin: 12px 0 0 10px;
       padding: 3px 8px;
       font-size: 13px;
@@ -35,7 +35,11 @@
     &.new {
       background: $color-2;
     }
-    &.export {
+    &.delete {
+      background: $color-danger;
+      color: $color-light;
+    }
+    &.export, &.delete {
       float: right;
     }
   }
