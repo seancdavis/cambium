@@ -69,6 +69,7 @@ class Cambium::AdminController < Cambium::BaseController
         id = params[:"#{admin_model.to_s.underscore}_id"] || params[:id]
         @object = admin_model.find_by_id(id.to_i)
       end
+      not_found if @object.nil?
       @obj = @object
     end
 
