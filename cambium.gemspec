@@ -21,28 +21,12 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'bones-rails', '>= 1.1.3'
   spec.add_dependency 'kaminari'
-  spec.add_dependency 'mark_it_zero'
+  spec.add_dependency 'mark_it_zero', '~> 0.3.0'
   spec.add_dependency 'paper_trail'
   spec.add_dependency 'pg_search'
   spec.add_dependency 'pickadate-rails'
   spec.add_dependency 'rails'
   spec.add_dependency 'rake'
   spec.add_dependency 'superslug'
-
-  #   'ancestry',
-  #   'annotate',                     all models
-  #   'backbone-on-rails',            install:app
-  #   'coffee-rails',                 install:app
-  #   'devise',                       model:user
-  #   'factory_girl_rails',
-  #   'faker',
-  #   'hirb',
-  #   'jbuilder',
-  #   'jquery-rails',                 install:app
-  #   'jquery-fileupload-rails',
-  #   'simple_form',
-  #   'uglifier',                     install:app
-  #   'unicorn-rails',                install:app
-  #   'wysihtml5-rails',
 
 end
