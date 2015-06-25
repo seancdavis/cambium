@@ -12,6 +12,9 @@ require 'pg_search'
 require 'pickadate-rails'
 require 'superslug'
 
+# Temp (hopefully) monkeypatch solution for Kaminari
+require 'kaminari/helpers/tag'
+
 module Cambium
   require 'cambium/engine' if defined?(Rails)
 end
