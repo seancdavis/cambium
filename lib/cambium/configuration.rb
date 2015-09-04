@@ -1,10 +1,9 @@
 module Cambium
   class Configuration
 
-    attr_accessor \
-      :development_url,
-      :production_url,
-      :app_title,
+    attr_accessor :app_title,
+                  :development_url,
+                  :production_url
 
     def initialize
       @development_url      = 'localhost:3000'
