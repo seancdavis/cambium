@@ -171,7 +171,7 @@ module Cambium
           )
         elsif options.type == 'datetime'
           o += content_tag(:div, :class => 'input string pickadatetime') do
-            o2 = content_tag(:label, attr.to_s.humanize.titleize)
+            o2 = content_tag(:label, label)
             o2 += content_tag(
               :input,
               '',
