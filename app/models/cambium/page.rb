@@ -7,6 +7,7 @@ module Cambium
 
     multisearchable :against => [:title]
     has_paper_trail
+    has_superslug
 
     # ------------------------------------------ Instance Methods
 
