@@ -1,0 +1,42 @@
+model: Page
+table:
+  title: Site Pages
+  scope: all
+  columns:
+    title:
+      heading: Title
+  buttons:
+    new: New Page
+export:
+  button: Export Pages
+  columns:
+    title:
+      label: Title
+form:
+  buttons:
+    delete: Delete Page
+  new: &new
+    title: New Page
+    fields:
+      title:
+        type: string
+      template_name:
+        type: select
+        options: Cambium::PageTemplate.names
+      description:
+        type: string
+      html:
+        type: wysiwyg
+        label: Body
+      publishable:
+        type: heading
+        label: Publish Dates
+      active_at:
+        type: datetime
+        label: Publish At
+      inactive_at:
+        type: datetime
+        label: Unpublish At
+  edit:
+    <<: *new
+    title: Edit Page
