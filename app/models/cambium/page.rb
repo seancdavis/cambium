@@ -15,5 +15,9 @@ module Cambium
       title
     end
 
+    def template
+      PageTemplate.find(template_name)
+    end
+
   end
 end

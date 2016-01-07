@@ -6,6 +6,7 @@ class CreateCambiumPages < ActiveRecord::Migration
       t.text :description
       t.text :markdown
       t.text :html
+      t.string :template_name
       t.string :ancestry
       t.integer :position, :default => 0
       t.json :template_data

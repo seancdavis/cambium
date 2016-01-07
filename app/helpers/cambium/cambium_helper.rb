@@ -114,7 +114,7 @@ module Cambium
       end
     end
 
-    def cambium_form(obj, fields, url=nil)
+    def cambium_form(obj, fields, url=nil, &block)
       content_tag(:section, :class => 'form') do
         if url.nil?
           case action_name
@@ -125,123 +125,85 @@ module Cambium
           end
         end
         simple_form_for obj, :url => url do |f|
-          cambium_form_fields(f, obj, fields)
+          o  = cambium_form_fields(f, obj, fields)
+          o += capture(f, &block) if block_given?
+          o += f.submit
+          o
         end
       end
     end
 
     def cambium_form_fields(f, obj, fields)
       o = ''
-      fields.to_h.each do |data|
-        attr = data.first.to_s
-        options = data.last
-        readonly = options.readonly || false
-        label = options.label || attr.titleize
-        if options.type == 'heading'
-          o += content_tag(:h2, options.label || attr.titleize)
-        elsif ['select','check_boxes','radio_buttons'].include?(options.type)
-          parts = options.options.split('.')
-          if parts.size > 1
-            collection = parts[0].constantize.send(parts[1])
-          else
-            collection = options.options
-          end
-          o += f.input(
-            attr.to_sym,
-            :as => options.type,
-            :collection => collection,
-            :label => label,
-            :readonly => readonly
-          )
-        elsif ['date','time'].include?(options.type)
-          if obj.send(attr).present?
-            val = (options.type == 'date') ?
-              obj.send(attr).strftime("%d %B, %Y") :
-              obj.send(attr).strftime("%l:%M %p")
-          end
-          o += f.input(
-            attr.to_sym,
-            :as => :string,
-            :label => label,
-            :input_html => {
-              :class => "picka#{options.type}",
-              :value => val.nil? ? nil : val
-            },
-            :readonly => readonly
-          )
-        elsif options.type == 'datetime'
-          o += content_tag(:div, :class => 'input string pickadatetime') do
-            o2 = content_tag(:label, label)
-            o2 += content_tag(
-              :input,
-              '',
-              :label => label,
-              :placeholder => 'Date',
-              :type => 'text',
-              :class => 'pickadatetime-date',
-              :value => obj.send(attr).present? ?
-                obj.send(attr).strftime("%d %B, %Y") : '',
-              :readonly => readonly
-            )
-            o2 += content_tag(
-              :input,
-              '',
-              :label => label,
-              :placeholder => 'Time',
-              :type => 'text',
-              :class => 'pickadatetime-time',
-              :value => obj.send(attr).present? ?
-                obj.send(attr).strftime("%l:%M %p") : '',
-              :readonly => readonly
-            )
-            o2 += f.input(
-              attr.to_sym,
-              :as => :hidden,
-              :wrapper => false,
-              :label => false,
-              :input_html => { :class => 'pickadatetime' }
-            )
-          end
-        elsif options.type == 'markdown'
-          o += content_tag(:div, :class => "input text optional #{attr}") do
-            o2  = content_tag(:label, label, :for => attr)
-            o2 += content_tag(
-              :div,
-              f.markdown(attr.to_sym),
-              :class => 'markdown'
-            )
-          end
-        elsif options.type == 'wysiwyg'
-          o += f.input(
-            attr.to_sym,
-            :as => :text,
-            :label => label,
-            :input_html => { :class => 'editor' }
-          )
-        elsif options.type == 'file'
-          o += f.input(
-            attr.to_sym,
-            :as => options.type,
-            :label => label,
-            :readonly => readonly
-          )
-          o += link_to(
-            obj.send(attr).name,
-            obj.send(attr).url,
-            :class => 'file',
-            :target => :blank
-          ) unless obj.send(attr).blank?
-        else
-          o += f.input(
-            attr.to_sym,
-            :as => options.type,
-            :label => label,
-            :readonly => readonly
-          )
-        end
+      fields.to_h.each do |field|
+        o += cambium_field(f, obj, field)
       end
-      o += f.submit
       o.html_safe
+    end
+
+    def cambium_field(f, obj, field)
+      attr = field.first.to_s
+      options = field.last
+      options = options.to_ostruct unless options.class == OpenStruct
+      readonly = options.readonly || false
+      label = options.label || attr.titleize
+      if options.type == 'heading'
+        content_tag(:h2, options.label || attr.titleize)
+      elsif ['select','check_boxes','radio_buttons'].include?(options.type)
+        parts = options.options.split('.')
+        if parts.size > 1
+          collection = parts[0].constantize.send(parts[1])
+        else
+          collection = options.options
+        end
+        f.input(attr.to_sym, :as => options.type, :collection => collection,
+                :label => label, :readonly => readonly)
+      elsif ['date','time'].include?(options.type)
+        if obj.send(attr).present?
+          val = (options.type == 'date') ?
+            obj.send(attr).strftime("%d %B, %Y") :
+            obj.send(attr).strftime("%l:%M %p")
+        end
+        f.input(attr.to_sym, :as => :string, :label => label,
+                :input_html => {
+                  :class => "picka#{options.type}",
+                  :value => val.nil? ? nil : val
+                }, :readonly => readonly)
+      elsif options.type == 'datetime'
+        content_tag(:div, :class => 'input string pickadatetime') do
+          o2 = content_tag(:label, label)
+          o2 += content_tag(:input, '', :label => label, :placeholder => 'Date',
+                            :type => 'text', :class => 'pickadatetime-date',
+                            :value => obj.send(attr).present? ?
+                              obj.send(attr).strftime("%d %B, %Y") : '',
+                            :readonly => readonly)
+          o2 += content_tag(:input, '', :label => label, :placeholder => 'Time',
+                            :type => 'text', :class => 'pickadatetime-time',
+                            :value => obj.send(attr).present? ?
+                              obj.send(attr).strftime("%l:%M %p") : '',
+                            :readonly => readonly)
+          o2 += f.input(attr.to_sym, :as => :hidden, :wrapper => false,
+                        :label => false,
+                        :input_html => { :class => 'pickadatetime' })
+        end
+      elsif options.type == 'markdown'
+        content_tag(:div, :class => "input text optional #{attr}") do
+          o2  = content_tag(:label, label, :for => attr)
+          o2 += content_tag(:div, f.markdown(attr.to_sym), :class => 'markdown')
+        end
+      elsif options.type == 'wysiwyg'
+        f.input(attr.to_sym, :as => :text, :label => label,
+                :input_html => { :class => 'editor' })
+      elsif options.type == 'file'
+        o = f.input(attr.to_sym, :as => options.type, :label => label,
+                :readonly => readonly)
+        o += link_to(obj.send(attr).name, obj.send(attr).url, :class => 'file',
+                     :target => :blank) unless obj.send(attr).blank?
+        o
+      else
+        f.input(attr.to_sym, :as => options.type, :label => label,
+                :readonly => readonly)
+      end
     end
 
     def cambium_route(action, obj = nil)

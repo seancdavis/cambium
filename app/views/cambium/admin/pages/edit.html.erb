@@ -1,0 +1,15 @@
+<%= cambium_page_title(admin_form.title) %>
+
+<div id="page-content">
+  <%= cambium_form(@object, admin_form.fields) do |f| %>
+    <% if @object.template.present? %>
+      <h2>Custom Template Fields</h2>
+      <%= f.simple_fields_for :template_data,
+                              OpenStruct.new(f.object.template_data) do |td| %>
+        <% @object.template.fields.each do |field| %>
+          <%= cambium_field(td, @object, field) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

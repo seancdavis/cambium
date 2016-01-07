@@ -22,45 +22,56 @@ module Cambium
     end
 
     def self.all
-      load_objects
+      (app_templates + cambium_templates).flatten.sort_by(&:name)
+    end
+
+    def self.names
+      all.collect(&:name).flatten.uniq.sort
     end
 
     def self.find(name)
-      cambium_template_names
+      all.select { |t| t.name == name }.first
     end
 
     private
 
-
-      def self.cambium_templates
+      def self.cambium_template_files
         Dir.glob("#{Cambium::Engine.root}/app/views/pages/*.html*")
       end
 
-      def self.app_templates
+      def self.cambium_templates
+        templates = []
+        cambium_template_files.each do |f|
+          templates << create_from_file(f, :cambium)
+        end
+        templates.reject { |t| app_templates.collect(&:name).include?(t.name) }
+      end
+
+      def self.app_template_files
         Dir.glob("#{Rails.root}/app/views/pages/*.html*")
       end
 
-      def self.template_files
-        (cambium_templates + app_templates).flatten.uniq
+      def self.app_templates
+        templates = []
+        app_template_files.each do |f|
+          templates << create_from_file(f, :app)
+        end
+        templates
       end
 
-      def self.load_objects
-        objects = []
+      def self.create_from_file(file, type)
         yaml_regex = /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
-        template_files.each do |file|
-          content = File.read(file)
-          if content =~ yaml_regex
-            content = content.sub(yaml_regex, "")
-            begin
-              attrs = YAML.load($1).merge('file_path' => file)
-              objects << PageTemplate.new(attrs)
-            rescue => e
-              Rails.logger.error "YAML Exception: #{e.message}"
-              return []
-            end
+        content = File.read(file)
+        if content =~ yaml_regex
+          content = content.sub(yaml_regex, "")
+          begin
+            attrs = YAML.load($1).merge('file_path' => file, 'type' => type)
+            return PageTemplate.new(attrs)
+          rescue => e
+            Rails.logger.error "YAML Exception: #{e.message}"
+            return nil
           end
         end
-        objects
       end
 
   end
