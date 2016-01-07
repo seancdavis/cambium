@@ -20,5 +20,9 @@ module Cambium
       end
     end
 
+    def root
+      @root ||= Gem::Specification.find_by_name('cambium').gem_dir.to_s
+    end
+
   end
 end
