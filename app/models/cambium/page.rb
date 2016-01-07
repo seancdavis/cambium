@@ -9,6 +9,10 @@ module Cambium
     has_paper_trail
     has_superslug
 
+    # ------------------------------------------ Callbacks
+
+    after_save :reload_routes!
+
     # ------------------------------------------ Instance Methods
 
     def to_s
@@ -31,6 +35,12 @@ module Cambium
       return true if template_data.keys.include?(method.to_s)
       super
     end
+
+    private
+
+      def reload_routes!
+        Rails.application.reload_routes!
+      end
 
   end
 end
