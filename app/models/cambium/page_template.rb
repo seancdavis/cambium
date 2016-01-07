@@ -69,7 +69,8 @@ module Cambium
         if content =~ yaml_regex
           content = content.sub(yaml_regex, "")
           begin
-            attrs = YAML.load($1).merge('file_path' => file, 'type' => type)
+            attrs = YAML.load($1)
+              .merge('file_path' => file, 'type' => type, 'content' => content)
             return PageTemplate.new(attrs)
           rescue => e
             Rails.logger.error "YAML Exception: #{e.message}"

@@ -8,4 +8,8 @@ Cambium::Engine.routes.draw do
     resources :users
   end
 
+  Cambium::Page.published.each do |page|
+    get page.slug => 'pages#show'
+  end
+
 end

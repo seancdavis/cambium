@@ -3,7 +3,7 @@ module Cambium
 
     # ------------------------------------------ Plugins
 
-    include PgSearch
+    include PgSearch, Publishable
 
     multisearchable :against => [:title]
     has_paper_trail
@@ -17,6 +17,10 @@ module Cambium
 
     def template
       PageTemplate.find(template_name)
+    end
+
+    def body
+      html.html_safe
     end
 
     def method_missing(method, *arguments, &block)
