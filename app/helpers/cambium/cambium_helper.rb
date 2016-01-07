@@ -215,9 +215,9 @@ module Cambium
       when :index
         begin
           main_app
-            .polymorphic_path [:admin, obj.class.to_s.tableize.pluralize.to_sym]
+            .polymorphic_path [:admin, obj]
         rescue
-          cambium.polymorphic_path [:admin, obj.class.to_s.tableize.pluralize.to_sym]
+          cambium.polymorphic_path [:admin, obj]
         end
       when :edit
         begin
