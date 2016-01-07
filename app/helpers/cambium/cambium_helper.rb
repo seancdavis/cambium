@@ -40,7 +40,11 @@ module Cambium
     end
 
     def admin_model
-      @admin_model ||= admin_view.model.constantize
+      @admin_model ||= begin
+        admin_view.model.constantize
+      rescue
+        "Cambium::#{admin_view.model}".constantize
+      end
     end
 
     def cambium_page_title(title)
