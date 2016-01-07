@@ -1,5 +1,6 @@
 #= require jquery
 #= require jquery_ujs
+#= require trumbowyg/trumbowyg
 #= require mark_it_zero
 #= require pickadate/picker
 #= require pickadate/picker.date

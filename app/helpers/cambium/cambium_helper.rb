@@ -211,6 +211,13 @@ module Cambium
               :class => 'markdown'
             )
           end
+        elsif options.type == 'wysiwyg'
+          o += f.input(
+            attr.to_sym,
+            :as => :text,
+            :label => label,
+            :input_html => { :class => 'editor' }
+          )
         elsif options.type == 'file'
           o += f.input(
             attr.to_sym,

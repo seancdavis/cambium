@@ -11,6 +11,7 @@ require 'paper_trail'
 require 'pg_search'
 require 'pickadate-rails'
 require 'superslug'
+require 'trumbowyg_rails'
 
 # Temp (hopefully) monkeypatch solution for Kaminari
 require 'kaminari/helpers/tag'

@@ -1,9 +1,9 @@
 #title-bar {
   position: fixed;
-  width: 100%;
+  width: calc(100% - 500px);
   top: 60px;
-  left: 0;
-  padding: 0 275px;
+  left: 250px;
+  padding: 0 30px;
   z-index: 4;
   background: $color-light;
   border-bottom: 1px solid $color-light-darker;

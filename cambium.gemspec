@@ -31,5 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails'
   spec.add_dependency 'rake'
   spec.add_dependency 'superslug'
+  spec.add_dependency 'trumbowyg_rails'
 
 end

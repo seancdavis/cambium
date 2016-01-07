@@ -118,6 +118,53 @@ section.form {
         color: $color-danger;
         text-transform: uppercase;
       }
+      .trumbowyg-box {
+        display: inline-block;
+        width: 75%;
+        margin: 5px 0;
+        &.trumbowyg-fullscreen {
+          width: 100%;
+        }
+      }
+      .trumbowyg-modal {
+        // position: fixed;
+        .trumbowyg-modal-box {
+          height: 295px;
+          form {
+            input {
+              height: auto;
+              margin: 0 !important;
+              padding: 5px 10px !important;
+              font-size: 14px !important;
+              color: $color-light-darkest !important;
+              line-height: 25px !important;
+              border: 1px solid $color-light-dark !important;
+            }
+            label {
+              display: block;
+              position: relative;
+              height: 42px;
+              margin-bottom: 5px;
+              // margin: 15px 12px;
+              // height: 27px;
+              line-height: 27px;
+              overflow: hidden;
+              width: auto;
+              .trumbowyg-input-infos {
+                float: left;
+                span {
+                  font-size: 14px;
+                  border: none;
+                }
+              }
+            }
+            .trumbowyg-modal-button {
+              height: auto;
+              line-height: 16px;
+            }
+          }
+        }
+      }
     }
 
     input[type=submit] {
