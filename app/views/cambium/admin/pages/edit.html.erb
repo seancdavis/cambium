@@ -2,7 +2,7 @@
 
 <div id="page-content">
   <%= cambium_form(@object, admin_form.fields) do |f| %>
-    <% if @object.template.present? %>
+    <% if @object.template.present? && @object.template.has_fields? %>
       <h2>Custom Template Fields</h2>
       <%= f.simple_fields_for :template_data,
                               OpenStruct.new(f.object.template_data) do |td| %>

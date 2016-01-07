@@ -9,7 +9,7 @@ class CreateCambiumPages < ActiveRecord::Migration
       t.string :template_name
       t.string :ancestry
       t.integer :position, :default => 0
-      t.json :template_data
+      t.json :template_data, :default => {}
       t.datetime :active_at
       t.datetime :inactive_at
 

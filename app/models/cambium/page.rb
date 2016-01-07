@@ -19,5 +19,14 @@ module Cambium
       PageTemplate.find(template_name)
     end
 
+    def method_missing(method, *arguments, &block)
+      respond_to?(method.to_s) ?  template_data[method.to_s] : super
+    end
+
+    def respond_to?(method, include_private = false)
+      return true if template_data.keys.include?(method.to_s)
+      super
+    end
+
   end
 end

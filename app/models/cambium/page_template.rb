@@ -13,6 +13,10 @@ module Cambium
       end
     end
 
+    def has_fields?
+      respond_to?('fields')
+    end
+
     def method_missing(method, *arguments, &block)
       respond_to?(method.to_s) ?  attributes[method.to_s] : super
     end
