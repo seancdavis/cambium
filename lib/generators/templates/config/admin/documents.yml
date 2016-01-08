@@ -1,0 +1,23 @@
+model: Cambium::Document
+table:
+  title: Site Documents
+  scope: all
+  columns:
+    title:
+      heading: Title
+  buttons:
+    new: New Document
+form:
+  buttons:
+    delete: Delete Document
+  new: &new
+    title: New Document
+    fields:
+      title:
+        type: string
+      upload:
+        type: file
+        label: File
+  edit:
+    <<: *new
+    title: Edit Document
