@@ -39,7 +39,9 @@ class Cambium::AdminController < Cambium::BaseController
   def create
     @object = admin_model.new(create_params)
     if @object.save
-      redirect_to(admin_routes.index, :notice => "#{admin_model.to_s} created!")
+      redirect_to(
+        admin_routes.index,
+        :notice => "#{admin_model.to_s.gsub(/Cambium::/, '')} created!")
     else
       render 'new'
     end
@@ -52,7 +54,9 @@ class Cambium::AdminController < Cambium::BaseController
   def update
     set_object
     if @object.update(update_params)
-      redirect_to(admin_routes.index, :notice => "#{admin_model.to_s} updated!")
+      redirect_to(
+        admin_routes.index,
+        :notice => "#{admin_model.to_s.gsub(/Cambium::/, '')} updated!")
     else
       render 'edit'
     end
@@ -61,7 +65,9 @@ class Cambium::AdminController < Cambium::BaseController
   def destroy
     set_object
     @object.destroy
-    redirect_to(admin_routes.index, :notice => "#{admin_model.to_s} deleted!")
+    redirect_to(
+      admin_routes.index,
+      :notice => "#{admin_model.to_s.gsub(/Cambium::/, '')} deleted!")
   end
 
   private
