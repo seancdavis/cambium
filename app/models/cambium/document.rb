@@ -8,9 +8,11 @@ module Cambium
     multisearchable :against => [:title]
     has_paper_trail
 
-    # ------------------------------------------ Plugins
+    dragonfly_accessor :upload
 
-    dragonfly_accessor :image
+    # ------------------------------------------ Validations
+
+    validates :title, :upload, :presence => true
 
     # ------------------------------------------ Instance Methods
 

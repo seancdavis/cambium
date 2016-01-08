@@ -11,4 +11,5 @@ class Cambium::Admin::PagesController < Cambium::AdminController
       end
       p
     end
+
 end
