@@ -7,6 +7,7 @@ Cambium::Engine.routes.draw do
     resources :documents
     resources :pages, :param => :slug
     resources :users
+    resources :settings
   end
 
   Cambium::Page.published.each do |page|
