@@ -14,7 +14,12 @@ section.form {
       padding: 20px 0;
       &.file {
         padding: 20px 0 0 0;
-        & + a.file {
+        & + img {
+          display: inline-block;
+          width: 75%;
+          margin: 10px 0 0 25%;
+        }
+        & + a.file, & + img + a.file {
           display: block;
           width: 100%;
           padding: 5px 0 20px 0;
