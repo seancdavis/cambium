@@ -1,17 +1,17 @@
 model: Cambium::Document
 table:
-  title: Site Documents
+  title: Media Library
   scope: all
   columns:
     title:
       heading: Title
   buttons:
-    new: New Document
+    new: New File
 form:
   buttons:
-    delete: Delete Document
+    delete: Delete File
   new: &new
-    title: New Document
+    title: New File
     fields:
       title:
         type: string
@@ -20,4 +20,4 @@ form:
         label: File
   edit:
     <<: *new
-    title: Edit Document
+    title: Edit File
