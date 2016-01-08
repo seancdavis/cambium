@@ -33,7 +33,7 @@ module Cambium
     # ------------------------------------------ Instance Methods
 
     def to_s
-      key
+      key.humanize.titleize
     end
 
   end
