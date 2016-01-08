@@ -22,6 +22,14 @@ module Cambium
       all.collect(&:key)
     end
 
+    def self.method_missing(method, *arguments, &block)
+      super
+    rescue
+      setting = self.find_by_key(method.to_s)
+      return setting.value unless setting.nil?
+      super
+    end
+
     # ------------------------------------------ Instance Methods
 
     def to_s
