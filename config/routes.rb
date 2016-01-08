@@ -10,8 +10,10 @@ Cambium::Engine.routes.draw do
     resources :settings
   end
 
-  Cambium::Page.published.each do |page|
-    get page.slug => 'pages#show'
+  if ActiveRecord::Base.connection.table_exists?('cambium_pages')
+    Cambium::Page.published.each do |page|
+      get page.slug => 'pages#show'
+    end
   end
 
 end
