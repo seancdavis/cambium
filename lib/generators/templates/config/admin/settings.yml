@@ -1,0 +1,20 @@
+model: Cambium::Setting
+table:
+  title: Site Settings
+export:
+  button: Export Pages
+  columns:
+    key:
+      label: Title
+    value:
+      label: Setting
+form:
+  edit:
+    title: New Page
+    fields:
+      site_title:
+        type: string
+        label: Site Title
+      site_description:
+        type: text
+        label: Site Description
