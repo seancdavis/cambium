@@ -2,8 +2,23 @@ dashboard:
   label: Dashboard
   route: cambium.admin_dashboard
   icon: dashboard
+pages:
+  label: Pages
+  route: cambium.admin_pages
+  icon: file
+  controllers: ['pages']
+documents:
+  label: Library
+  route: cambium.admin_documents
+  icon: image
+  controllers: ['documents']
 users:
   label: Users
   route: cambium.admin_users
   icon: users
   controllers: ['users']
+settings:
+  label: Settings
+  route: cambium.admin_settings
+  icon: cog
+  controllers: ['settings']
