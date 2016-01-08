@@ -6,7 +6,8 @@
       <%= simple_form_for [:admin, obj] do |f| %>
         <%= f.input :value,
                     :as => admin_view.form.edit.fields.send(obj.key).type,
-                    :label => admin_view.form.edit.fields.send(obj.key).label %>
+                    :label => admin_view.form.edit.fields.send(obj.key).label,
+                    :input_html => { :id => obj.key } %>
         <%= f.submit "Save #{admin_view.form.edit.fields.send(obj.key).label}" %>
       <% end %>
     <% end %>
