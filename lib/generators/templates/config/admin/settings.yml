@@ -2,7 +2,7 @@ model: Cambium::Setting
 table:
   title: Site Settings
 export:
-  button: Export Pages
+  button: Export Settings
   columns:
     key:
       label: Title
@@ -10,7 +10,6 @@ export:
       label: Setting
 form:
   edit:
-    title: New Page
     fields:
       site_title:
         type: string
