@@ -1,4 +1,10 @@
 section.form {
+  &.settings {
+    form input[type=submit] {
+      width: 75%;
+      margin: 0 0 25px 25%;
+    }
+  }
   form {
 
     h2 {

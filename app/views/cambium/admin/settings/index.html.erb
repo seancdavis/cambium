@@ -1,11 +1,13 @@
   <%= cambium_page_title(admin_table.title) %>
 
 <div id="page-content">
-  <section class="form">
+  <section class="form settings">
     <% @collection.each do |obj| %>
       <%= simple_form_for [:admin, obj] do |f| %>
-        <%= f.input :value, :label => obj.key.humanize %>
-        <%= f.submit "Save #{obj.key.humanize}" %>
+        <%= f.input :value,
+                    :as => admin_view.form.edit.fields.send(obj.key).type,
+                    :label => admin_view.form.edit.fields.send(obj.key).label %>
+        <%= f.submit "Save #{admin_view.form.edit.fields.send(obj.key).label}" %>
       <% end %>
     <% end %>
   </section>

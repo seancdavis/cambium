@@ -3,7 +3,8 @@ class Cambium::Admin::SettingsController < Cambium::AdminController
   before_filter :not_found, :except => [:index, :update]
 
   def index
-    (admin_view.form.edit.fields - Cambium::Setting.keys).each do |key|
+    exp_settings = admin_view.form.edit.fields.to_h.stringify_keys.keys
+    (exp_settings - Cambium::Setting.keys).each do |key|
       Cambium::Setting.create(:key => key)
     end
     @collection = admin_model.alpha
