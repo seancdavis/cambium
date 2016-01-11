@@ -198,6 +198,19 @@ module Cambium
       elsif options.type == 'wysiwyg'
         f.input(attr.to_sym, :as => :text, :label => label,
                 :input_html => { :class => 'editor' })
+      elsif options.type == 'media'
+        content_tag(:div, :class => 'input media-picker file') do
+          o2  = content_tag(:label, label)
+          o2 += link_to('Choose File', '#', :class => 'add')
+          unless obj.send(attr).blank?
+            if ['jpg','jpeg','gif','png'].include?(obj.send(attr).ext.downcase)
+              o2 += image_tag(obj.send(attr).thumb('600x200#').url)
+            end
+            o2 += link_to(obj.send(attr).name, obj.send(attr).url,
+                         :class => 'file', :target => :blank)
+          end
+          o2 += f.input(attr.to_sym, :as => :hidden, :wrapper => false)
+        end
       elsif options.type == 'file'
         o = f.input(attr.to_sym, :as => options.type, :label => label,
                 :readonly => readonly)

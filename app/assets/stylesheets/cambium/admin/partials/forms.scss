@@ -20,12 +20,12 @@ section.form {
       padding: 20px 0;
       &.file {
         padding: 20px 0 0 0;
-        & + img {
+        & + img, img {
           display: inline-block;
           width: 75%;
           margin: 10px 0 0 25%;
         }
-        & + a.file, & + img + a.file {
+        & + a.file, & + img + a.file, a.file {
           display: block;
           width: 100%;
           padding: 5px 0 20px 0;
@@ -35,6 +35,19 @@ section.form {
         }
         & + div.input {
           padding-top: 40px;
+        }
+      }
+      &.media-picker .add {
+        display: inline-block;
+        background: $color-2;
+        // margin: 10px 5px;
+        padding: 6px 10px;
+        font-size: 15px;
+        font-weight: 400;
+        color: $color-dark;
+        vertical-align: top;
+        &:before {
+          font-size: 10px;
         }
       }
       label {

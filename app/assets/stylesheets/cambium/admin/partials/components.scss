@@ -38,7 +38,7 @@ div.status{
 }
 
 a {
-  &.new, &.export, &.file, &.delete {
+  &.add, &.new, &.export, &.file, &.delete {
     &:before {
       font-family: 'icomoon';
       font-size: inherit;
@@ -46,7 +46,7 @@ a {
       margin: 0 5px 0 0;
     }
   }
-  &.new:before { content: "\e702"; }
+  &.new:before, &.add:before { content: "\e702"; }
   &.export:before { content: "\e65e"; }
   &.delete:before { content: "\e6a7"; }
   &.file:before { content: "\e65e"; }

@@ -20,6 +20,7 @@ class Cambium::AdminController < Cambium::BaseController
       end
       format.html do
         @collection = @collection.page(params[:page] || 1).per(15)
+        render :layout => false if params[:no_layout]
       end
       format.csv do
         send_data admin.to_csv(@collection)
