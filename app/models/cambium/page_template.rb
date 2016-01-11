@@ -18,7 +18,9 @@ module Cambium
     end
 
     def method_missing(method, *arguments, &block)
-      respond_to?(method.to_s) ?  attributes[method.to_s] : super
+      return attributes[method.to_s] if respond_to?(method.to_s)
+      return {} if method.to_s == 'fields'
+      super
     end
 
     def respond_to?(method, include_private = false)

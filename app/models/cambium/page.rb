@@ -42,8 +42,9 @@ module Cambium
     end
 
     def respond_to?(method, include_private = false)
-      return true if template_data.keys.include?(method.to_s)
-      super
+      return true if super
+      return true if template.keys.include?(method.to_s)
+      false
     end
 
     private
