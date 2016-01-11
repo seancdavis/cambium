@@ -40,8 +40,7 @@ module Cambium
     def method_missing(method, *arguments, &block)
       if respond_to?(method.to_s)
         if template.fields[method.to_s]['type'] == 'media'
-          doc = Cambium::Document.find_by_id(template_data[method.to_s].to_i)
-          doc.nil? ? nil : doc.upload
+          Cambium::Document.find_by_id(template_data[method.to_s].to_i)
         else
           template_data[method.to_s]
         end

@@ -203,10 +203,12 @@ module Cambium
           o2  = content_tag(:label, label)
           o2 += link_to('Choose File', '#', :class => 'add')
           unless obj.send(attr).blank?
-            if ['jpg','jpeg','gif','png'].include?(obj.send(attr).ext.downcase)
-              o2 += image_tag(obj.send(attr).thumb('600x200#').url)
+            ext = obj.send(attr).upload.ext.downcase
+            if ['jpg','jpeg','gif','png'].include?(ext)
+              o2 += image_tag(obj.send(attr).upload.thumb('600x200#').url)
             end
-            o2 += link_to(obj.send(attr).name, obj.send(attr).url,
+            o2 += link_to(obj.send(attr).upload.name,
+                          obj.send(attr).upload.url,
                          :class => 'file', :target => :blank)
           end
           o2 += f.input(attr.to_sym, :as => :hidden, :wrapper => false)
