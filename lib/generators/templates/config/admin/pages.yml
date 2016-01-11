@@ -37,6 +37,12 @@ form:
       inactive_at:
         type: datetime
         label: Unpublish At
+      home:
+        type: heading
+        label: Home Page
+      is_home:
+        type: boolean
+        label: Set As Home Page
   edit:
     <<: *new
     title: Edit Page

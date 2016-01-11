@@ -9,9 +9,19 @@ module Cambium
     has_paper_trail
     has_superslug
 
+    # ------------------------------------------ Validations
+
+    validates :title, :presence => true
+
     # ------------------------------------------ Callbacks
 
     after_save :reload_routes!
+
+    # ------------------------------------------ Class Methods
+
+    def self.home
+      where(:is_home => true).published.first
+    end
 
     # ------------------------------------------ Instance Methods
 

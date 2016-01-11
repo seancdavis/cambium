@@ -6,4 +6,13 @@ class Cambium::PagesController < Cambium::BaseController
     render :inline => @page.template.content
   end
 
+  def home
+    @page = Cambium::Page.home
+    if @page.nil?
+      render 'home_missing'
+    else
+      render :inline => @page.template.content
+    end
+  end
+
 end
