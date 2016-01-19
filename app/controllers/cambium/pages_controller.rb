@@ -1,4 +1,4 @@
-class Cambium::PagesController < Cambium::BaseController
+class Cambium::PagesController < ApplicationController
 
   def show
     slug = request.path.split('/').last
