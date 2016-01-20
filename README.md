@@ -112,6 +112,16 @@ At this point, you should be able to go to `localhost:3000/admin` and be
 redirected to the login page (if you are not signed in). Once you have an admin
 user and sign in successfully, you will be redirected to the admin dashboard.
 
+### Default Features
+
+When you run the generators, you will get a handful of features by default.
+Cambium now ships with users, pages, media, and settings. Of these four, users
+is the only model that will be inserted directly in your app. Cambium handles
+the others.
+
+See below for configuration and for adding users, while the following sections
+talk about how pages, media, and settings work.
+
 ### Adding Users
 
 We have a generator for creating a new user, which takes an `--admin` option if
@@ -312,6 +322,265 @@ end
 You can change `ApplicationController` to any other controller in your
 application.
 
+Pages
+----------
+
+Cambium now ships with a flexible pages feature.
+
+### How Pages Work
+
+Cambium keeps the base functionality of the pages within the gem in the
+`Cambium::Page` model. It provides a templating engine that enables you to add
+custom templates and apply them to individual pages.
+
+The way it works is that you apply a template to an individual page. When that
+page is rendered, it will render the associated template file (minus the
+frontmatter, explained below) **inside your application layout**.
+
+### Working With Templates
+
+To add a new template, just add a file to `app/views/pages`. The name of the
+file is what will drive the name of the template in the CMS.
+
+To make everything work properly, it is recommended you **keep the default form
+fields in your `pages.yml` config for the CMS.**
+
+Templates can have a set of custom fields that enable you to capture custom
+data on a page. You can't query that data directly, but you can get to it once
+you have a page. The configuration for each template uses YAML frontmatter,
+similar to [how Middleman works](https://middlemanapp.com/basics/frontmatter/).
+
+Let's use an example to demonstrate. Let's say I have a `Post` model in my app
+and I want a listing of posts to be displayed on a News template. I would begin
+by creating a file for the news template: `app/views/pages/news.html.erb`.
+
+Then let's say we want to capture a `tagline` attribute on the page. You would
+place the frontmatter at the top of your file, and it will look something like
+this:
+
+```text
+---
+title: News
+fields:
+  tagline:
+    type: string
+    label: Tagline
+---
+```
+
+It's important in this case that you **don't put the frontmatter in a ruby
+block** (`<% %>`). It needs to be in plain text on the page.
+
+Once this information is there, you are able to add a page with the News
+template in the CMS. Once you select the News template and save the page, the
+form will show the custom `tagline` field as an option. Go ahead and populate
+that field.
+
+When you are creating the body of the template, it will all be based around the
+`@page` object. Meanwhile, the values of your fields are available as attribute
+on the `@page` object. So, if you wanted to display a listing of all the posts
+on this template, your file might look something like this:
+
+```html
+---
+title: News
+fields:
+  tagline:
+    type: string
+    label: Tagline
+---
+
+<h1><%= @page.title %></h1>
+<h2><%= @page.tagline %></h2>
+
+<ul>
+  <% Post.all.each do |post| %>
+    <li><%= link_to post.title, post %></li>
+  <% end %>
+</ul>
+```
+
+### Setting Your Home Page
+
+The page form has a _Set as home page_ option on it. If you check this, that
+page will be designated as the home page of your application. To make it work,
+you'll have to amend your `root` call in `config/routes.rb` to load Cambium's
+home page.
+
+```ruby
+root :to => 'cambium/pages#home'
+```
+
+If you don't have a page set as the home page, this will fail gracefully. If
+you have two pages set as the home page, it's going to pick the first match. In
+other words, setting a page as the home page doesn't unset all the other home
+pages.
+
+### Options
+
+There are a few methods on the `Cambium::Page` class:
+
+- `home`: The home page.
+- `published`: Published pages.
+- `unpublished`: Unpublished pages.
+
+On an instance of a `Cambium::Page`, you can call the following methods:
+
+- `template`: A `PageTemplate` instance (see below for those options).
+- `body`: The body of the page (it's main block of content).
+- `published?`: Is the page published?
+- `publish!`: Publish the page.
+
+There are also a few attributes on an instance of a `Cambium::Page`:
+
+- `title`
+- `slug`: Automatically generated from the title.
+- `description`
+- `position`
+
+The `Cambium::PageTemplate` class mainly focuses on the field values for a
+particular page, which it makes available as dynamic methods. But on the class
+itself, you have a few methods:
+
+- `all`: The templates in your app.
+- `names`: The names of all the templates in your app.
+- `find`: Takes a `name` argument and will return that template if it exists.
+
+### Adding Media
+
+Cambium also ships with a media library by default. You can apply files from
+the library to an individual page. But, unlike other Cambium admin controllers,
+you won't use `file` as the field type. Instead it is a `media` field type
+which is specifically designed to pull files from the media library.
+
+So, let's say you wanted to add a `featured_image` field to your News template. Your frontmatter may then look something like this:
+
+```text
+---
+title: News
+fields:
+  tagline:
+    type: string
+    label: Tagline
+  featured_image:
+    type: media
+    label: Featured Image
+---
+```
+
+Accessing the actual file will work a little differently, though. We are using
+Dragonfly for handling uploads and processing, so you don't get the URL
+directly. Instead you get the `Document` object, which provides some
+flexibility on what you can do with it.
+
+For example, if you just wanted the URL to the file itself, then you might add
+this to your template:
+
+```html
+<%= @page.featured_image.upload.url %>
+```
+
+But what if you wanted it cropped on the fly? You could do something like this:
+
+```html
+<%= @page.featured_image.upload.thumb('300x300#').url %>
+```
+
+### Adding/Overriding Functionality
+
+Cambium pages use the `Cambium::Page` model. If you want to add some additional
+functionality or change some inherent functionality, you could create a page
+model (`app/models/page.rb`) that inherits from `Cambium::Page`.
+
+```ruby
+class Page < Cambium::Page
+  # your custom configuration
+end
+```
+
+You'll then need to override the controller and access the `Page` model instead
+of the `Cambium::Page` model. Place the following code in
+`app/controllers/cambium/pages_controller.rb`.
+
+```ruby
+class Cambium::PagesController < ApplicationController
+  def show
+    slug = request.path.split('/').last
+    @page = ::Page.find_by_slug(slug)
+    render :inline => @page.template.content, :layout => 'application'
+  end
+
+  def home
+    @page = ::Page.home
+    if @page.nil?
+      render 'home_missing'
+    else
+      render :inline => @page.template.content, :layout => 'application'
+    end
+  end
+end
+```
+
+### Disabling Pages
+
+You can't technically disable pages, but you can _hide_ its functionality. The
+best thing to do is to remove its configuration file (`config/admin/pages.yml`)
+and remove it from the sidebar config (`config/admin/sidebar.yml`).
+
+Media Library
+----------
+
+Cambium now ships with a media library. This lets you upload all your files to
+one main library. This feature especially will receive much more attention over
+time. Currently, they are built to be easily connected to pages.
+
+To work with pages, see the previous section.
+
+Cambium uses Dragonfly for uploading and image processing. To access a document
+directly, you will use the `Cambium::Document` model. Once you have a
+individual object, you can get to the Dragonfly methods through the `upload`
+attribute.
+
+So, for example, you can get to the page of the file with
+`document.upload.url`, where `document` is a `Cambium::Document` object.
+
+### Options
+
+Here are the other methods on a document instance:
+
+- `image?`: Is the file an image?
+- `pdf?`: Is the file a PDF?
+- `has_thumb?`: Can we generate an image thumbnail for the file?
+- `thumb_url`: The URL to the thumbnail image (if it can be created).
+- `ext`: The file extension
+
+Site Settings
+----------
+
+Cambium also ships with site settings, which focuses on enabling your users to
+change setting through the UI.
+
+You work with this like you would any other model, except it's more about
+finding individual records instead of creating custom fields for an object.
+
+In other words, all the configuration happens in your `config/admin/settings.yml` file. You can see there are some default ones:
+
+```yaml
+site_title:
+  type: string
+  label: Site Title
+site_description:
+  type: text
+  label: Site Description
+```
+
+Any setting field you create you can access from the `Cambium::Setting` model.
+So, for example, if you want the value of `site_title` from the above config,
+you just query: `Cambium::Setting.site_title`.
+
+Be warned, though, that if you need several settings on one page, you're better
+off grabbing a collection of the settings and then grabbing from your results
+as you need them. I'll leave that up to you!
 
 Model Options
 ----------
