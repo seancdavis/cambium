@@ -14,6 +14,10 @@ module Cambium
 
     validates :title, :presence => true
 
+    # ------------------------------------------ Scopes
+
+    scope :alpha, -> { order(:title => :asc) }
+
     # ------------------------------------------ Callbacks
 
     after_save :reload_routes!
