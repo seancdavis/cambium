@@ -20,6 +20,7 @@ module Cambium
 
     # ------------------------------------------ Callbacks
 
+    after_save :cache_page_path
     after_save :reload_routes!
 
     # ------------------------------------------ Class Methods
@@ -40,6 +41,10 @@ module Cambium
 
     def body
       html.html_safe
+    end
+
+    def path_preview
+      "<a href='#{page_path}' target='_blank'>#{page_path}</a>".html_safe
     end
 
     def method_missing(method, *arguments, &block)
@@ -65,6 +70,10 @@ module Cambium
 
       def reload_routes!
         Rails.application.reload_routes!
+      end
+
+      def cache_page_path
+        update_columns(:page_path => "/#{path.collect(&:slug).join('/')}")
       end
 
   end

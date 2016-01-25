@@ -5,6 +5,10 @@ table:
   columns:
     title:
       heading: Title
+    template_name:
+      heading: Template
+    path_preview:
+      heading: URL Path
   buttons:
     new: New Page
 export:
@@ -23,6 +27,10 @@ form:
       template_name:
         type: select
         options: Cambium::PageTemplate.names
+      parent_id:
+        type: select
+        options: Cambium::Page.alpha
+        label: Parent Page
       description:
         type: string
       html:

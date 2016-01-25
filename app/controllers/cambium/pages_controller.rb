@@ -1,8 +1,7 @@
 class Cambium::PagesController < ApplicationController
 
   def show
-    slug = request.path.split('/').last
-    @page = Cambium::Page.find_by_slug(slug)
+    @page = Cambium::Page.find_by_page_path(request.path)
     render :inline => @page.template.content, :layout => 'application'
   end
 

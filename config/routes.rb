@@ -12,7 +12,7 @@ Cambium::Engine.routes.draw do
 
   if ActiveRecord::Base.connection.table_exists?('cambium_pages')
     Cambium::Page.published.each do |page|
-      get page.slug => 'pages#show'
+      get page.page_path => 'pages#show' unless page.page_path.blank?
     end
   end
 
