@@ -4,6 +4,7 @@ require 'cambium/configuration'
 
 # Gem to load by default (in case they are removed from
 # Gemfile)
+require 'ancestry'
 require 'bones-rails'
 require 'dragonfly'
 require 'kaminari'
