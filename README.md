@@ -437,6 +437,8 @@ There are also a few attributes on an instance of a `Cambium::Page`:
 - `slug`: Automatically generated from the title.
 - `description`
 - `position`
+- `page_path`: The full path to the page, including ancestors.
+- `title_path`: Combines all the titles of the ancestors, split by `:`.
 
 The `Cambium::PageTemplate` class mainly focuses on the field values for a
 particular page, which it makes available as dynamic methods. But on the class

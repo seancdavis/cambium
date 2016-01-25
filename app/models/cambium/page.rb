@@ -47,6 +47,10 @@ module Cambium
       "<a href='#{page_path}' target='_blank'>#{page_path}</a>".html_safe
     end
 
+    def title_path
+      path.collect(&:title).join(' : ')
+    end
+
     def method_missing(method, *arguments, &block)
       if respond_to?(method.to_s)
         if template.fields[method.to_s]['type'] == 'media'
