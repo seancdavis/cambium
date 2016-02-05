@@ -297,6 +297,23 @@ Every setting plays a role. Let's step through each one.
 > editors. You can pass `markdown` as the `type` option and it will give you a
 > markdown editor.
 
+#### A Note On Files
+
+File fields use [Dragonfly](https://markevans.github.io/dragonfly/) for
+uploading and processing. To add an upload field to the CMS, you need to have
+three attributes: `_name`, `_uid`, `_gravity`.
+
+So, for example, if you have a field called, `upload`, You'll add the following
+to your database **as string fields**:
+
+- `upload_name`
+- `upload_uid`
+- `upload_gravity`
+
+In addition to the features Dragonfly offers, Cambium has a built-in image
+cropper. The option for this will appear _after_ a file has been uploaded. If
+it is an image, you'll see a "Crop Image" below the image.
+
 ### Overriding the Base Controller
 
 I've rearranged Cambium's CMS controllers so there is a blank `BaseController`

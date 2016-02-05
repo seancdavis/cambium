@@ -151,6 +151,7 @@ module Cambium
       options = options.to_ostruct unless options.class == OpenStruct
       readonly = options.readonly || false
       label = options.label || attr.titleize
+      required = options.required || false
       if options.type == 'heading'
         content_tag(:h2, options.label || attr.titleize)
       elsif ['select','check_boxes','radio_buttons'].include?(options.type)
@@ -205,7 +206,7 @@ module Cambium
           unless obj.send(attr).blank?
             ext = obj.send(attr).upload.ext.downcase
             if ['jpg','jpeg','gif','png'].include?(ext)
-              o2 += image_tag(obj.send(attr).upload.thumb('600x200#').url)
+              o2 += image_tag(obj.send(attr).image_url(600, 200))
             end
             o2 += link_to(obj.send(attr).upload.name,
                           obj.send(attr).upload.url,
@@ -215,13 +216,26 @@ module Cambium
         end
       elsif options.type == 'file'
         o = f.input(attr.to_sym, :as => options.type, :label => label,
-                :readonly => readonly)
+                :readonly => readonly, :required => required)
         unless obj.send(attr).blank?
           if ['jpg','jpeg','gif','png'].include?(obj.send(attr).ext.downcase)
-            o += image_tag(obj.send(attr).thumb('600x200#').url)
-          end
-          o += link_to(obj.send(attr).name, obj.send(attr).url,
+            o += image_tag obj.send(attr)
+                              .thumb("600x200##{obj.send("#{attr}_gravity")}")
+                              .url
+            o += content_tag(:div, :class => 'image-actions') do
+              o2  = link_to('Crop Image', '#', :class => 'crop',
+                            :target => :blank, :data => {
+                            :url => obj.send(attr).url,
+                            :width => obj.send(attr).width,
+                            :height => obj.send(attr).height })
+              o2 += link_to(obj.send(attr).name, obj.send(attr).url,
                        :class => 'file', :target => :blank)
+              o2 += f.input :"#{attr}_gravity", :as => :hidden
+            end
+          else
+            o += link_to(obj.send(attr).name, obj.send(attr).url,
+                         :class => 'file', :target => :blank)
+          end
         end
         o
       else

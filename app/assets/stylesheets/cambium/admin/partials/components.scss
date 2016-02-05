@@ -38,7 +38,7 @@ div.status{
 }
 
 a {
-  &.add, &.new, &.export, &.file, &.delete {
+  &.add, &.new, &.export, &.file, &.delete, &.crop {
     &:before {
       font-family: 'icomoon';
       font-size: inherit;
@@ -50,6 +50,7 @@ a {
   &.export:before { content: "\e65e"; }
   &.delete:before { content: "\e6a7"; }
   &.file:before { content: "\e65e"; }
+  &.crop:before { content: "\e73d"; }
 }
 
 .avatar-container {

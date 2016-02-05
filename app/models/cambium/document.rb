@@ -33,9 +33,18 @@ module Cambium
     end
 
     def thumb_url
-      return upload.thumb('300x300#').url if image?
-      return upload.thumb('300x300#', :format => 'png', :frame => 0).url if pdf?
+      return image_url(300, 300)
+      return png_cover_image_url(300, 300) if pdf?
       nil
+    end
+
+    def image_url(width, height)
+      upload.thumb("#{width}x#{height}##{upload_gravity}").url
+    end
+
+    def png_cover_image_url(width, height)
+      upload.thumb("#{width}x#{height}##{upload_gravity}", :format => 'png',
+                   :frame => 0).url
     end
 
     def ext

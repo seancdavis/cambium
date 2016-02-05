@@ -16,4 +16,25 @@ body > #modal-container {
     margin: 50px;
   }
 
+  .image-container {
+    position: relative;
+    max-width: 600px;
+    margin: 25px auto;
+    .gravity {
+      @include position(absolute, 0 null null 0);
+      @include size(100%);
+      font-size: 0;
+      div {
+        display: inline-block;
+        width: 33.3%;
+        &:hover {
+          cursor: pointer;
+          background: rgba($color-1, 0.75);
+        }
+      }
+    }
+    img {
+      width: 100%;
+    }
+  }
 }

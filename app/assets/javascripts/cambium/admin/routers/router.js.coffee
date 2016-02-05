@@ -6,6 +6,7 @@ class App.Routers.Router extends Backbone.Router
     new App.Views.Pickadate
     new App.Views.Editor
     new App.Views.MediaPicker
+    new App.Views.ImageCropper
 
   routes:
     'admin': 'admin'
