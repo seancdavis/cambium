@@ -6,6 +6,7 @@ class App.Views.KeyboardShortcuts extends Backbone.View
     'keyup': 'shortcut'
 
   shortcut: (e) ->
+    return if $('input, select, textarea').is(':focus')
     switch e.keyCode
       when 27 # Esc
         $('.search-box input').blur()
