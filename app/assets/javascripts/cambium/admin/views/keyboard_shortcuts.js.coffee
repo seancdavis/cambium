@@ -6,7 +6,6 @@ class App.Views.KeyboardShortcuts extends Backbone.View
     'keyup': 'shortcut'
 
   shortcut: (e) ->
-    console.log e.keyCode
     switch e.keyCode
       when 27 # Esc
         $('.search-box input').blur()
