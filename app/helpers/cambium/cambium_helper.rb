@@ -100,7 +100,9 @@ module Cambium
                     rescue
                       route = main_app.send(path, args)
                     end
-                    link_to(col.last.heading, route)
+                    klass  = args[:order].to_s
+                    klass += ' active' if params[:sort_by] == col.first.to_s
+                    link_to(col.last.heading, route, :class => klass)
                   end
                 else
                   o2 += content_tag(:th, col.last.heading)

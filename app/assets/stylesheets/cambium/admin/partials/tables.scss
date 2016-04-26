@@ -12,6 +12,23 @@ section.data-table {
           font-weight: 400;
           text-transform: uppercase;
           color: $color-1;
+          a {
+            font-weight: inherit;
+            &.active.asc, &.active.desc {
+              &:before {
+                @include icon;
+                display: inline-block;
+                margin-right: 5px;
+                font-size: 0.75em;
+              }
+            }
+            &.active.asc:before {
+              content: "\e72c";
+            }
+            &.active.desc:before {
+              content: "\e728";
+            }
+          }
         }
       }
     }
