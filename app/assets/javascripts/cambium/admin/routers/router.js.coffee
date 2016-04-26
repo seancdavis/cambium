@@ -7,6 +7,7 @@ class App.Routers.Router extends Backbone.Router
     new App.Views.Editor
     new App.Views.MediaPicker
     new App.Views.ImageCropper
+    new App.Views.KeyboardShortcuts
 
   routes:
     'admin': 'admin'
