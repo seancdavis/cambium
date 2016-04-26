@@ -6,8 +6,12 @@ class App.Views.KeyboardShortcuts extends Backbone.View
     'keyup': 'shortcut'
 
   shortcut: (e) ->
+    console.log e.keyCode
     switch e.keyCode
-      when 27
+      when 27 # Esc
         $('.search-box input').blur()
-      when 111, 191
+      when 78 # n
+        if $('#title-bar .button.new').length > 0
+          window.location = $('#title-bar .button.new').first().attr('href')
+      when 111, 191 # /
         $('.search-box input').focus()
