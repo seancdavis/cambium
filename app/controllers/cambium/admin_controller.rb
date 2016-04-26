@@ -10,13 +10,18 @@ class Cambium::AdminController < Cambium::BaseController
   def index
     respond_to do |format|
       scope = admin_table.scope
-      if scope.split('.').size > 1
-        @collection = admin_model
-        scope.split('.').each do |s|
-          @collection = @collection.send(s)
-        end
+      if params[:sort_by]
+        @collection = admin_model.unscoped
+          .order("#{params[:sort_by]} #{params[:order] || 'asc'}")
       else
-        @collection = admin_model.send(admin_table.scope)
+        if scope.split('.').size > 1
+          @collection = admin_model
+          scope.split('.').each do |s|
+            @collection = @collection.send(s)
+          end
+        else
+          @collection = admin_model.send(admin_table.scope)
+        end
       end
       format.html do
         @collection = @collection.page(params[:page] || 1).per(15)

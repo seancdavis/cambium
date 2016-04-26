@@ -86,7 +86,25 @@ module Cambium
               o2 = ''
               columns.to_h.each do |col|
                 obj_methods << col.first.to_s
-                o2 += content_tag(:th, col.last.heading)
+                if col.last.sortable
+                  o2 += content_tag(:th) do
+                    path = "admin_#{controller_name}_path"
+                    args = {
+                      :page => params[:page] || 1,
+                      :sort_by => col.first,
+                      :order => (params[:order] == 'asc' &&
+                                 params[:sort_by] == col.first) ? :desc : :asc
+                    }
+                    begin
+                      route = cambium.send(path, args)
+                    rescue
+                      route = main_app.send(path, args)
+                    end
+                    link_to(col.last.heading, route)
+                  end
+                else
+                  o2 += content_tag(:th, col.last.heading)
+                end
               end
               o2 += content_tag(:th, nil)
               o2.html_safe
