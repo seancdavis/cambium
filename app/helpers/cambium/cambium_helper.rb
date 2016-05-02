@@ -235,14 +235,15 @@ module Cambium
         unless obj.send(attr).blank?
           if ['jpg','jpeg','gif','png'].include?(obj.send(attr).ext.downcase)
             o += image_tag obj.send(attr)
-                              .thumb("600x200##{obj.send("#{attr}_gravity")}")
+                              .thumb("200x200##{obj.send("#{attr}_gravity")}")
                               .url
             o += content_tag(:div, :class => 'image-actions') do
-              o2  = link_to('Crop Image', '#', :class => 'crop',
+              o2  = ''.html_safe
+              o2 += link_to('Crop Image', '#', :class => 'crop',
                             :target => :blank, :data => {
                             :url => obj.send(attr).url,
                             :width => obj.send(attr).width,
-                            :height => obj.send(attr).height })
+                            :height => obj.send(attr).height }) if options.crop
               o2 += link_to(obj.send(attr).name, obj.send(attr).url,
                        :class => 'file', :target => :blank)
               o2 += f.input :"#{attr}_gravity", :as => :hidden

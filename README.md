@@ -267,8 +267,13 @@ Every setting plays a role. Let's step through each one.
 * `table:columns:[column]`: Each column gets its own unique key, which
   distinguishes it from others
 * `table:columns:[column]:heading`: The label for the column in the data table.
-* `table:columns:[column]:sortable`: Makes the column heading a link that will sort the data based on that column. This means **the column must be a column in the database**.
-* `table:columns:[column]:display_method`: Provides ability to use an alias method for displaying the content. For example, you may store a `state` as a integer but want to return a `status` string for the table. You'd use `state` as the column and `status` as the display method.
+* `table:columns:[column]:sortable`: Makes the column heading a link that will
+  sort the data based on that column. This means **the column must be a column
+  in the database**.
+* `table:columns:[column]:display_method`: Provides ability to use an alias
+  method for displaying the content. For example, you may store a `state` as a
+  integer but want to return a `status` string for the table. You'd use `state`
+  as the column and `status` as the display method.
 * `table:buttons:new`: Label for the "New" button. If you don't want a
   new button, remove this setting.
 * `export`: This section handles an export option for your data table. Remove
@@ -293,6 +298,9 @@ Every setting plays a role. Let's step through each one.
 * `form:[new/edit]:fields:[field]:type`: The type of the HTML field to render,
   which uses [SimpleForm](https://github.com/plataformatec/simple_form). *You
   can use `heading` here to break up your fields.*
+* `form:[new/edit]:fields:[field]:crop`: If set to `true`, it will display a
+  "Crop Image" option _after_ a file has been uploaded. This only applies to
+  `file` types.
 * `form:[new/edit]:fields:[field]:readonly`: If set to `true`, it will add the
   `readonly` attribute to the input field. *Not supported for markdown fields*.
 
@@ -315,8 +323,9 @@ to your database **as string fields**:
 - `upload_gravity`
 
 In addition to the features Dragonfly offers, Cambium has a built-in image
-cropper. The option for this will appear _after_ a file has been uploaded. If
-it is an image, you'll see a "Crop Image" below the image.
+cropper. The option for this will appear _after_ a file has been uploaded _if
+you specify the crop option for that field_. If those conditions are present,
+you'll see a "Crop Image" below the image.
 
 ### Overriding the Base Controller
 
