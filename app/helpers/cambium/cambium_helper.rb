@@ -53,21 +53,21 @@ module Cambium
         if is_index? && has_new_form?
           o += link_to(
             admin_view.form.new.title,
-            admin_routes.new,
+            cambium_route(:new),
             :class => 'button new'
           )
         end
         if is_index? && admin_view.export.present?
           o += link_to(
             admin_view.export.button || "Export #{admin_table.title}",
-            "#{admin_routes.index}.csv",
+            "#{cambium_route(:index)}.csv",
             :class => 'button export'
           )
         end
         if is_edit? && can_delete?
           o += link_to(
             admin_view.form.buttons.delete,
-            admin_routes.delete,
+            cambium_route(:delete, @object),
             :class => 'button delete',
             :method => :delete,
             :data => { :confirm => 'Are you sure?' }
@@ -85,7 +85,7 @@ module Cambium
             content_tag(:tr) do
               o2 = ''
               columns.to_h.each do |col|
-                obj_methods << col.first.to_s
+                obj_methods << (col.last.display_method || col.first.to_s)
                 if col.last.sortable
                   o2 += content_tag(:th) do
                     path = "admin_#{controller_name}_path"
@@ -120,13 +120,8 @@ module Cambium
                 obj_methods.each do |method|
                   o3 += content_tag(:td, obj.send(method))
                 end
-                path = "edit_admin_#{controller_name.singularize}_path"
-                begin
-                  route = cambium.send(path, obj)
-                rescue
-                  route = main_app.send(path, obj)
-                end
-                o3 += content_tag(:td, link_to('', route), :class => 'actions')
+                o3 += content_tag(:td, link_to('', cambium_route(:edit, obj)),
+                                  :class => 'actions')
                 o3.html_safe
               end
             end
@@ -265,19 +260,26 @@ module Cambium
     end
 
     def cambium_route(action, obj = nil)
+      c_name = controller_name.singularize
       case action
       when :index
         begin
           main_app
-            .polymorphic_path [:admin, obj]
+            .polymorphic_path [:admin, controller_name.to_sym]
         rescue
-          cambium.polymorphic_path [:admin, obj]
+          cambium.polymorphic_path [:admin, controller_name.to_sym]
         end
       when :edit
         begin
           main_app.polymorphic_path [:edit, :admin, obj]
         rescue
           cambium.polymorphic_path [:edit, :admin, obj]
+        end
+      when :new
+        begin
+          main_app.polymorphic_path [:new, :admin, c_name.to_sym]
+        rescue
+          cambium.polymorphic_path [:new, :admin, c_name.to_sym]
         end
       else
         begin

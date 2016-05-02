@@ -224,6 +224,8 @@ table:
   columns:
     email:
       heading: Email
+      sortable: true
+      display_method: email_address
   buttons:
     new: New User
 export:
@@ -265,6 +267,8 @@ Every setting plays a role. Let's step through each one.
 * `table:columns:[column]`: Each column gets its own unique key, which
   distinguishes it from others
 * `table:columns:[column]:heading`: The label for the column in the data table.
+* `table:columns:[column]:sortable`: Makes the column heading a link that will sort the data based on that column. This means **the column must be a column in the database**.
+* `table:columns:[column]:display_method`: Provides ability to use an alias method for displaying the content. For example, you may store a `state` as a integer but want to return a `status` string for the table. You'd use `state` as the column and `status` as the display method.
 * `table:buttons:new`: Label for the "New" button. If you don't want a
   new button, remove this setting.
 * `export`: This section handles an export option for your data table. Remove
