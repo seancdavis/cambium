@@ -218,10 +218,12 @@ module Cambium
         content_tag(:div, :class => 'input media-picker file') do
           o2  = content_tag(:label, label)
           o2 += link_to('Choose File', '#', :class => 'add')
+          o2 += link_to('Remove File', '#',
+            :class => "remove #{'active' unless obj.send(attr).blank? }")
           unless obj.send(attr).blank?
             ext = obj.send(attr).upload.ext.downcase
             if ['jpg','jpeg','gif','png'].include?(ext)
-              o2 += image_tag(obj.send(attr).image_url(600, 200))
+              o2 += image_tag(obj.send(attr).image_url(400, 400))
             end
             o2 += link_to(obj.send(attr).upload.name,
                           obj.send(attr).upload.url,
