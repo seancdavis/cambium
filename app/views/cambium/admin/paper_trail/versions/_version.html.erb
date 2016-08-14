@@ -10,7 +10,7 @@
         <p class="action">
           <%= content_tag(:strong, user.name.present? ? user.name : user.email) %>
           <%= "#{version.event}d" %>
-          <%= version.item_type.downcase %>
+          <%= version.item_type.downcase.gsub(/cambium::/, '') %>
           <% if cambium_route(:edit, version.item).nil? %>
             <%= content_tag(:strong, version.item.to_s) %>
           <% else %>

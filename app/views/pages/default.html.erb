@@ -1,0 +1,13 @@
+---
+title: Default
+fields:
+  feature_image:
+    type: media
+    label: Featured Image
+---
+
+<h1><%= @page.title %></h1>
+<%= image_tag @page.feature_image.upload.url if @page.feature_image %>
+<div class="body">
+  <%= @page.body %>
+</div>

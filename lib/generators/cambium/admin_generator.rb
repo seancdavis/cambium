@@ -56,7 +56,7 @@ module Cambium
     # Add admin sidebar file to the project
     #
     def add_admin_routes
-      ['sidebar','users'].each do |file|
+      ['sidebar','users','pages','documents','settings'].each do |file|
         template "config/admin/#{file}.yml", "config/admin/#{file}.yml"
       end
     end

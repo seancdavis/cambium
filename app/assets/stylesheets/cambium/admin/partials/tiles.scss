@@ -1,0 +1,57 @@
+#page-content.tiles {
+  margin-top: 75px;
+  article {
+    position: relative;
+    display: inline-block;
+    width: 180px;
+    height: 180px;
+    margin: 5px;
+    background: $color-light;
+    &:before {
+      display: block;
+      margin: 75px 0 0 0;
+      font-family: 'icomoon';
+      font-size: inherit;
+      line-height: inherit;
+      content: "\e622";
+      font-size: 72px;
+      color: $color-light-darkest;
+      text-align: center;
+    }
+    &.pdf:before { content: "\e7b2"; }
+    &.doc:before, &.docx:before { content: "\e7b4"; }
+    &.xls:before, &.xlsx:before { content: "\e7b5"; }
+    &.zip:before { content: "\e7b6"; }
+    &.ppt:before, &.pptx:before { content: "\e7b7"; }
+    &.xml:before { content: "\e7b8"; }
+    &.css:before { content: "\e7b9"; }
+    &.html:before { content: "\e7ba"; }
+    a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      &:hover h3 {
+        background: $color-2;
+      }
+    }
+    img {
+      height: 100%;
+      width: 100%;
+    }
+    h3 {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      margin: 0;
+      padding: 5px 10px;
+      box-sizing: border-box;
+      font-size: 1em;
+      background: $color-1;
+      color: $color-dark;
+      @include transition(all 0.35s linear);
+    }
+  }
+}

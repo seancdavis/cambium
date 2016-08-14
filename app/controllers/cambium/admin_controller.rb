@@ -10,16 +10,22 @@ class Cambium::AdminController < Cambium::BaseController
   def index
     respond_to do |format|
       scope = admin_table.scope
-      if scope.split('.').size > 1
-        @collection = admin_model
-        scope.split('.').each do |s|
-          @collection = @collection.send(s)
-        end
+      if params[:sort_by]
+        @collection = admin_model.unscoped
+          .order("#{params[:sort_by]} #{params[:order] || 'asc'}")
       else
-        @collection = admin_model.send(admin_table.scope)
+        if scope.split('.').size > 1
+          @collection = admin_model
+          scope.split('.').each do |s|
+            @collection = @collection.send(s)
+          end
+        else
+          @collection = admin_model.send(admin_table.scope)
+        end
       end
       format.html do
         @collection = @collection.page(params[:page] || 1).per(15)
+        render :layout => false if params[:no_layout]
       end
       format.csv do
         send_data admin.to_csv(@collection)
@@ -39,7 +45,9 @@ class Cambium::AdminController < Cambium::BaseController
   def create
     @object = admin_model.new(create_params)
     if @object.save
-      redirect_to(admin_routes.index, :notice => "#{admin_model.to_s} created!")
+      redirect_to(
+        admin_routes.index,
+        :notice => "#{admin_model.to_s.gsub(/Cambium::/, '')} created!")
     else
       render 'new'
     end
@@ -52,7 +60,9 @@ class Cambium::AdminController < Cambium::BaseController
   def update
     set_object
     if @object.update(update_params)
-      redirect_to(admin_routes.index, :notice => "#{admin_model.to_s} updated!")
+      redirect_to(
+        admin_routes.index,
+        :notice => "#{admin_model.to_s.gsub(/Cambium::/, '')} updated!")
     else
       render 'edit'
     end
@@ -61,7 +71,9 @@ class Cambium::AdminController < Cambium::BaseController
   def destroy
     set_object
     @object.destroy
-    redirect_to(admin_routes.index, :notice => "#{admin_model.to_s} deleted!")
+    redirect_to(
+      admin_routes.index,
+      :notice => "#{admin_model.to_s.gsub(/Cambium::/, '')} deleted!")
   end
 
   private

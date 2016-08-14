@@ -1,4 +1,10 @@
 section.form {
+  &.settings {
+    form input[type=submit] {
+      width: 75%;
+      margin: 0 0 25px 25%;
+    }
+  }
   form {
 
     h2 {
@@ -14,16 +20,56 @@ section.form {
       padding: 20px 0;
       &.file {
         padding: 20px 0 0 0;
-        & + a.file {
+        & + img, img {
           display: block;
+          width: 75%;
+          max-width: 200px;
+          margin: 20px 0 10px 25%;
+        }
+        & + a.file, & + img + a.file, a.file {
+          display: block;
+          clear: both;
           width: 100%;
-          padding: 5px 0 20px 0;
+          margin: 5px 0 0 25%;
+          font-size: 14px;
+          line-height: 14px;
+        }
+        & + .image-actions, & + img + .image-actions, .image-actions {
+          display: block;
+          clear: both;
+          width: 100%;
+          margin: 5px 0 20px;
           font-size: 14px;
           line-height: 14px;
           text-align: right;
+          a {
+            display: inline-block;
+            margin-left: 10px;
+          }
         }
         & + div.input {
           padding-top: 40px;
+        }
+      }
+      &.media-picker .add, &.media-picker .remove {
+        display: inline-block;
+        background: $color-2;
+        padding: 6px 10px;
+        font-size: 15px;
+        font-weight: 400;
+        color: $color-dark;
+        vertical-align: top;
+        &:before {
+          font-size: 10px;
+        }
+      }
+      &.media-picker .remove {
+        background: $color-danger;
+        margin-left: 10px;
+        color: $color-light;
+        display: none;
+        &.active {
+          display: inline-block;
         }
       }
       label {
@@ -117,6 +163,53 @@ section.form {
         font-weight: 600;
         color: $color-danger;
         text-transform: uppercase;
+      }
+      .trumbowyg-box {
+        display: inline-block;
+        width: 75%;
+        margin: 5px 0;
+        &.trumbowyg-fullscreen {
+          width: 100%;
+        }
+      }
+      .trumbowyg-modal {
+        // position: fixed;
+        .trumbowyg-modal-box {
+          height: 295px;
+          form {
+            input {
+              height: auto;
+              margin: 0 !important;
+              padding: 5px 10px !important;
+              font-size: 14px !important;
+              color: $color-light-darkest !important;
+              line-height: 25px !important;
+              border: 1px solid $color-light-dark !important;
+            }
+            label {
+              display: block;
+              position: relative;
+              height: 42px;
+              margin-bottom: 5px;
+              // margin: 15px 12px;
+              // height: 27px;
+              line-height: 27px;
+              overflow: hidden;
+              width: auto;
+              .trumbowyg-input-infos {
+                float: left;
+                span {
+                  font-size: 14px;
+                  border: none;
+                }
+              }
+            }
+            .trumbowyg-modal-button {
+              height: auto;
+              line-height: 16px;
+            }
+          }
+        }
       }
     }
 
