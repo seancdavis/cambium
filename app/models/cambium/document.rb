@@ -10,6 +10,10 @@ module Cambium
 
     dragonfly_accessor :upload
 
+    # ------------------------------------------ Scopes
+
+    scope :last_created, -> { order(:created_at => :desc) }
+
     # ------------------------------------------ Validations
 
     validates :title, :upload, :presence => true

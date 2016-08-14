@@ -1,7 +1,7 @@
 model: Cambium::Document
 table:
   title: Media Library
-  scope: all
+  scope: last_created
   columns:
     title:
       heading: Title
