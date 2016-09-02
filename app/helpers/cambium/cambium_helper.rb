@@ -258,7 +258,7 @@ module Cambium
         o
       else
         f.input(attr.to_sym, :as => options.type, :label => label,
-                :readonly => readonly)
+                :readonly => readonly, :required => required)
       end
     end
 
