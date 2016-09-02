@@ -167,15 +167,23 @@ section.form {
       .trumbowyg-box {
         display: inline-block;
         width: 75%;
+        min-height: 375px;
         margin: 5px 0;
         &.trumbowyg-fullscreen {
+          width: 100%;
+        }
+        .trumbowyg-button-pane button {
+          margin: 0 0 1px;
+        }
+        textarea {
+          border: none;
           width: 100%;
         }
       }
       .trumbowyg-modal {
         // position: fixed;
         .trumbowyg-modal-box {
-          height: 295px;
+          height: 315px;
           form {
             input {
               height: auto;
@@ -198,6 +206,7 @@ section.form {
               width: auto;
               .trumbowyg-input-infos {
                 float: left;
+                margin-top: -24px;
                 span {
                   font-size: 14px;
                   border: none;

@@ -4,6 +4,7 @@ class App.Views.Editor extends Backbone.View
     for textarea in $('textarea.editor')
       $(textarea).trumbowyg
         fullscreenable: false
+        svgPath: TRUMBOWYG_SVG
         btns: ['viewHTML',
           '|', 'formatting',
           '|', 'strong', 'em',
