@@ -53,7 +53,9 @@ module Cambium
 
     def method_missing(method, *arguments, &block)
       if respond_to?(method.to_s)
-        if template.fields[method.to_s]['type'] == 'media'
+        if template.fields[method.to_s.gsub(/\?$/, '')]['type'] == 'boolean'
+          template_data[method.to_s.gsub(/\?$/, '')].to_i == 1
+        elsif template.fields[method.to_s]['type'] == 'media'
           Cambium::Document.find_by_id(template_data[method.to_s].to_i)
         else
           template_data[method.to_s]
@@ -67,6 +69,9 @@ module Cambium
       return true if super
       return false if template.blank?
       return true if template.fields.keys.include?(method.to_s)
+      template.fields.each do |name, attrs|
+        return true if attrs["type"] == 'boolean' && method.to_s == "#{name}?"
+      end
       false
     end
 
