@@ -1,6 +1,8 @@
 class Cambium::AdminController < Cambium::BaseController
 
   before_filter :authenticate_admin!
+
+  before_filter :set_paper_trail_whodunnit
   before_filter :set_activities
 
   layout "admin"
