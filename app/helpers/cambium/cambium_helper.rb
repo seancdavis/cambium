@@ -213,7 +213,7 @@ module Cambium
         end
       elsif options.type == 'wysiwyg'
         f.input(attr.to_sym, :as => :text, :label => label,
-                :input_html => { :class => 'editor' })
+                :input_html => { :class => 'editor' }, :required => required)
       elsif options.type == 'media'
         content_tag(:div, :class => 'input media-picker file') do
           o2  = content_tag(:label, label)
