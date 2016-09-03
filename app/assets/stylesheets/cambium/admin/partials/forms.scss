@@ -37,14 +37,13 @@ section.form {
         & + .image-actions, & + img + .image-actions, .image-actions {
           display: block;
           clear: both;
-          width: 100%;
-          margin: 5px 0 20px;
+          width: 75%;
+          margin: 5px 0 20px 25%;
           font-size: 14px;
           line-height: 14px;
-          text-align: right;
           a {
             display: inline-block;
-            margin-left: 10px;
+            margin-right: 10px;
           }
         }
         & + div.input {
