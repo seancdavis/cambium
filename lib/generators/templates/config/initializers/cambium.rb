@@ -15,8 +15,10 @@ Cambium.configure do |config|
 
   # -------------------------------------------------- Caching
 
-  # Cambium's Pages come with caching support. It is disabled by default, but
-  # you can enabled it by uncommenting the following line:
+  # Cambium's Pages come with action caching support. It is disabled by default.
+  # Uncomment the setting below to enable action caching.
+  #
+  # NOTE: You must install the 'actionpack-action_caching' gem for this to work.
   #
   # config.cache_pages = true
 
