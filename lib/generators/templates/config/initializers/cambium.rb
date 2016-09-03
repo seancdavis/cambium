@@ -13,4 +13,11 @@ Cambium.configure do |config|
   #
   config.app_title = 'Cambium'
 
+  # -------------------------------------------------- Caching
+
+  # Cambium's Pages come with caching support. It is disabled by default, but
+  # you can enabled it by uncommenting the following line:
+  #
+  # config.cache_pages = true
+
 end

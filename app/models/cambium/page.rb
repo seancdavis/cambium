@@ -22,6 +22,7 @@ module Cambium
 
     after_save :cache_page_path
     after_save :reload_routes!
+    after_save :expire_caches
 
     # ------------------------------------------ Class Methods
 
@@ -83,6 +84,10 @@ module Cambium
 
       def cache_page_path
         update_columns(:page_path => "/#{path.collect(&:slug).join('/')}")
+      end
+
+      def expire_caches
+        Rails.cache.delete_matched(/\_p#{id}(.*)/)
       end
 
   end
