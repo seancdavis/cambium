@@ -162,7 +162,7 @@ module Cambium
 
     def cambium_field(f, obj, field)
       attr = field.first.to_s
-      options = field.last
+      options = field.is_a?(OpenStruct) ? field : field.last
       options = options.to_ostruct unless options.class == OpenStruct
       readonly = options.readonly || false
       label = options.label || attr.titleize
