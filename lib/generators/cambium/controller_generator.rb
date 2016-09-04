@@ -32,10 +32,10 @@ module Cambium
     # end
 
     def confirm_model
-      @model = model.constantize
-    rescue
-      puts "Can't find the model: #{model}"
-      exit
+      @model = model.classify.singularize.constantize
+    # rescue
+    #   puts "Can't find the model: #{model}"
+    #   exit
     end
 
     def set_model_attrs

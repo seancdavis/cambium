@@ -12,8 +12,14 @@ Cambium::Engine.routes.draw do
 
   if ActiveRecord::Base.connection.table_exists?('cambium_pages')
     Cambium::Page.published.each do |page|
+      template = page.template
+      next if template.nil? || page.page_path.blank?
       begin
-        get page.page_path => 'pages#show' unless page.page_path.blank?
+        if template.respond_to?(:controller) && template.respond_to?(:action)
+          get page.page_path => "/#{template.controller}##{template.action}"
+        else
+          get page.page_path => 'pages#show'
+        end
       rescue
       end
     end

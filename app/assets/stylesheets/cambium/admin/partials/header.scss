@@ -50,7 +50,7 @@ header {
     float: right;
     height: 60px;
     padding: 0;
-    @include box-sizing(border-box);
+    box-sizing: border-box;;
     // border-left: 1px solid $color-5-dark;
     @include transition-all;
     &:hover {

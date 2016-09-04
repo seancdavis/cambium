@@ -37,14 +37,13 @@ section.form {
         & + .image-actions, & + img + .image-actions, .image-actions {
           display: block;
           clear: both;
-          width: 100%;
-          margin: 5px 0 20px;
+          width: 75%;
+          margin: 5px 0 20px 25%;
           font-size: 14px;
           line-height: 14px;
-          text-align: right;
           a {
             display: inline-block;
-            margin-left: 10px;
+            margin-right: 10px;
           }
         }
         & + div.input {
@@ -103,7 +102,7 @@ section.form {
         vertical-align: bottom;
         font-size: 16px;
         border: none;
-        @include box-sizing(border-box);
+        box-sizing: border-box;;
         &[readonly=readonly] {
           background-color: $color-light-dark;
           border-bottom-color: $color-light-dark;
@@ -167,15 +166,23 @@ section.form {
       .trumbowyg-box {
         display: inline-block;
         width: 75%;
+        min-height: 375px;
         margin: 5px 0;
         &.trumbowyg-fullscreen {
+          width: 100%;
+        }
+        .trumbowyg-button-pane button {
+          margin: 0 0 1px;
+        }
+        textarea {
+          border: none;
           width: 100%;
         }
       }
       .trumbowyg-modal {
         // position: fixed;
         .trumbowyg-modal-box {
-          height: 295px;
+          height: 315px;
           form {
             input {
               height: auto;
@@ -198,6 +205,7 @@ section.form {
               width: auto;
               .trumbowyg-input-infos {
                 float: left;
+                margin-top: -24px;
                 span {
                   font-size: 14px;
                   border: none;
@@ -217,7 +225,7 @@ section.form {
       display: block;
       width: 100%;
       margin: 15px 0 0 0;
-      @include box-sizing(border-box);
+      box-sizing: border-box;;
       @include transition(all 0.35s linear);
       font-size: 16px;
       font-weight: 600;

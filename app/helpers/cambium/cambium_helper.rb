@@ -162,7 +162,7 @@ module Cambium
 
     def cambium_field(f, obj, field)
       attr = field.first.to_s
-      options = field.last
+      options = field.is_a?(OpenStruct) ? field : field.last
       options = options.to_ostruct unless options.class == OpenStruct
       readonly = options.readonly || false
       label = options.label || attr.titleize
@@ -213,7 +213,7 @@ module Cambium
         end
       elsif options.type == 'wysiwyg'
         f.input(attr.to_sym, :as => :text, :label => label,
-                :input_html => { :class => 'editor' })
+                :input_html => { :class => 'editor' }, :required => required)
       elsif options.type == 'media'
         content_tag(:div, :class => 'input media-picker file') do
           o2  = content_tag(:label, label)
@@ -235,30 +235,52 @@ module Cambium
         o = f.input(attr.to_sym, :as => options.type, :label => label,
                 :readonly => readonly, :required => required)
         unless obj.send(attr).blank?
-          if ['jpg','jpeg','gif','png'].include?(obj.send(attr).ext.downcase)
-            o += image_tag obj.send(attr)
-                              .thumb("200x200##{obj.send("#{attr}_gravity")}")
-                              .url
-            o += content_tag(:div, :class => 'image-actions') do
-              o2  = ''.html_safe
-              o2 += link_to('Crop Image', '#', :class => 'crop',
-                            :target => :blank, :data => {
-                            :url => obj.send(attr).url,
-                            :width => obj.send(attr).width,
-                            :height => obj.send(attr).height }) if options.crop
-              o2 += link_to(obj.send(attr).name, obj.send(attr).url,
-                       :class => 'file', :target => :blank)
-              o2 += f.input :"#{attr}_gravity", :as => :hidden
-            end
-          else
-            o += link_to(obj.send(attr).name, obj.send(attr).url,
+          # Dragonfly ...
+          if obj.send(attr).respond_to?(:ext)
+            if %w(jpg jpeg gif png).include?(obj.send(attr).ext.downcase)
+              o += image_tag obj.send(attr)
+                                .thumb("200x200##{obj.send("#{attr}_gravity")}")
+                                .url
+              o += content_tag(:div, :class => 'image-actions') do
+                o2  = ''.html_safe
+                o2 += link_to('Crop Image', '#', :class => 'crop',
+                              :target => :blank, :data => {
+                              :url => obj.send(attr).url,
+                              :width => obj.send(attr).width,
+                              :height => obj.send(attr).height }) if options.crop
+                o2 += link_to(obj.send(attr).name, obj.send(attr).url,
                          :class => 'file', :target => :blank)
+                o2 += f.input :"#{attr}_gravity", :as => :hidden
+              end
+            else
+              o += link_to(obj.send(attr).name, obj.send(attr).url,
+                           :class => 'file', :target => :blank)
+            end
+          # CarrierWave (assumed, for now)
+          else
+            if %w(jpg jpeg gif png).include?(obj.send(attr).file.extension.downcase)
+              o += image_tag obj.send(attr).thumb.url
+              o += content_tag(:div, :class => 'image-actions') do
+                o2  = ''.html_safe
+                # o2 += link_to('Crop Image', '#', :class => 'crop',
+                #               :target => :blank, :data => {
+                #               :url => obj.send(attr).url,
+                #               :width => obj.send(attr).width,
+                #               :height => obj.send(attr).height }) if options.crop
+                o2 += link_to(obj.send(attr).file.filename, obj.send(attr).url,
+                         :class => 'file', :target => :blank)
+                # o2 += f.input :"#{attr}_gravity", :as => :hidden
+              end
+            else
+              o += link_to(obj.send(attr).name, obj.send(attr).url,
+                           :class => 'file', :target => :blank)
+            end
           end
         end
         o
       else
         f.input(attr.to_sym, :as => options.type, :label => label,
-                :readonly => readonly)
+                :readonly => readonly, :required => required)
       end
     end
 

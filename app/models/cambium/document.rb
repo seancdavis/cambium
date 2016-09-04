@@ -1,6 +1,8 @@
 module Cambium
   class Document < ActiveRecord::Base
 
+    extend Dragonfly::Model
+
     # ------------------------------------------ Plugins
 
     include PgSearch
