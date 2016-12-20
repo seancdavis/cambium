@@ -8,31 +8,20 @@ Gem::Specification.new do |spec|
   spec.version       = Cambium::VERSION
   spec.authors       = ["Sean C Davis", "Warren Harrison"]
   spec.email         = ["scdavis41@gmail.com", "warren@hungry-media.com"]
-  spec.summary       = %q{Rails generators to facilitate development.}
-  spec.description   = %q{}
-  spec.homepage      = ""
+  spec.summary       = %q{A Ruby on Rails toolbox.}
+  spec.description   = %q{Cambium is a series of utilities that work to speed up development on Ruby on Rails projects by eliminating repetitive tasks and adding useful helpers.}
+  spec.homepage      = "https://github.com/seancdavis/cambium"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.test_files    = Dir["spec/**/*"]
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency 'bundler', '~> 1.10'
+  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'factory_girl_rails'
 
-  spec.add_dependency 'ancestry'
-  spec.add_dependency 'bones-rails', '>= 1.1.3'
-  spec.add_dependency 'dragonfly'
-  spec.add_dependency 'kaminari'
-  spec.add_dependency 'mark_it_zero', '~> 0.3.0'
-  spec.add_dependency 'paper_trail'
-  spec.add_dependency 'pg_search'
-  spec.add_dependency 'pickadate-rails'
-  spec.add_dependency 'rails'
-  spec.add_dependency 'rake'
-  spec.add_dependency 'superslug', '~> 1.3.0'
-  spec.add_dependency 'trumbowyg_rails'
+  spec.add_dependency 'rails', '>= 5.0'
 
 end
