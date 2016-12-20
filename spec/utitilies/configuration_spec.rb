@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe Cambium::Configuration do
 
+  before(:each) { Cambium.reset }
+
   it 'has a set of default values, available through "configuration"' do
     {
       :app_title            => 'Cambium',

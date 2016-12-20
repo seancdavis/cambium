@@ -1,5 +1,4 @@
-
-    config.generators do |g|
+config.generators do |g|
       g.fixture true
       g.fixture_replacement "factory_girl"
       g.test_framework :rspec

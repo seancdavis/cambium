@@ -21,4 +21,16 @@ module SpecHelpers
     FileUtils.rm(app_path(path))
   end
 
+  def read_file(path)
+    File.read(app_path(path))
+  end
+
+  def file_should_contain(path, text)
+    expect(read_file(path)).to include(text)
+  end
+
+  def file_should_not_contain(path, text)
+    expect(read_file(path)).to_not include(text)
+  end
+
 end
