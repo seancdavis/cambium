@@ -178,6 +178,10 @@ module Cambium
         end
         f.input(attr.to_sym, :as => options.type, :collection => collection,
                 :label => label, :readonly => readonly)
+      elsif options.type == 'belongs_to'
+        collection = options.options.singularize.classify.constantize.all
+        f.input(attr.to_sym, :as => :select, :collection => collection,
+                :label => label, :readonly => readonly)
       elsif ['date','time'].include?(options.type)
         if obj.send(attr).present?
           val = (options.type == 'date') ?
