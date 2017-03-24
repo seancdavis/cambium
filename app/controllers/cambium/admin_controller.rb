@@ -122,9 +122,14 @@ class Cambium::AdminController < Cambium::BaseController
       relationship_keys = relationships.map { |r| r[:field] }
       permitted -= relationship_keys
       relationships.each do |r|
-        permitted.push("#{r[:field].to_s.pluralize}_id")
+        #permitted.push("#{r[:field].to_s.pluralize}_id")
+        permitted.push(foreign_key(r[:field]))
       end
       permitted
+    end
+
+    def foreign_key(field)
+      @obj.class.reflections[field.to_s].foreign_key
     end
 
     def update_params
