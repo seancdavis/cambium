@@ -98,9 +98,23 @@ class Cambium::AdminController < Cambium::BaseController
     end
 
     def create_params
+      # map as rendered below to find belong_tos, then kick them out and 
+      # re-add them as ids
+      relationships = []
+      admin_form.fields.to_h.each do |k, v|
+        relationships.push(field: k, class: v[:options]) if v[:type] == 'belongs_to'
+      end
+      permitted = admin_form.fields.to_h.keys
+      if !relationships.empty?
+        relationship_keys = relationships.map { |r| r[:field] }
+        permitted -= relationship_keys
+        relationships.each do |r|
+          permitted.push("#{r[:field].to_s.pluralize}_id")
+        end
+      end
       params
         .require(admin_model.to_s.tableize.singularize.to_sym)
-        .permit(admin_form.fields.to_h.keys)
+        .permit(permitted)
     end
 
     def update_params
