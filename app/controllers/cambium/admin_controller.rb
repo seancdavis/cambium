@@ -45,7 +45,8 @@ class Cambium::AdminController < Cambium::BaseController
   end
 
   def create
-    @object = admin_model.new(create_params)
+    @object = admin_model.new
+    @object.update(create_params)
     if @object.save
       redirect_to(
         admin_routes.index,
@@ -100,7 +101,35 @@ class Cambium::AdminController < Cambium::BaseController
     def create_params
       params
         .require(admin_model.to_s.tableize.singularize.to_sym)
-        .permit(admin_form.fields.to_h.keys)
+        .permit(permitted_fields)
+    end
+
+    def relationship_fields
+      relationships = []
+      admin_form.fields.to_h.each do |k, v|
+        relationships.push(field: k, class: v[:options]) if v[:type] == 'belongs_to'
+      end
+      relationships
+    end
+
+    def permitted_fields
+      permitted = admin_form.fields.to_h.keys
+
+      relationships = relationship_fields
+
+      return permitted if relationships.empty?
+
+      # Simple Form uses "fieldname_id" for relationship inputs
+      relationship_keys = relationships.map { |r| r[:field] }
+      permitted -= relationship_keys
+      relationships.each do |r|
+        permitted.push(foreign_key(r[:field]))
+      end
+      permitted
+    end
+
+    def foreign_key(field)
+      @object.class.reflections[field.to_s].foreign_key
     end
 
     def update_params
