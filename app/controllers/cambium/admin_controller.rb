@@ -45,7 +45,8 @@ class Cambium::AdminController < Cambium::BaseController
   end
 
   def create
-    @object = admin_model.new(create_params)
+    @object = admin_model.new
+    @object.update(create_params)
     if @object.save
       redirect_to(
         admin_routes.index,
@@ -128,7 +129,7 @@ class Cambium::AdminController < Cambium::BaseController
     end
 
     def foreign_key(field)
-      @obj.class.reflections[field.to_s].foreign_key
+      @object.class.reflections[field.to_s].foreign_key
     end
 
     def update_params
