@@ -250,6 +250,12 @@ form:
         type: password
       password_confirmation:
         type: password
+      group:
+        type: belongs_to
+        options: Group
+      permission:
+        type: select
+        options: ['admin', 'normal', 'read-only']
   edit:
     <<: *new
     title: Edit User
@@ -298,6 +304,7 @@ Every setting plays a role. Let's step through each one.
 * `form:[new/edit]:fields:[field]:type`: The type of the HTML field to render,
   which uses [SimpleForm](https://github.com/plataformatec/simple_form). *You
   can use `heading` here to break up your fields.*
+  *You can use belongs_to to manage associations*
 * `form:[new/edit]:fields:[field]:crop`: If set to `true`, it will display a
   "Crop Image" option _after_ a file has been uploaded. This only applies to
   `file` types.
