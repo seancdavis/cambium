@@ -10,7 +10,7 @@ Cambium::Engine.routes.draw do
     resources :settings
   end
 
-  if ActiveRecord::Base.connection.table_exists?('cambium_pages')
+  if ActiveRecord::Base.connection.data_source_exists?('cambium_pages')
     Cambium::Page.published.each do |page|
       template = page.template
       next if template.nil? || page.page_path.blank?

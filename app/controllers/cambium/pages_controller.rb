@@ -1,7 +1,7 @@
 class Cambium::PagesController < ApplicationController
 
-  before_filter :set_page, :only => [:show]
-  before_filter :set_home_page, :only => [:home]
+  before_action :set_page, :only => [:show]
+  before_action :set_home_page, :only => [:home]
 
   if Cambium.configuration.cache_pages
     caches_action :show, :cache_path => :page_cache_path.to_proc

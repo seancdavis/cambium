@@ -1,6 +1,6 @@
 class Cambium::Admin::SettingsController < Cambium::AdminController
 
-  before_filter :not_found, :except => [:index, :update]
+  before_action :not_found, :except => [:index, :update]
 
   def index
     expected_keys = admin_view.form.edit.fields.to_h.stringify_keys.keys

@@ -18,9 +18,14 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency 'bundler', '~> 1.10'
-  spec.add_development_dependency 'rspec-rails'
+  spec.add_development_dependency 'capybara-screenshot'
   spec.add_development_dependency 'capybara'
+  spec.add_development_dependency 'database_cleaner'
   spec.add_development_dependency 'factory_girl_rails'
+  spec.add_development_dependency 'guard-rspec'
+  spec.add_development_dependency 'poltergeist'
+  spec.add_development_dependency 'rspec-rails'
+  spec.add_development_dependency 'sqlite3'
 
   spec.add_dependency 'ancestry'
   spec.add_dependency 'bones-rails', '>= 1.1.3'
@@ -30,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'paper_trail'
   spec.add_dependency 'pg_search'
   spec.add_dependency 'pickadate-rails'
-  spec.add_dependency 'rails'
+  spec.add_dependency 'rails', '~> 5.0.0'
   spec.add_dependency 'rake'
   spec.add_dependency 'superslug', '~> 1.3.0'
   spec.add_dependency 'trumbowyg_rails'
