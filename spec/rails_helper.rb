@@ -138,7 +138,7 @@ RSpec.configure do |config|
 
   config.append_after(:each) do
     DatabaseCleaner.clean
-    Warden.test_reset!
+    # Warden.test_reset!
   end
 
   config.after(:each, type: :feature) do
