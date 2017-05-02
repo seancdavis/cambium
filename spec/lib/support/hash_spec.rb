@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Hash, :focus => true do
+describe Hash do
 
   describe '#to_ostruct' do
     it 'returns an OpenStruct object' do
