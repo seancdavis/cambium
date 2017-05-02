@@ -2,6 +2,12 @@ require 'rails_helper'
 
 describe Fixnum do
 
+  describe '#nearest_half' do
+    it 'returns a float of itself' do
+      expect(1.nearest_half).to eq(1.0)
+    end
+  end
+
   describe '#to_bool' do
     it 'returns true for 1' do
       expect(1.to_bool).to eq(true)
